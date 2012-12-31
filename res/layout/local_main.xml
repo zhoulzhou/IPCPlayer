@@ -5,7 +5,7 @@
     android:orientation="horizontal" >
     
     <fragment 
-        android:name = "com.example.ipcplayer.localfragment.LocalMainFragment"
+        android:name = "com.example.ipcplayer.localfragment.LocalMainMusicFragment"
         android:id="@+id/localmainframent"
         android:layout_width="0dip"
         android:layout_height="match_parent"

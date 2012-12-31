@@ -17,7 +17,7 @@ public class LocalMainMusicFragment extends BaseFragment{
 	private GridAdapter mAdapter ;
 	private GridView mLocalGrid;
 	
-	private static String TAG = LocalMainMusicActivity.class.getSimpleName();
+	private static String TAG = LocalMainMusicFragment.class.getSimpleName();
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

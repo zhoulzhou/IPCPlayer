@@ -1,10 +1,9 @@
 package com.example.ipcplayer.activity;
 
-import com.example.ipcplayer.R;
 import com.example.ipcplayer.utils.LogUtil;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,23 +13,8 @@ import android.support.v4.app.LoaderManager;
 import android.util.AttributeSet;
 import android.view.View;
 
-public class LocalMainMusicActivity extends FragmentActivity{
-	private static String TAG = LocalMainMusicActivity.class.getSimpleName();
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		LogUtil.d(TAG + " onCreate ");
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.local_main);
-	}
-	
-	@Override
-	public void onAttachFragment(Fragment fragment) {
-		// TODO Auto-generated method stub
-		LogUtil.d(TAG + " onAttachFragment ");
-		super.onAttachFragment(fragment);
-	}
+public class AllSongListActivity extends FragmentActivity{
+	private static String TAG = AllSongListActivity.class.getSimpleName();
 
 	@Override
 	public FragmentManager getSupportFragmentManager() {
@@ -47,6 +31,27 @@ public class LocalMainMusicActivity extends FragmentActivity{
 	}
 
 	@Override
+	public void onAttachFragment(Fragment fragment) {
+		// TODO Auto-generated method stub
+		LogUtil.d(TAG + " onAttachFragment ");
+		super.onAttachFragment(fragment);
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		// TODO Auto-generated method stub
+		LogUtil.d(TAG + " onConfigurationChanged ");
+		super.onConfigurationChanged(newConfig);
+	}
+
+	@Override
+	protected void onCreate(Bundle arg0) {
+		// TODO Auto-generated method stub
+		LogUtil.d(TAG + " onCreate ");
+		super.onCreate(arg0);
+	}
+
+	@Override
 	public View onCreateView(String name, Context context, AttributeSet attrs) {
 		// TODO Auto-generated method stub
 		LogUtil.d(TAG + " onCreateView ");
@@ -54,10 +59,24 @@ public class LocalMainMusicActivity extends FragmentActivity{
 	}
 
 	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		LogUtil.d(TAG + " onDestroy ");
+		super.onDestroy();
+	}
+
+	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		LogUtil.d(TAG + " onPause ");
 		super.onPause();
+	}
+
+	@Override
+	protected void onPostResume() {
+		// TODO Auto-generated method stub
+		LogUtil.d(TAG + " onPostResume ");
+		super.onPostResume();
 	}
 
 	@Override
@@ -89,15 +108,11 @@ public class LocalMainMusicActivity extends FragmentActivity{
 	}
 
 	@Override
-	protected void onDestroy() {
+	public void startActivityFromFragment(Fragment fragment, Intent intent,
+			int requestCode) {
 		// TODO Auto-generated method stub
-		LogUtil.d(TAG + " onDestroy ");
-		super.onDestroy();
+		LogUtil.d(TAG + " startActivityFromFragment ");
+		super.startActivityFromFragment(fragment, intent, requestCode);
 	}
-
-	private boolean isMultiPane(){
-		return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-	}
-	
 	
 }
