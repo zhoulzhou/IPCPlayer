@@ -62,6 +62,14 @@ public class AllSongListAdapter extends CursorAdapter{
 	public Cursor runQueryOnBackgroundThread(CharSequence constraint) {
 		// TODO Auto-generated method stub
 		LogUtil.d(TAG + " runQueryOnBackground");
+		String[] cols = new String[] {
+				MusicDB.MusicInfoColumns.MUSICNAME,
+				MusicDB.MusicInfoColumns.ARTIST
+		};
+		StringBuilder  where = new StringBuilder();
+		
+		return 
+		
 		return super.runQueryOnBackgroundThread(constraint);
 	}
 	
