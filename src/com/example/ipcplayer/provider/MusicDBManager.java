@@ -46,7 +46,7 @@ public class MusicDBManager {
 				String displayName = cursor.getString(DISPLAY_NAMEIndex);
 				String artist = cursor.getString(ARTISTIndex);
 				String albumn = cursor.getString(ALBUMIndex);
-				int size = cursor.getShort(SIEZIndex);
+				long size = cursor.getLong(SIEZIndex);
 				long duration = cursor.getLong(DURATIONIndex);
 				
 				StringBuilder sb = new StringBuilder();
@@ -65,10 +65,11 @@ public class MusicDBManager {
 				sb.append(albumn);
 				sb.append("')");
 				try{
+					LogUtil.d(TAG + "sb.toString = " + sb.toString());
 					mDB.execSQL(sb.toString());
 				}catch(Exception e){
 					LogUtil.e(TAG+"insert to db error! ");
-//					e.printStackTrace();
+					e.printStackTrace();
 				}
 			} while (cursor.moveToNext());
 			
