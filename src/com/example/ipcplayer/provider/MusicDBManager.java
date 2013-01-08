@@ -4,6 +4,7 @@ import com.example.ipcplayer.application.IPCApplication;
 import com.example.ipcplayer.utils.LogUtil;
 
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,6 +21,28 @@ public class MusicDBManager {
 		mContext = context;
 		mDBHelper = new MusicDBHelper(mContext);
 		mDB = mDBHelper.getWritableDatabase();
+	}
+	
+	public Cursor query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy){
+		LogUtil.d(TAG + " query()");
+		Cursor c = mDB.query(table, columns, selection, selectionArgs, groupBy, having, orderBy);
+		return c ;
+	}
+	
+	public long insert(String table, String nullColumnHack, ContentValues values ){
+		LogUtil.d(TAG + " insert()");
+		return mDB.insert(table, nullColumnHack, values);
+	}
+	
+	public int delete(String table, String whereClause, String[] whereArgs){
+		LogUtil.d(TAG + " delete()");
+		return mDB.delete(table, whereClause, whereArgs);
+	}
+	
+	public int update(String table, ContentValues values, String whereClause, String[] whereArgs){
+		LogUtil.d(TAG + " update()");
+		return mDB.update(table, values, whereClause, whereArgs);
+		
 	}
 	
 	public  void insertLocalData(){
