@@ -38,7 +38,7 @@ public class MusicDBProvider extends ContentProvider{
 		// TODO Auto-generated method stub
 		LogUtil.d(TAG + " onCreate ");
 		mContext = getContext();
-		mDbHelper = new MusicDBHelper(mContext);
+		mDbHelper = MusicDBHelper.getInstance(mContext);
 		return true;
 	}
 

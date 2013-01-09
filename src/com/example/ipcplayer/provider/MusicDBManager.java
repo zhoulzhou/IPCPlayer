@@ -19,7 +19,7 @@ public class MusicDBManager {
 	
 	public MusicDBManager(Context context){
 		mContext = context;
-		mDBHelper = new MusicDBHelper(mContext);
+		mDBHelper = MusicDBHelper.getInstance(context);
 		mDB = mDBHelper.getWritableDatabase();
 	}
 	
