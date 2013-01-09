@@ -56,6 +56,7 @@ public class MusicDBHelper extends SQLiteOpenHelper{
 		dropTable(db);
 		LogUtil.d(TAG + "drop table ok! ");
 		createTable(db);
+		mDatabase = db;
 		LogUtil.d(TAG + "create table ok !");
 	}
 
