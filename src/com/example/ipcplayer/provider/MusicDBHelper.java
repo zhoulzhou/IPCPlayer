@@ -14,13 +14,35 @@ public class MusicDBHelper extends SQLiteOpenHelper{
 	public final static String TABLE_MUSICINFO = "musicInfo";
 	public final static String TABLE_DOWNLOADINFO = "downloadInfo";
 	private static String TAG = "MusicDBHelper";
+	private SQLiteDatabase mDatabase = null ;
+	private static MusicDBHelper mInstance ;
 
 	public MusicDBHelper(Context context) {
 		super(context, DB_NAME, null, DB_VERSION);
 		// TODO Auto-generated constructor stub
 		LogUtil.d(TAG + "MusicDBHelper initialized");
+		openDatabase();
+	}
+	
+	public static synchronized MusicDBHelper getInstance(Context context){
+		if(mInstance == null ){
+			LogUtil.d(TAG + " getInstance ");
+			mInstance = new MusicDBHelper(context);
+		}
+		return mInstance ;
 	}
 
+	private void openDatabase(){
+		try{
+			LogUtil.d(TAG + " openDatabase ");
+			mDatabase = getWritableDatabase();
+		}catch(Exception e){
+			LogUtil.d(TAG + " openDatebase error ");
+			mDatabase = null;
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
@@ -42,6 +64,19 @@ public class MusicDBHelper extends SQLiteOpenHelper{
 		// TODO Auto-generated method stub
 		super.onOpen(db);
 //		db.isOpen();
+	}
+	
+	public void closeDatabase(){
+		if(mDatabase != null && mDatabase.isOpen())
+		{
+			try{
+				LogUtil.d(TAG + " closeDatabase ");
+				mDatabase.close();
+			}catch(Exception e){
+				LogUtil.d(TAG + " close Database error ");
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public void createTable(SQLiteDatabase db){

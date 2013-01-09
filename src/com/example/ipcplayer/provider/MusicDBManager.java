@@ -57,8 +57,8 @@ public class MusicDBManager {
 		
 	}
 	
-	public void closeDB(){
-		mDB.close();
+	public boolean isDBOpen(){
+		return mDB.isOpen();
 	}
 	
 	public  void insertLocalData(){
