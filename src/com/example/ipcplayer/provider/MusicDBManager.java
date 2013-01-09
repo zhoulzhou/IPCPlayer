@@ -31,7 +31,19 @@ public class MusicDBManager {
 	
 	public long insert(String table, String nullColumnHack, ContentValues values ){
 		LogUtil.d(TAG + " insert()");
-		return mDB.insert(table, nullColumnHack, values);
+		long rowId = -1;
+		mDB.beginTransaction();
+		try{
+			rowId = mDB.insert(table, nullColumnHack, values);
+			mDB.setTransactionSuccessful();
+		}catch(Exception e){
+			LogUtil.d(TAG + " insert db error ");
+			e.printStackTrace();
+		}
+		finally{
+			mDB.endTransaction();
+		}
+		return rowId;
 	}
 	
 	public int delete(String table, String whereClause, String[] whereArgs){
@@ -43,6 +55,10 @@ public class MusicDBManager {
 		LogUtil.d(TAG + " update()");
 		return mDB.update(table, values, whereClause, whereArgs);
 		
+	}
+	
+	public void closeDB(){
+		mDB.close();
 	}
 	
 	public  void insertLocalData(){
