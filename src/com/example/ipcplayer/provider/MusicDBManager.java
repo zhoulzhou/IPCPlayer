@@ -19,7 +19,7 @@ public class MusicDBManager {
 	
 	public MusicDBManager(Context context){
 		mContext = context;
-		mDBHelper = new MusicDBHelper(mContext);
+		mDBHelper = MusicDBHelper.getInstance(context);
 		mDB = mDBHelper.getWritableDatabase();
 	}
 	
@@ -31,7 +31,19 @@ public class MusicDBManager {
 	
 	public long insert(String table, String nullColumnHack, ContentValues values ){
 		LogUtil.d(TAG + " insert()");
-		return mDB.insert(table, nullColumnHack, values);
+		long rowId = -1;
+		mDB.beginTransaction();
+		try{
+			rowId = mDB.insert(table, nullColumnHack, values);
+			mDB.setTransactionSuccessful();
+		}catch(Exception e){
+			LogUtil.d(TAG + " insert db error ");
+			e.printStackTrace();
+		}
+		finally{
+			mDB.endTransaction();
+		}
+		return rowId;
 	}
 	
 	public int delete(String table, String whereClause, String[] whereArgs){
@@ -43,6 +55,10 @@ public class MusicDBManager {
 		LogUtil.d(TAG + " update()");
 		return mDB.update(table, values, whereClause, whereArgs);
 		
+	}
+	
+	public boolean isDBOpen(){
+		return mDB.isOpen();
 	}
 	
 	public  void insertLocalData(){
@@ -69,7 +85,7 @@ public class MusicDBManager {
 				String displayName = cursor.getString(DISPLAY_NAMEIndex);
 				String artist = cursor.getString(ARTISTIndex);
 				String albumn = cursor.getString(ALBUMIndex);
-				int size = cursor.getShort(SIEZIndex);
+				long size = cursor.getLong(SIEZIndex);
 				long duration = cursor.getLong(DURATIONIndex);
 				
 				StringBuilder sb = new StringBuilder();
@@ -88,10 +104,11 @@ public class MusicDBManager {
 				sb.append(albumn);
 				sb.append("')");
 				try{
+					LogUtil.d(TAG + "sb.toString = " + sb.toString());
 					mDB.execSQL(sb.toString());
 				}catch(Exception e){
 					LogUtil.e(TAG+"insert to db error! ");
-//					e.printStackTrace();
+					e.printStackTrace();
 				}
 			} while (cursor.moveToNext());
 			

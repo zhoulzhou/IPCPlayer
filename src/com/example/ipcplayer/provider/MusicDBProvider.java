@@ -27,7 +27,7 @@ public class MusicDBProvider extends ContentProvider{
 	static {
 		LogUtil.d(TAG + " static code block init uri");
 		URI_MATCHER.addURI(MusicDB.AUTHORITY, "/musicinfo", MUSICINFO);
-		URI_MATCHER.addURI(MusicDB.AUTHORITY, "/muiscinfo/#", MUSICINFO_ITEM);
+		URI_MATCHER.addURI(MusicDB.AUTHORITY, "/musicinfo/#", MUSICINFO_ITEM);
 		
 		URI_MATCHER.addURI(MusicDB.AUTHORITY, "/downloadinfo",DOWNLOADINFO);
 		URI_MATCHER.addURI(MusicDB.AUTHORITY, "/downloadinfo/#", DOWNLOADINFO_ITEM);
@@ -38,7 +38,7 @@ public class MusicDBProvider extends ContentProvider{
 		// TODO Auto-generated method stub
 		LogUtil.d(TAG + " onCreate ");
 		mContext = getContext();
-		mDbHelper = new MusicDBHelper(mContext);
+		mDbHelper = MusicDBHelper.getInstance(mContext);
 		return true;
 	}
 
@@ -96,7 +96,10 @@ public class MusicDBProvider extends ContentProvider{
 			String[] selectionArgs, String sortOrder) {
 		// TODO Auto-generated method stub
 		LogUtil.d(TAG + " query ");
+		LogUtil.d(TAG + " query  uri = " + uri);
+		
 		int table = URI_MATCHER.match(uri);
+		LogUtil.d(TAG + " query table = " + table);
 		SQLiteDatabase db = mDbHelper.getReadableDatabase();
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 		

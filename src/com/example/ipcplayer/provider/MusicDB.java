@@ -4,7 +4,7 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 
 public class MusicDB {
-	public static final String AUTHORITY = "com.muisc";
+	public static final String AUTHORITY = "com.music";
 	public static final Uri CONTENT_URI = Uri.parse("content://com.music");
 	private static final String CONTENT_AUTHORITY = "content://" + AUTHORITY;
 	

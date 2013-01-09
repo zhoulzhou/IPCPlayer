@@ -68,6 +68,11 @@ public class AllSongListAdapter extends CursorAdapter{
 		};
 		StringBuilder  where = new StringBuilder();
 		
+<<<<<<< HEAD
+=======
+//		return 
+		
+>>>>>>> 39b977f16ccf3a187895359d21cec6932aade0c6
 		return super.runQueryOnBackgroundThread(constraint);
 	}
 	
