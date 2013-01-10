@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.ipcplayer.R;
+import com.example.ipcplayer.manager.LocalMusicManager;
 import com.example.ipcplayer.provider.MusicDB;
 import com.example.ipcplayer.provider.MusicDBManager;
 import com.example.ipcplayer.utils.LogUtil;
@@ -14,6 +15,8 @@ import com.example.ipcplayer.utils.LogUtil;
 public class MainDbActivity extends Activity{
 	private MusicDBManager mDBManager ;
 	private static String TAG = MainDbActivity.class.getSimpleName();
+	private LocalMusicManager mLocalMusicManager;
+	private Cursor mAllSongCursor;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -21,8 +24,19 @@ public class MainDbActivity extends Activity{
         setContentView(R.layout.example);
         
         mDBManager = new MusicDBManager(this);
+        mLocalMusicManager = new LocalMusicManager(this);
         mDBManager.insertLocalData();
-        query();
+        
+        mAllSongCursor =  mLocalMusicManager.getAllSongCursor();
+        //you's better not use this method 
+        //and return arraylist<> 
+//        managedCursor(mAllSongCursor);
+        if(mAllSongCursor != null && mAllSongCursor.getCount() != 0){
+        	mAllSongCursor.moveToFirst();
+        	while(mAllSongCursor.moveToNext()){
+        		LogUtil.d(TAG + " mAllSongCursor = " + mAllSongCursor.toString());
+        	}
+        }
 	}
 	
 	private void query(){

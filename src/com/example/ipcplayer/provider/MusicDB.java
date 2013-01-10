@@ -17,9 +17,9 @@ public class MusicDB {
 			return Uri.parse(CONTENT_AUTHORITY + "/musicinfo");
 		}
 		
-		public static final String MUSICNAME = "_display_name";
-		public static final String ALBUMN = "albumn";
-		public static final String ARTIST = "artist";
+		public static final String MUSICNAME = "musicname";
+		public static final String ALBUMN = "albumnname";
+		public static final String ARTIST = "artistname";
 		public static final String IMAGE = "image";
 		public static final int SIZE = 0;
 	}

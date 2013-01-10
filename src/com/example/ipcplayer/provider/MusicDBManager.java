@@ -25,7 +25,12 @@ public class MusicDBManager {
 	
 	public Cursor query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy){
 		LogUtil.d(TAG + " query()");
-		Cursor c = mDB.query(table, columns, selection, selectionArgs, groupBy, having, orderBy);
+		Cursor c = null ;
+		if(isDBOpen()){
+			c = mDB.query(table, columns, selection, selectionArgs, groupBy, having, orderBy);
+		}else {
+			LogUtil.d(TAG + " db is close ");
+		}
 		return c ;
 	}
 	
@@ -107,8 +112,8 @@ public class MusicDBManager {
 					LogUtil.d(TAG + "sb.toString = " + sb.toString());
 					mDB.execSQL(sb.toString());
 				}catch(Exception e){
-					LogUtil.e(TAG+"insert to db error! ");
-					e.printStackTrace();
+//					LogUtil.e(TAG+"insert to db error! ");
+//					e.printStackTrace();
 				}
 			} while (cursor.moveToNext());
 			
@@ -121,7 +126,6 @@ public class MusicDBManager {
 			mDB.setTransactionSuccessful();
 			LogUtil.d(TAG+"wow insert db successful !");
 			mDB.endTransaction();
-			mDB.close();
 		}
 	}
 
