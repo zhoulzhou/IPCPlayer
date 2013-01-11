@@ -27,16 +27,24 @@ public class MainDbActivity extends Activity{
         mLocalMusicManager = new LocalMusicManager(this);
         mDBManager.insertLocalData();
         
-        mAllSongCursor =  mLocalMusicManager.getAllSongCursor();
-        //you's better not use this method 
-        //and return arraylist<> 
-//        managedCursor(mAllSongCursor);
-        if(mAllSongCursor != null && mAllSongCursor.getCount() != 0){
-        	mAllSongCursor.moveToFirst();
-        	while(mAllSongCursor.moveToNext()){
-        		LogUtil.d(TAG + " mAllSongCursor = " + mAllSongCursor.toString());
-        	}
-        }
+		try {
+			mAllSongCursor = mLocalMusicManager.getAllSongCursor();
+			// you's better not use this method
+			// and return arraylist<>
+			// managedCursor(mAllSongCursor);
+			if (mAllSongCursor != null && mAllSongCursor.getCount() != 0) {
+				mAllSongCursor.moveToFirst();
+				while (mAllSongCursor.moveToNext()) {
+					LogUtil.d(TAG + " mAllSongCursor = "
+							+ mAllSongCursor.toString());
+				}
+			}
+		} finally {
+			if (mAllSongCursor != null) {
+				mAllSongCursor.close();
+				mAllSongCursor = null;
+			}
+		}
 	}
 	
 	private void query(){
