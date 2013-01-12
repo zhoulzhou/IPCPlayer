@@ -27,7 +27,14 @@ public class LocalMusicManager{
 				MusicDB.MusicInfoColumns.MUSICNAME,
 				MusicDB.MusicInfoColumns.ARTIST
 		};
-		Cursor c = mMusicDBManager.query(table, columns, where, null,null,null,MusicDB.MusicInfoColumns._ID);
+		Cursor c = null ;
+		try {
+			c = mMusicDBManager.query(table, columns, where, null, null, null,
+					MusicDB.MusicInfoColumns._ID);
+		} catch (Exception e) {
+			LogUtil.d(TAG + " getAllSongCursor query error !");
+			e.printStackTrace();
+		}
 		return c;
 	}
 }

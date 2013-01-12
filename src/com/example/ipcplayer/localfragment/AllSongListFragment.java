@@ -1,20 +1,24 @@
 package com.example.ipcplayer.localfragment;
 
+import com.example.ipcplayer.R;
 import com.example.ipcplayer.utils.LogUtil;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class AllSongListFragment extends ListFragment{
 	private static String TAG  = AllSongListFragment.class.getSimpleName();
  
 	private static String sCurChoicePosition = "curChoicePosition";
 	private int mCurChoicePosition = 0;
+	private Context mContext ;
 	
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -36,6 +40,7 @@ public class AllSongListFragment extends ListFragment{
 	@Override
 	public void onAttach(Activity activity) {
 		// TODO Auto-generated method stub
+		mContext = getActivity();
 		super.onAttach(activity);
 		LogUtil.d(TAG + " onAttach ");
 	}
@@ -52,7 +57,11 @@ public class AllSongListFragment extends ListFragment{
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		LogUtil.d(TAG + " onCreateView ");
-		return super.onCreateView(inflater, container, savedInstanceState);
+		View v = inflater.inflate(R.layout.all_song_list,container, false);
+		ListView lv = (ListView) v.findViewById(R.id.allsonglist);
+		TextView tv = (TextView) v.findViewById(R.id.empty);
+		
+		return v ;
 	}
 
 	@Override
