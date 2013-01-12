@@ -1,10 +1,13 @@
 package com.example.ipcplayer.localfragment;
 
 import com.example.ipcplayer.R;
+import com.example.ipcplayer.adapter.AllSongListAdapter;
+import com.example.ipcplayer.manager.LocalMusicManager;
 import com.example.ipcplayer.utils.LogUtil;
 
 import android.app.Activity;
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -19,6 +22,11 @@ public class AllSongListFragment extends ListFragment{
 	private static String sCurChoicePosition = "curChoicePosition";
 	private int mCurChoicePosition = 0;
 	private Context mContext ;
+	private ListView mLv ;
+	private TextView mTv;
+	private LocalMusicManager mLocalMusicManager;
+	private Cursor mCursor;
+	private AllSongListAdapter mAllSongListAdapter;
 	
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -58,8 +66,8 @@ public class AllSongListFragment extends ListFragment{
 		// TODO Auto-generated method stub
 		LogUtil.d(TAG + " onCreateView ");
 		View v = inflater.inflate(R.layout.all_song_list,container, false);
-		ListView lv = (ListView) v.findViewById(R.id.allsonglist);
-		TextView tv = (TextView) v.findViewById(R.id.empty);
+		mLv = (ListView) v.findViewById(R.id.allsonglist);
+		mTv = (TextView) v.findViewById(R.id.empty);
 		
 		return v ;
 	}
@@ -72,6 +80,11 @@ public class AllSongListFragment extends ListFragment{
 		if(savedInstanceState != null){
 			mCurChoicePosition = savedInstanceState.getInt(sCurChoicePosition,0);
 		}
+		
+		mLocalMusicManager = new LocalMusicManager(mContext);
+		mAllSongListAdapter = new AllSongListAdapter(mContext,mCursor,R.layout.all_song_list);
+		mCursor = mLocalMusicManager.getAllSongCursor();
+		
 	}
 
 	@Override
@@ -114,6 +127,10 @@ public class AllSongListFragment extends ListFragment{
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		LogUtil.d(TAG + " onDestroy ");
+		if(mCursor != null){
+			mCursor.close();
+			mCursor = null ;
+		}
 	}
 
 	@Override
