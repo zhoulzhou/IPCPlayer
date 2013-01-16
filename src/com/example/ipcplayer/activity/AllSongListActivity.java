@@ -1,5 +1,7 @@
 package com.example.ipcplayer.activity;
 
+import com.example.ipcplayer.R;
+import com.example.ipcplayer.localfragment.AllSongListFragment;
 import com.example.ipcplayer.utils.LogUtil;
 
 import android.content.Context;
@@ -9,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.util.AttributeSet;
 import android.view.View;
@@ -49,6 +52,14 @@ public class AllSongListActivity extends FragmentActivity{
 		// TODO Auto-generated method stub
 		LogUtil.d(TAG + " onCreate ");
 		super.onCreate(arg0);
+		setContentView(R.layout.all_song_list_main);
+		
+//		FragmentManager fragmentManager = getSupportFragmentManager();
+//		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//		AllSongListFragment allSongListFragment = new AllSongListFragment();
+//		fragmentTransaction.add(R.id.allsonglistfragment, allSongListFragment);
+//		fragmentTransaction.commit();
+//		setContentView(R.layout.all_song_list);
 	}
 
 	@Override

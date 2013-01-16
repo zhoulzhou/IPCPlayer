@@ -66,7 +66,9 @@ public class AllSongListFragment extends ListFragment{
 		// TODO Auto-generated method stub
 		LogUtil.d(TAG + " onCreateView ");
 		View v = inflater.inflate(R.layout.all_song_list,container, false);
-		mLv = (ListView) v.findViewById(R.id.allsonglist);
+//		mLv = (ListView) v.findViewById(R.id.list);
+//		mLv = getListView();
+//		LogUtil.d(TAG + " mLv = " + mLv);
 		mTv = (TextView) v.findViewById(R.id.empty);
 		
 		return v ;
@@ -82,8 +84,20 @@ public class AllSongListFragment extends ListFragment{
 		}
 		
 		mLocalMusicManager = new LocalMusicManager(mContext);
-		mAllSongListAdapter = new AllSongListAdapter(mContext,mCursor,R.layout.all_song_list);
 		mCursor = mLocalMusicManager.getAllSongCursor();
+		if(mCursor == null){
+			LogUtil.d(TAG + " mCursor is null");
+		}else {
+			LogUtil.d(TAG + " mCursor = " + mCursor);
+		}
+		mAllSongListAdapter = new AllSongListAdapter(mContext,mCursor,R.layout.all_song_list_item);
+		if(mAllSongListAdapter == null){
+			LogUtil.d(TAG + " mAllSongListAdapter is null ");
+		}
+		if(mLv == null){
+			LogUtil.d(TAG + " mLv is null ");
+		}
+		getListView().setAdapter(mAllSongListAdapter);
 		
 	}
 

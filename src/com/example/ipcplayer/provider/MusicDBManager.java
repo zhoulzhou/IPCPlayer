@@ -12,7 +12,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 
 public class MusicDBManager {
-	private static String TAG = "MusicDBManager --> "; 
+	private static String TAG = "MusicDBManager "; 
 	private  MusicDBHelper mDBHelper ;
 	private  SQLiteDatabase mDB = null;
 	private Context mContext;

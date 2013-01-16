@@ -22,11 +22,15 @@ public class LocalMusicManager{
 	public Cursor getAllSongCursor(){
 		LogUtil.d(TAG + " getAllSongCurso ");
 		String table = MusicDBHelper.TABLE_MUSICINFO;
+		LogUtil.d(TAG + " table = " + table);
 		String where = MusicDB.MusicInfoColumns._ID + "> 0 ";
+		LogUtil.d(TAG + " where = " + where);
 		String[] columns = new String[] {
+			    MusicDB.MusicInfoColumns._ID,
 				MusicDB.MusicInfoColumns.MUSICNAME,
 				MusicDB.MusicInfoColumns.ARTIST
 		};
+		LogUtil.d(TAG + " columns = " + columns.toString());
 		Cursor c = null ;
 		try {
 			c = mMusicDBManager.query(table, columns, where, null, null, null,
