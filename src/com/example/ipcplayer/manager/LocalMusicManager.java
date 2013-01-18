@@ -1,5 +1,8 @@
 package com.example.ipcplayer.manager;
 
+import java.util.ArrayList;
+
+import com.example.ipcplayer.localfragment.ItemData;
 import com.example.ipcplayer.provider.MusicDB;
 import com.example.ipcplayer.provider.MusicDBHelper;
 import com.example.ipcplayer.provider.MusicDBManager;
@@ -40,5 +43,16 @@ public class LocalMusicManager{
 			e.printStackTrace();
 		}
 		return c;
+	}
+	
+	public ArrayList<ItemData> getLocalMusicItems(){
+		LogUtil.d(TAG + " getLocalMusicItems ");
+		ArrayList<ItemData> arrayList = new ArrayList<ItemData>();
+		ItemData itemData = null ;
+		
+		itemData = new ItemData();
+		itemData.mType = ItemData.DATATYPE_ALLSONG_LIST;
+		arrayList.add(itemData);
+		return arrayList;
 	}
 }

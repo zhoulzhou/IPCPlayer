@@ -1,21 +1,30 @@
 package com.example.ipcplayer.localfragment;
 
+import java.util.ArrayList;
+
 import com.example.ipcplayer.R;
 import com.example.ipcplayer.activity.LocalMainMusicActivity;
 import com.example.ipcplayer.adapter.GridAdapter;
+import com.example.ipcplayer.manager.LocalMusicManager;
 import com.example.ipcplayer.utils.LogUtil;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 public class LocalMainMusicFragment extends BaseFragment{
 	private LocalMainMusicActivity mLocalMainMusicActivity = null;
 	private GridAdapter mAdapter ;
 	private GridView mLocalGrid;
+	private ArrayList<ItemData> mItemDatas = new ArrayList<ItemData>();
+	private LocalMusicManager mLocalMusicManager ;
+	private Context mContext ;
+	private OnItemClickListener mOnItemClickListener ;
 	
 	private static String TAG = LocalMainMusicFragment.class.getSimpleName();
 	
@@ -49,8 +58,12 @@ public class LocalMainMusicFragment extends BaseFragment{
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		LogUtil.d(TAG + " onActivityCreated ");
-		mAdapter = new GridAdapter(getActivity().getBaseContext());
+		mContext = getActivity().getBaseContext();
+		mLocalMusicManager = new LocalMusicManager(mContext);
+		mItemDatas = mLocalMusicManager.getLocalMusicItems();
+		mAdapter = new GridAdapter(mContext);
 		mLocalGrid.setAdapter(mAdapter);
+		mLocalGrid.setOnItemClickListener(mItemClickListener);
 	}
 
 	@Override
@@ -102,6 +115,33 @@ public class LocalMainMusicFragment extends BaseFragment{
 		LogUtil.d(TAG + " onDetach ");
 	}
 	
+	public void setItemClickListener(OnItemClickListener itemClickListener){
+		LogUtil.d(TAG + " setItemClickListener ");
+		mOnItemClickListener = itemClickListener;
+	}
 	
+	private final AdapterView.OnItemClickListener mItemClickListener = new AdapterView.OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			// TODO Auto-generated method stub
+			LogUtil.d(TAG + " onItemClick ");
+			if(mItemDatas == null || mOnItemClickListener == null){
+				return ;
+			}
+			
+			ItemData itemData = mItemDatas.get(position);
+			
+			switch(itemData.mType){
+			case ItemData.DATATYPE_ALLSONG_LIST :
+				mOnItemClickListener.onAllSongList();
+				break ;
+			default:
+				
+				break ;
+			}
+		}
+	};
 	
 }
