@@ -1,20 +1,24 @@
 package com.example.ipcplayer.activity;
 
 import com.example.ipcplayer.R;
+import com.example.ipcplayer.localfragment.AllSongListFragment;
+import com.example.ipcplayer.localfragment.OnItemClickListener;
 import com.example.ipcplayer.utils.LogUtil;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.util.AttributeSet;
 import android.view.View;
 
-public class LocalMainMusicActivity extends FragmentActivity{
+public class LocalMainMusicActivity extends FragmentActivity implements OnItemClickListener{
 	private static String TAG = LocalMainMusicActivity.class.getSimpleName();
 
 	@Override
@@ -97,6 +101,28 @@ public class LocalMainMusicActivity extends FragmentActivity{
 
 	private boolean isMultiPane(){
 		return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+	}
+
+	@Override
+	public void onAllSongList() {
+		// TODO Auto-generated method stub
+		LogUtil.d(TAG + " onAllSongList ");
+		if(isMultiPane()){
+			AllSongListFragment allSongListFragment = (AllSongListFragment) getSupportFragmentManager().findFragmentById(R.id.local_container);
+			if(allSongListFragment == null){
+				allSongListFragment = new AllSongListFragment();
+				FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+				ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+				ft.replace(R.id.local_container, allSongListFragment);
+				ft.addToBackStack("allSongListFragment");
+				ft.commit();
+			}
+			
+		}else {
+			Intent intent = new Intent();
+			intent.setClass(this, AllSongListActivity.class);
+			startActivity(intent);
+		}
 	}
 	
 	
