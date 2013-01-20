@@ -52,6 +52,7 @@ public class LocalMusicManager{
 		
 		itemData = new ItemData();
 		itemData.mType = ItemData.DATATYPE_ALLSONG_LIST;
+	    LogUtil.d(TAG + " itemData.mType = " + itemData.mType);
 		arrayList.add(itemData);
 		return arrayList;
 	}

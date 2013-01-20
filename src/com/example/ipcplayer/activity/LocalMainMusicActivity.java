@@ -2,6 +2,7 @@ package com.example.ipcplayer.activity;
 
 import com.example.ipcplayer.R;
 import com.example.ipcplayer.localfragment.AllSongListFragment;
+import com.example.ipcplayer.localfragment.LocalMainMusicFragment;
 import com.example.ipcplayer.localfragment.OnItemClickListener;
 import com.example.ipcplayer.utils.LogUtil;
 
@@ -27,6 +28,9 @@ public class LocalMainMusicActivity extends FragmentActivity implements OnItemCl
 		LogUtil.d(TAG + " onCreate ");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.local_main);
+		LocalMainMusicFragment localMainMusicFragment = (LocalMainMusicFragment) getSupportFragmentManager().findFragmentById(R.id.localmainframent);
+		localMainMusicFragment.setItemClickListener(this);
+		
 	}
 	
 	@Override

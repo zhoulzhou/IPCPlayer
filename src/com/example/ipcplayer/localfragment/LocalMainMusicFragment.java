@@ -127,14 +127,24 @@ public class LocalMainMusicFragment extends BaseFragment{
 				long id) {
 			// TODO Auto-generated method stub
 			LogUtil.d(TAG + " onItemClick ");
+			if(mItemDatas == null){
+				LogUtil.d(TAG + " mItemDatas in null ");
+			}
+			if(mOnItemClickListener == null ){
+				LogUtil.d(TAG + " mOnItemClickListener is null");
+			}
 			if(mItemDatas == null || mOnItemClickListener == null){
+				LogUtil.d(TAG + " mItemData or mOnItemClickListener is null");
 				return ;
 			}
+			LogUtil.d(TAG + " positon = " + position);
 			
 			ItemData itemData = mItemDatas.get(position);
+			LogUtil.d(TAG + " itemData = "+ itemData.toString() + " itemData.mType" + itemData.mType);
 			
 			switch(itemData.mType){
 			case ItemData.DATATYPE_ALLSONG_LIST :
+				LogUtil.d(TAG + " ItemData.DATATYPE_ALLSONG_LIST ");
 				mOnItemClickListener.onAllSongList();
 				break ;
 			default:
