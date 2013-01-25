@@ -4,7 +4,7 @@ import android.util.Log;
 
 public class LogUtil{
 	private static  boolean DEBUG = Config.DEBUG_MODE;
-	private static final String DEFAULT_TAG = "[IPC'ready for coming]";
+	private static final String DEFAULT_TAG = "[IPC's ready for coming]";
 	
 	public static void d(String str){
 		if(DEBUG){
