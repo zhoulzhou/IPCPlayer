@@ -23,8 +23,7 @@ public class IPCApplication extends Application{
 		mContext = this;
 	}
 
-	@Override
-	public  static Context getApplicationContext() {
+	public Context getApplicationContext() {
 		// TODO Auto-generated method stub
 		return mContext;
 	}
