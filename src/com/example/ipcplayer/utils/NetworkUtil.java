@@ -42,4 +42,18 @@ public class NetworkUtil{
 			return false;
 		}
 	}
+	
+	public static boolean isNetworkAvailable(){
+		LogUtil.d(TAG + " isNetworkAvailable ");
+		ConnectivityManager connManager = (ConnectivityManager) IPCApplication
+				.getInstance().getApplicationContext()
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		android.net.NetworkInfo  network = connManager.getActiveNetworkInfo();
+		if(network != null){
+			return network.isAvailable();
+		}else {
+			return false ;
+		}
+	}
+	
 }
