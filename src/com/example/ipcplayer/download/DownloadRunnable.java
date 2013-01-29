@@ -1,5 +1,6 @@
 package com.example.ipcplayer.download;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -11,6 +12,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.example.ipcplayer.http.HttpApi;
+import com.example.ipcplayer.utils.LogUtil;
 import com.example.ipcplayer.utils.NetworkUtil;
 import com.example.ipcplayer.utils.StorageUtil;
 import com.example.ipcplayer.utils.ToastUtil;
@@ -18,31 +20,25 @@ import com.example.ipcplayer.utils.ToastUtil;
 import android.content.Context;
 
 public class DownloadRunnable implements Runnable{
+	private static String TAG = DownloadRunnable.class.getSimpleName();
 	private String mUrl ;
 	private Context mContext;
 	private String mDownloadPath;
-	private String mFileName ;
 	private long mTotalSize = 0;
 	private long mDownloadSize = 0;
 	private static final int KB = 1024;
 	private static final int BUFFER_SIZE = 10* KB;
 	
-	public DownloadRunnable(Context context, String url ,String filepath){
-		
-	}
-
-	public DownloadRunnable(Context context, String url){
+	public DownloadRunnable(Context context, String url ,String filePath){
+		LogUtil.d(TAG + " init object ");
 		mContext = context;
 		mUrl = url;
-	}
-	
-	public DownloadRunnable(Context context){
-		mContext = context ;
-		mUrl = DownloadConfig.sUrls[0];
+		mDownloadPath = filePath;
 	}
 	
 	@Override
 	public void run() {
+		LogUtil.d(TAG + " run ");
 		// TODO Auto-generated method stub
 		if(!StorageUtil.isExternalStorageAvailable()){
 			ToastUtil.showShortToast(mContext, " SD Card is disable! ");
@@ -52,15 +48,21 @@ public class DownloadRunnable implements Runnable{
 			if(NetworkUtil.isMobileAvailble()){
 				ToastUtil.showShortToast(mContext, " connecting mobile network ");
 			}
-			startDownload(mUrl,mFileName);
+			initFileAndSize(mDownloadPath);
+			startDownload(mUrl,mDownloadPath);
 		}else{
 			ToastUtil.showShortToast(mContext, " network is not connected! ");
 		}
 		
 	}
 	
-	
-	private void startDownload(String url,String fileName){
+	private void initFileAndSize(String filepath) {
+		LogUtil.d(TAG + " initFileAndSize ");
+		mDownloadSize = new File(filepath).length();
+	}
+
+	private void startDownload(String url,String downloadPath){
+		LogUtil.d(TAG + " startDownload ");
 		HttpResponse response ;
 		FileOutputStream out = null ;
 		InputStream in = null;
@@ -79,7 +81,7 @@ public class DownloadRunnable implements Runnable{
 			mTotalSize = mDownloadSize + len ;
 			
 			in = reEntity.getContent();
-			out = new FileOutputStream(fileName,true);
+			out = new FileOutputStream(downloadPath,true);
 			
 			byte[] buf = new byte[BUFFER_SIZE];
 			int size ;
@@ -123,18 +125,22 @@ public class DownloadRunnable implements Runnable{
 	}
 	
 	private void updateFlowManagerment(int size) {
+		LogUtil.d(TAG + " updateFlowManagerment ");
 		
 	}
 
 	private void updateProgress() {
+		LogUtil.d(TAG + " updateProgress ");
 		
 	}
 
 	private boolean isCanceled() {
+		LogUtil.d(TAG + " isCanceled ");
 		return false;
 	}
 
 	private void handleHttpError(int statusCode) {
+		LogUtil.d(TAG + " handleHttpError ");
 		if(HttpStatus.SC_FORBIDDEN == statusCode){
 			
 		}else {
@@ -143,6 +149,7 @@ public class DownloadRunnable implements Runnable{
 	}
 
 	private HttpGet getRequest(String url) {
+		LogUtil.d(TAG + " getRequest ");
 		HttpGet httpGet = new HttpGet();
 		
 		return httpGet;

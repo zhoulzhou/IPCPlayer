@@ -1,0 +1,72 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView 
+        android:id="@+id/filename"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text=" filename "/>
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="fill_parent"
+        android:layout_height="5dp"/>
+    <TextView
+        android:id="@+id/url"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text=" url "/>
+    <TextView 
+        android:id="@+id/empty1"
+        android:layout_width="fill_parent"
+        android:layout_height="5dp"/>
+    <SeekBar 
+        android:id="@+id/seekbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+    <LinearLayout 
+        android:id="@+id/sizetv"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:gravity="center"
+        android:orientation="horizontal">"
+        <TextView 
+            android:id="@+id/downloadsize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="000"/>
+        <TextView 
+            android:id="@+id/ext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="   /   " />
+        <TextView
+            android:id="@+id/totalsize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="000"/>
+    </LinearLayout>
+    <LinearLayout 
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        >
+        
+        <Button 
+            android:id="@+id/pausebtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="暂停"/>
+        <Button 
+            android:id="@+id/cancelbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dip"
+            android:text="取消"/>
+            
+    </LinearLayout>
+    
+</LinearLayout>
