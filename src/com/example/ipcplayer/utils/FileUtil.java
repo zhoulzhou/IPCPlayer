@@ -19,19 +19,19 @@ public class FileUtil{
 		}
 	}
 	
-	public static File getIPCHomeDir(){
+	public static String getIPCHomeDir(){
 		LogUtil.d(TAG + " getIPCHomeDir ");
-		return new File(getStoragePath(),DIR_HOME);
+		return new File(getStoragePath(),DIR_HOME).getAbsolutePath();
 	}
 	
-	public static File getIPCMusicDir(){
+	public static String getIPCMusicDir(){
 		LogUtil.d(TAG + " getIPCMusicDir ");
-		return new File(getIPCHomeDir(),DIR_MUSIC);
+		return new File(getIPCHomeDir(),DIR_MUSIC).getAbsolutePath();
 	}
 	
-	public static File getIPCDownloadDir(){
+	public static String getIPCDownloadDir(){
 		LogUtil.d(TAG + " getIPCDownloadDir ");
-		return new File(getIPCHomeDir(),DIR_DOWNLOAD);
+		return new File(getIPCHomeDir(),DIR_DOWNLOAD).getAbsolutePath();
 	}
 	
 	

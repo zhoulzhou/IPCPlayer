@@ -28,12 +28,25 @@ public class DownloadRunnable implements Runnable{
 	private long mDownloadSize = 0;
 	private static final int KB = 1024;
 	private static final int BUFFER_SIZE = 10* KB;
+	private DownloadInfo mDownloadInfo ;
+	private static final int DOWNLOADING = 1;
+	private static final int DOWNLOADERROR = 2;
+	private static final int DWONLOADFINISHI = 3;
+	private static final int DOWNLOADPAUSE = 4;
+	private static final int DWONLOADCANCEL = 5;
+	private int mDownloadState ;
+	private DownloadListener mDownloadListener;
+	private static final int STATUS_HTTP_FORBIDDEN = 10;
+	private static final int STATUS_HTTP_EXCEPTION = 11;
 	
 	public DownloadRunnable(Context context, String url ,String filePath){
 		LogUtil.d(TAG + " init object ");
 		mContext = context;
 		mUrl = url;
 		mDownloadPath = filePath;
+		mDownloadInfo = new DownloadInfo();
+		mDownloadInfo.setmUrl(mUrl);
+		mDownloadInfo.setmFilePath(mDownloadPath);
 	}
 	
 	@Override
@@ -42,6 +55,8 @@ public class DownloadRunnable implements Runnable{
 		// TODO Auto-generated method stub
 		if(!StorageUtil.isExternalStorageAvailable()){
 			ToastUtil.showShortToast(mContext, " SD Card is disable! ");
+			mDownloadInfo.setmDownloadState(DOWNLOADERROR);
+			return ;
 		}
 		
 		if(NetworkUtil.isNetworkAvailable()){
@@ -52,8 +67,23 @@ public class DownloadRunnable implements Runnable{
 			startDownload(mUrl,mDownloadPath);
 		}else{
 			ToastUtil.showShortToast(mContext, " network is not connected! ");
+			mDownloadInfo.setmDownloadState(DOWNLOADERROR);
+			return ;
 		}
 		
+	}
+	
+	public DownloadInfo getDownloadInfo(){
+		LogUtil.d(TAG + " getDownloadInfo ");
+		return mDownloadInfo;
+	}
+	
+	private void setDownloadInfo(){
+		LogUtil.d(TAG + " setDownloadInfo ");
+		mDownloadInfo.setmDownloadSize(mDownloadSize);
+		mDownloadInfo.setmTotalSize(mTotalSize);
+		mDownloadInfo.setmFilePath(mDownloadPath);
+		mDownloadInfo.setmDownloadState(mDownloadState);
 	}
 	
 	private void initFileAndSize(String filepath) {
@@ -73,6 +103,7 @@ public class DownloadRunnable implements Runnable{
 			response = client.execute(request);
 			int statusCode = response.getStatusLine().getStatusCode();
 			if(HttpStatus.SC_OK != statusCode && HttpStatus.SC_PARTIAL_CONTENT != statusCode){
+				mDownloadInfo.setmErrorCode(statusCode);
 				handleHttpError(statusCode);
 				return ;
 			}
@@ -86,10 +117,13 @@ public class DownloadRunnable implements Runnable{
 			byte[] buf = new byte[BUFFER_SIZE];
 			int size ;
 			while(!isCanceled()){
+				mDownloadInfo.setmDownloadState(DOWNLOADING);
 				size = in.read(buf);
 				if(size > 0){
 					out.write(buf, 0, size);
 					mDownloadSize += size;
+					mDownloadInfo.setmTotalSize(mTotalSize);
+					mDownloadInfo.setmDownloadSize(mDownloadSize);
 					updateProgress();
 					updateFlowManagerment(size);
 				}else {
@@ -97,6 +131,8 @@ public class DownloadRunnable implements Runnable{
 					out.close();
 					if(mDownloadSize == mTotalSize){
 						//update state to successful status
+						mDownloadInfo.setmDownloadState(DWONLOADFINISHI);
+						handleFinish();
 					}else {
 						//handle cancel and error
 					}
@@ -105,10 +141,12 @@ public class DownloadRunnable implements Runnable{
 			}
 			if(isCanceled()){
 				//update status 
+				mDownloadInfo.setmDownloadState(DWONLOADCANCEL);
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 			//handle error 
+			mDownloadInfo.setmDownloadState(DOWNLOADERROR);
 		}finally{
 			try{
 				if(in != null){
@@ -124,14 +162,22 @@ public class DownloadRunnable implements Runnable{
 		}
 	}
 	
+	private void handleFinish() {
+		mDownloadListener.finishDownload(mDownloadInfo);
+	}
+
 	private void updateFlowManagerment(int size) {
 		LogUtil.d(TAG + " updateFlowManagerment ");
 		
 	}
+	
+	public void setDownloadListener(DownloadListener listener){
+		mDownloadListener = listener ;
+	}
 
 	private void updateProgress() {
 		LogUtil.d(TAG + " updateProgress ");
-		
+		mDownloadListener.updateProgress(mDownloadInfo);
 	}
 
 	private boolean isCanceled() {
@@ -142,9 +188,11 @@ public class DownloadRunnable implements Runnable{
 	private void handleHttpError(int statusCode) {
 		LogUtil.d(TAG + " handleHttpError ");
 		if(HttpStatus.SC_FORBIDDEN == statusCode){
-			
+			mDownloadInfo.setmErrorCode(STATUS_HTTP_FORBIDDEN);
+			mDownloadListener.errorDownload(mDownloadInfo);
 		}else {
-			
+			mDownloadInfo.setmErrorCode(STATUS_HTTP_EXCEPTION);
+			mDownloadListener.errorDownload(mDownloadInfo);
 		}
 	}
 
