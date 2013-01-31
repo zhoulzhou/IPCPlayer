@@ -20,6 +20,7 @@ import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
 
 import com.example.ipcplayer.application.IPCApplication;
+import com.example.ipcplayer.utils.LogUtil;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -27,14 +28,14 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 
 public class HttpApi{
-	
+	private static String TAG = HttpApi.class.getSimpleName();
 	private static final int TIMEOUT = 30;
 	private static final String CHARSET = HTTP.UTF_8;
 	private static final String DEFAULT_CLIENT_VERSION = "android_1.0.0";
 
 	public static synchronized DefaultHttpClient getDefaultHttpClientSimple(){
+		LogUtil.d(TAG + " getDefaultHttpClientSimple ");
 		DefaultHttpClient httpClient = null ;
-
 		if (null == httpClient) {
 			HttpParams httpParams = createHttpParams(TIMEOUT);
 
@@ -42,8 +43,8 @@ public class HttpApi{
 			SchemeRegistry schReg = new SchemeRegistry();
 			schReg.register(new Scheme("http", PlainSocketFactory
 					.getSocketFactory(), 80));
-			schReg.register(new Scheme("https",
-					(SocketFactory) SSLSocketFactory.getDefault(), 443));
+//			schReg.register(new Scheme("https",
+//					(SocketFactory) SSLSocketFactory.getDefault(), 443));
 
 			// 使用线程安全的连接管理来创建HttpClient
 			ClientConnectionManager conMgr = new ThreadSafeClientConnManager(
@@ -54,6 +55,7 @@ public class HttpApi{
 	}
 	
 	public static HttpParams createHttpParams(int timeout){
+		LogUtil.d(TAG + " createHttpParams ");
 		HttpParams httpParams = new BasicHttpParams();
 		// Turn off stale checking. Our connections break all the time anyway,
         // and it's not worth it to pay the penalty of checking every time.
@@ -82,6 +84,7 @@ public class HttpApi{
      */
 	public static void fillProxy(final Context context,
 			final HttpParams httpParams) {
+		LogUtil.d(TAG + " fillProxy ");
 		if (context == null) {
 			return;
 		}

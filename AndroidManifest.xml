@@ -32,13 +32,17 @@
                 <action android:name="com.example.ipcplayer.service.IPlayback"></action>
             </intent-filter>
         </service>
-        
+        <!--  
         <provider android:name=".provider.MusicDBProvider" android:authorities="com.music"
                   android:multiprocess="false"
             ></provider>
+        -->
         
     </application>
     
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+   "
     
 </manifest>

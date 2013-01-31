@@ -2,6 +2,7 @@ package com.example.ipcplayer.download;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -12,6 +13,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.example.ipcplayer.http.HttpApi;
+import com.example.ipcplayer.utils.FileUtil;
 import com.example.ipcplayer.utils.LogUtil;
 import com.example.ipcplayer.utils.NetworkUtil;
 import com.example.ipcplayer.utils.StorageUtil;
@@ -38,15 +40,18 @@ public class DownloadRunnable implements Runnable{
 	private DownloadListener mDownloadListener;
 	private static final int STATUS_HTTP_FORBIDDEN = 10;
 	private static final int STATUS_HTTP_EXCEPTION = 11;
+	private File mDownloadFile ;
 	
 	public DownloadRunnable(Context context, String url ,String filePath){
 		LogUtil.d(TAG + " init object ");
 		mContext = context;
 		mUrl = url;
 		mDownloadPath = filePath;
+		mDownloadFile = new File(mDownloadPath);
 		mDownloadInfo = new DownloadInfo();
 		mDownloadInfo.setmUrl(mUrl);
 		mDownloadInfo.setmFilePath(mDownloadPath);
+		
 	}
 	
 	@Override
@@ -54,25 +59,66 @@ public class DownloadRunnable implements Runnable{
 		LogUtil.d(TAG + " run ");
 		// TODO Auto-generated method stub
 		if(!StorageUtil.isExternalStorageAvailable()){
-			ToastUtil.showShortToast(mContext, " SD Card is disable! ");
+			//do not show toast inside thread ,it'll crash because the looper is null 
+//			ToastUtil.showShortToast(mContext, " SD Card is disable! ");
 			mDownloadInfo.setmDownloadState(DOWNLOADERROR);
+			LogUtil.d(TAG + " sdcard is disabled");
 			return ;
 		}
-		
+
+		try {
+			createDownloadFile(mDownloadPath);
+		} catch (Exception e) {
+			e.printStackTrace();
+			LogUtil.d(TAG + " create file fail ");
+		}
+
 		if(NetworkUtil.isNetworkAvailable()){
 			if(NetworkUtil.isMobileAvailble()){
-				ToastUtil.showShortToast(mContext, " connecting mobile network ");
+				//pop the notification
+				LogUtil.d(TAG + " mobile network is connected ");
 			}
+			LogUtil.d(TAG + " wifi is connected ");
 			initFileAndSize(mDownloadPath);
 			startDownload(mUrl,mDownloadPath);
 		}else{
-			ToastUtil.showShortToast(mContext, " network is not connected! ");
+			//handle this error
 			mDownloadInfo.setmDownloadState(DOWNLOADERROR);
+			LogUtil.d(TAG + " network is disconnected ");
 			return ;
 		}
 		
 	}
 	
+	private void createDownloadFile(String fileName) {
+		File file = new File(fileName);
+		try {
+			String path = FileUtil.getIPCDownloadDir();
+			File dir = new File(path);
+			if (!dir.exists()) {
+				try {
+					if(dir.mkdir()){
+						LogUtil.d(TAG + " create dir successfully ");
+					}else{
+						LogUtil.d(TAG + " create dir failed ");
+					}
+				} catch (Exception e) {
+					LogUtil.d(TAG + " create dir fail excepiton = ");
+					e.printStackTrace();
+				}
+			}
+			if(file.createNewFile()){
+				LogUtil.d(TAG + " create file successfully ");
+			}else {
+				LogUtil.d(TAG + " create file failed ");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			LogUtil.d(TAG + " create file fail excepiton = ");
+			e.printStackTrace();
+		}
+	}
+
 	public DownloadInfo getDownloadInfo(){
 		LogUtil.d(TAG + " getDownloadInfo ");
 		return mDownloadInfo;
