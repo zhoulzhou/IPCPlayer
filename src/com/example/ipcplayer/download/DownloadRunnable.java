@@ -31,12 +31,12 @@ public class DownloadRunnable implements Runnable{
 	private static final int KB = 1024;
 	private static final int BUFFER_SIZE = 10* KB;
 	private DownloadInfo mDownloadInfo ;
-	private static final int DOWNLOADING = 1;
-	private static final int DOWNLOADERROR = 2;
-	private static final int DWONLOADFINISHI = 3;
-	private static final int DOWNLOADPAUSE = 4;
-	private static final int DWONLOADCANCEL = 5;
-	private int mDownloadState ;
+	private static final String DOWNLOADING = "downloading";
+	private static final String DOWNLOADERROR = "downloaderror";
+	private static final String DWONLOADFINISHI = "downloadfinish";
+	private static final String DOWNLOADPAUSE = "downloadpasue";
+	private static final String DWONLOADCANCEL = "downloadcancel";
+	private String mDownloadState ;
 	private DownloadListener mDownloadListener;
 	private static final int STATUS_HTTP_FORBIDDEN = 10;
 	private static final int STATUS_HTTP_EXCEPTION = 11;

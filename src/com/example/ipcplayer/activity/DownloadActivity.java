@@ -35,7 +35,7 @@ public class DownloadActivity extends Activity implements DownloadListener{
 	String mDownloadFile ;
 	private long mDownloadSize;
 	private long mTotalSize;
-	private int mStatus ;
+	private String mStatus ;
 	private static final int REFRESH = 0;
 	private DownloadInfo mDownloadInfo;
 	

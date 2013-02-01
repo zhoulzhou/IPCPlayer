@@ -8,12 +8,12 @@ public class DownloadInfo{
 	private String mUrl;
 	private String mFileName;
 	private String mFilePath;
-	private int mDownloadState;
+	private String mDownloadState;
 	
-	public int getmDownloadState() {
+	public String getmDownloadState() {
 		return mDownloadState;
 	}
-	public void setmDownloadState(int mDownloadState) {
+	public void setmDownloadState(String mDownloadState) {
 		this.mDownloadState = mDownloadState;
 	}
 	public long getmDownloadSize() {
