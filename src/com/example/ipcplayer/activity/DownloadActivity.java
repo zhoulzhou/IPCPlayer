@@ -56,10 +56,11 @@ public class DownloadActivity extends Activity implements DownloadListener{
 			LogUtil.d(TAG + " mTotalSize = " + mTotalSize);
 			mStatus = mDownloadInfo.getmDownloadState();
 			LogUtil.d(TAG + " mStatus = " + mStatus);
+			
 			switch (msg.what) {
 			case REFRESH:
 				LogUtil.d(TAG + " REFRESH ");
-				progressBar.setProgress((int) (mDownloadSize / mTotalSize));
+				progressBar.setProgress((int) (mDownloadSize*100 / mTotalSize));
 				mStatusTv.setText(" status : " +mStatus);
 				mTotalSizeTv.setText(mTotalSize + "");
 				mDownloadSizeTv.setText(mDownloadSize + "");
@@ -91,8 +92,10 @@ public class DownloadActivity extends Activity implements DownloadListener{
 		
 		mDownloadInfo = new DownloadInfo();
 		mUrl = DownloadConfig.sUrls[0];
+		mUrlTv.setText(mUrl);
 		LogUtil.d(TAG + " mUrl = " + mUrl);
 		mDownloadFile = FileUtil.getIPCDownloadDir() + File.separator+"first.mp3";
+		mFileNameTv.setText(mDownloadFile);
 //		File downloadFile = new File(mDownloadFile);
 		LogUtil.d(TAG + " mDownloadFile = " + mDownloadFile);
 //		URL url = new URL(mUrl);
@@ -110,7 +113,7 @@ public class DownloadActivity extends Activity implements DownloadListener{
 		Message msg = new Message();
 		msg.what = REFRESH;
 		msg.obj = downloadInfo;
-		mHandler.sendMessageDelayed(msg, 10);
+		mHandler.sendMessageDelayed(msg, 1);
 	}
 
 	@Override

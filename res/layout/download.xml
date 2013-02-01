@@ -35,8 +35,7 @@
         android:id="@+id/progressbar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:secondaryProgress="100"/>
+        android:layout_height="wrap_content"/>
     <LinearLayout 
         android:id="@+id/sizetv"
         android:layout_width="fill_parent"
