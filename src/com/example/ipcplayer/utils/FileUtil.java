@@ -5,7 +5,7 @@ import java.io.File;
 import android.os.Environment;
 
 public class FileUtil{
-	public static String DIR_HOME = "Ipc_ready";
+	public static String DIR_HOME = "IPC";
 	public static String DIR_MUSIC = "music";
 	public static String DIR_DOWNLOAD = "download";
 	private static String TAG = FileUtil.class.getSimpleName();

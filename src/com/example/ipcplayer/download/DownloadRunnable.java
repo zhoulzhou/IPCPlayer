@@ -91,32 +91,30 @@ public class DownloadRunnable implements Runnable{
 	}
 	
 	private void createDownloadFile(String fileName) {
+		LogUtil.d(TAG + " createDownloadFile ");
+		String path = FileUtil.getIPCDownloadDir();
+		LogUtil.d(TAG + " create dir path = " + path);
+		File dir = new File(path.trim());
+		if (!dir.exists()) {
+			if (dir.mkdirs()) {
+				LogUtil.d(TAG + " create dir successfully ");
+			} else {
+				LogUtil.d(TAG + " create dir failed ");
+			}
+		}
 		File file = new File(fileName);
 		try {
-			String path = FileUtil.getIPCDownloadDir();
-			File dir = new File(path);
-			if (!dir.exists()) {
-				try {
-					if(dir.mkdir()){
-						LogUtil.d(TAG + " create dir successfully ");
-					}else{
-						LogUtil.d(TAG + " create dir failed ");
-					}
-				} catch (Exception e) {
-					LogUtil.d(TAG + " create dir fail excepiton = ");
-					e.printStackTrace();
-				}
-			}
-			if(file.createNewFile()){
+			if (file.createNewFile()) {
 				LogUtil.d(TAG + " create file successfully ");
-			}else {
+			} else {
 				LogUtil.d(TAG + " create file failed ");
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			LogUtil.d(TAG + " create file fail excepiton = ");
+			LogUtil.d(TAG + " create file failed exception = ");
 			e.printStackTrace();
 		}
+
 	}
 
 	public DownloadInfo getDownloadInfo(){
