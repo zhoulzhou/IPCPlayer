@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -41,19 +43,31 @@ public class DownloadRunnable implements Runnable{
 	private static final int STATUS_HTTP_FORBIDDEN = 10;
 	private static final int STATUS_HTTP_EXCEPTION = 11;
 	private File mDownloadFile ;
+	private File mTempFile;
+	private String mFileName;
+	private long mPreviousFileSize;
+	private String mFilePath ;
 	
 	public DownloadRunnable(Context context, String url ,String filePath){
 		LogUtil.d(TAG + " init object ");
 		mContext = context;
 		mUrl = url;
-		mDownloadPath = filePath;
-		mDownloadFile = new File(mDownloadPath);
+		mDownloadPath = FileUtil.getIPCDownloadDir();
+		mFileName = getFileName();
+		mFilePath = mDownloadPath + File.separator + mFileName;
+		mDownloadFile = new File(mDownloadPath,mFileName);
+		mTempFile = new File(mDownloadPath,mFileName + DownloadConfig.TEMP);
 		mDownloadInfo = new DownloadInfo();
 		mDownloadInfo.setmUrl(mUrl);
 		mDownloadInfo.setmFilePath(mDownloadPath);
 		
 	}
 	
+	private String getFileName() {
+		// TODO Auto-generated method stub
+		return "try.mp3";
+	}
+
 	@Override
 	public void run() {
 		LogUtil.d(TAG + " run ");
@@ -67,10 +81,11 @@ public class DownloadRunnable implements Runnable{
 		}
 
 		try {
-			createDownloadFile(mDownloadPath);
+			createDownloadFile();
 		} catch (Exception e) {
 			e.printStackTrace();
 			LogUtil.d(TAG + " create file fail ");
+			return ;
 		}
 
 		if(NetworkUtil.isNetworkAvailable()){
@@ -79,7 +94,7 @@ public class DownloadRunnable implements Runnable{
 				LogUtil.d(TAG + " mobile network is connected ");
 			}
 			LogUtil.d(TAG + " wifi is connected ");
-			initFileAndSize(mDownloadPath);
+			initFileAndSize();
 			startDownload(mUrl,mDownloadPath);
 		}else{
 			//handle this error
@@ -90,7 +105,7 @@ public class DownloadRunnable implements Runnable{
 		
 	}
 	
-	private void createDownloadFile(String fileName) {
+	private void createDownloadFile() {
 		LogUtil.d(TAG + " createDownloadFile ");
 		String path = FileUtil.getIPCDownloadDir();
 		LogUtil.d(TAG + " create dir path = " + path);
@@ -102,19 +117,20 @@ public class DownloadRunnable implements Runnable{
 				LogUtil.d(TAG + " create dir failed ");
 			}
 		}
-		File mDownloadFile = new File(fileName);
-		try {
-			if (mDownloadFile.createNewFile()) {
-				LogUtil.d(TAG + " create file successfully ");
-			} else {
-				LogUtil.d(TAG + " create file failed ");
+		
+		if (!mTempFile.exists()) {
+			try {
+				if (mTempFile.createNewFile()) {
+					LogUtil.d(TAG + " create file successfully ");
+				} else {
+					LogUtil.d(TAG + " create file failed ");
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				LogUtil.d(TAG + " create file failed exception = ");
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			LogUtil.d(TAG + " create file failed exception = ");
-			e.printStackTrace();
 		}
-
 	}
 
 	public DownloadInfo getDownloadInfo(){
@@ -122,17 +138,9 @@ public class DownloadRunnable implements Runnable{
 		return mDownloadInfo;
 	}
 	
-	private void setDownloadInfo(){
-		LogUtil.d(TAG + " setDownloadInfo ");
-		mDownloadInfo.setmDownloadSize(mDownloadSize);
-		mDownloadInfo.setmTotalSize(mTotalSize);
-		mDownloadInfo.setmFilePath(mDownloadPath);
-		mDownloadInfo.setmDownloadState(mDownloadState);
-	}
-	
-	private void initFileAndSize(String filepath) {
+	private void initFileAndSize() {
 		LogUtil.d(TAG + " initFileAndSize ");
-		mDownloadSize = new File(filepath).length();
+		mDownloadSize = mTempFile.length();
 	}
 
 	private void startDownload(String url,String downloadPath){
@@ -156,11 +164,14 @@ public class DownloadRunnable implements Runnable{
 			mTotalSize = mDownloadSize + len ;
 
 			in = reEntity.getContent();
-			out = new FileOutputStream(downloadPath,true);
-			if(mDownloadFile.exists() && mDownloadSize == len){
+			out = new FileOutputStream(downloadPath+File.separator + mFileName,true);
+			if(mDownloadFile.exists() && mDownloadFile.length() >= mTotalSize){
 				mDownloadInfo.setmDownloadState(DWONLOADFINISH);
 				LogUtil.d(TAG + " file already exists then return ; ");
 				return ;
+			}else if(mTempFile.exists()) {
+				request.setHeader("Range" , "bytes="+mDownloadFile.length()+"-");
+				mPreviousFileSize = mTempFile.length();
 			}
 			
 			byte[] buf = new byte[BUFFER_SIZE];
@@ -180,6 +191,7 @@ public class DownloadRunnable implements Runnable{
 					out.close();
 					if(mDownloadSize == mTotalSize){
 						//update state to successful status
+						mTempFile.renameTo(mDownloadFile);
 						mDownloadInfo.setmDownloadState(DWONLOADFINISH);
 						handleFinish();
 					}else {
