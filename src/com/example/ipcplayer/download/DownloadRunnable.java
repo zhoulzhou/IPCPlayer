@@ -33,7 +33,7 @@ public class DownloadRunnable implements Runnable{
 	private DownloadInfo mDownloadInfo ;
 	private static final String DOWNLOADING = "downloading";
 	private static final String DOWNLOADERROR = "downloaderror";
-	private static final String DWONLOADFINISHI = "downloadfinish";
+	private static final String DWONLOADFINISH = "downloadfinish";
 	private static final String DOWNLOADPAUSE = "downloadpasue";
 	private static final String DWONLOADCANCEL = "downloadcancel";
 	private String mDownloadState ;
@@ -102,9 +102,9 @@ public class DownloadRunnable implements Runnable{
 				LogUtil.d(TAG + " create dir failed ");
 			}
 		}
-		File file = new File(fileName);
+		File mDownloadFile = new File(fileName);
 		try {
-			if (file.createNewFile()) {
+			if (mDownloadFile.createNewFile()) {
 				LogUtil.d(TAG + " create file successfully ");
 			} else {
 				LogUtil.d(TAG + " create file failed ");
@@ -154,9 +154,14 @@ public class DownloadRunnable implements Runnable{
 			HttpEntity reEntity = response.getEntity();
 			long len = reEntity.getContentLength();
 			mTotalSize = mDownloadSize + len ;
-			
+
 			in = reEntity.getContent();
 			out = new FileOutputStream(downloadPath,true);
+			if(mDownloadFile.exists() && mDownloadSize == len){
+				mDownloadInfo.setmDownloadState(DWONLOADFINISH);
+				LogUtil.d(TAG + " file already exists then return ; ");
+				return ;
+			}
 			
 			byte[] buf = new byte[BUFFER_SIZE];
 			int size ;
@@ -175,7 +180,7 @@ public class DownloadRunnable implements Runnable{
 					out.close();
 					if(mDownloadSize == mTotalSize){
 						//update state to successful status
-						mDownloadInfo.setmDownloadState(DWONLOADFINISHI);
+						mDownloadInfo.setmDownloadState(DWONLOADFINISH);
 						handleFinish();
 					}else {
 						//handle cancel and error
