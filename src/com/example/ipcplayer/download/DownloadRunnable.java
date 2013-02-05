@@ -41,8 +41,9 @@ public class DownloadRunnable implements Runnable{
 	private static final String DWONLOADCANCEL = "downloadcancel";
 	private String mDownloadState ;
 	private DownloadListener mDownloadListener;
-	private static final int STATUS_HTTP_FORBIDDEN = 10;
-	private static final int STATUS_HTTP_EXCEPTION = 11;
+	private static final int STATUS_HTTP_FORBIDDEN = 12;
+	private static final int STATUS_HTTP_EXCEPTION = 13;
+	private static final int STATUS_HTTP_UNAVLIABLE = 14;
 	private File mDownloadFile ;
 	private File mTempFile;
 	private String mFileName;
@@ -100,12 +101,16 @@ public class DownloadRunnable implements Runnable{
 		}else{
 			//handle this error
 			mDownloadInfo.setmDownloadState(DOWNLOADERROR);
+			mDownloadInfo.setmErrorCode(STATUS_HTTP_UNAVLIABLE);
+			handleError();
 			LogUtil.d(TAG + " network is disconnected ");
 			return ;
 		}
 		
 	}
 	
+	
+
 	private void createDownloadFile() {
 		LogUtil.d(TAG + " createDownloadFile ");
 		String path = FileUtil.getIPCDownloadDir();
@@ -242,6 +247,11 @@ public class DownloadRunnable implements Runnable{
 			e.printStackTrace();
 		}
 		return size;
+	}
+	
+	private void handleError() {
+		// TODO Auto-generated method stub
+		mDownloadListener.errorDownload(mDownloadInfo);
 	}
 	
 	private void handleFinish() {

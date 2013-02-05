@@ -38,6 +38,11 @@ public class DownloadActivity extends Activity implements DownloadListener{
 	private String mStatus ;
 	private static final int REFRESH = 0;
 	private static final int FINISH = 1;
+	private static final int ERROR = 11;
+	private static final int ERROR_HTTP_FORBID = 12;
+	private static final int ERROR_HTTP_EXCEPTION = 13;
+	private static final int ERROR_HTTP_UNAVAILABLE = 14;
+	
 	private DownloadInfo mDownloadInfo;
 	
 	private Handler mHandler = new Handler(){
@@ -69,6 +74,15 @@ public class DownloadActivity extends Activity implements DownloadListener{
 			case FINISH:
 				mStatusTv.setText(" status : " +mStatus);
 				break ;
+			case ERROR:
+				int errorCode = mDownloadInfo.getmErrorCode();
+				if(ERROR_HTTP_FORBID == errorCode){
+					mStatusTv.setText(" status: http forbided ");
+				}else if(ERROR_HTTP_EXCEPTION == errorCode){
+					mStatusTv.setText(" status: http exception 	");
+				}else if(ERROR_HTTP_UNAVAILABLE == errorCode){
+					mStatusTv.setText(" stattus: network unavailable ");
+				}
 			default:
 				break;
 			}
@@ -123,9 +137,12 @@ public class DownloadActivity extends Activity implements DownloadListener{
 	}
 
 	@Override
-	public void errorDownload(DownloadInfo downloadInof) {
+	public void errorDownload(DownloadInfo downloadInfo) {
 		// TODO Auto-generated method stub
-		
+		Message msg = new Message();
+		msg.what = ERROR;
+		msg.obj = downloadInfo;
+		mHandler.sendMessage(msg);
 	}
 
 	@Override
@@ -134,7 +151,7 @@ public class DownloadActivity extends Activity implements DownloadListener{
 		Message msg = new Message();
 		msg.what = FINISH;
 		msg.obj = downloadInfo;
-		mHandler.sendMessageDelayed(msg, 1);
+		mHandler.sendMessage(msg);
 	}
 
 	@Override
