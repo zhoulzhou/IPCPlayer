@@ -1,6 +1,7 @@
 package com.example.ipcplayer.utils;
 
 import java.io.File;
+import java.io.FileInputStream;
 
 import android.os.Environment;
 
@@ -34,5 +35,16 @@ public class FileUtil{
 		return new File(getIPCHomeDir(),DIR_DOWNLOAD).getAbsolutePath();
 	}
 	
-	
+	public static long getFileSize(File f) throws Exception{
+		long s = 0;
+		 if (f.exists()) {
+	            FileInputStream fis = null;
+	            fis = new FileInputStream(f);
+	           s= fis.available();
+	           LogUtil.d(TAG + " file size = " + s);
+	        } else {
+	            LogUtil.d(TAG + " file didn't exist	");
+	        }
+	        return s;
+	}
 }

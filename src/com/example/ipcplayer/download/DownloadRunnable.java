@@ -165,10 +165,14 @@ public class DownloadRunnable implements Runnable{
 
 			in = reEntity.getContent();
 			out = new FileOutputStream(downloadPath+File.separator + mFileName,true);
-			if(mDownloadFile.exists() && mDownloadFile.length() >= mTotalSize){
-				mDownloadInfo.setmDownloadState(DWONLOADFINISH);
-				LogUtil.d(TAG + " file already exists then return ; ");
-				return ;
+			if (mDownloadFile.exists()) {
+				//why is the length of donwloadfile null?  mDownloadFile.length == 0
+//				if (getDownloadFileSize() >= mTotalSize) {
+					mDownloadInfo.setmDownloadState(DWONLOADFINISH);
+					handleFinish();
+					LogUtil.d(TAG + " file already exists then return ; ");
+					return;
+//				}
 			}else if(mTempFile.exists()) {
 				request.setHeader("Range" , "bytes="+mDownloadFile.length()+"-");
 				mPreviousFileSize = mTempFile.length();
@@ -223,6 +227,17 @@ public class DownloadRunnable implements Runnable{
 		}
 	}
 	
+	private long getDownloadFileSize(){
+		long size = 0;
+		try{
+			size = FileUtil.getFileSize(mDownloadFile);
+		}catch(Exception e){
+			LogUtil.d(TAG + " getDownloadFileSize error ");
+			e.printStackTrace();
+		}
+		return size;
+	}
+	
 	private void handleFinish() {
 		mDownloadListener.finishDownload(mDownloadInfo);
 	}
@@ -263,4 +278,6 @@ public class DownloadRunnable implements Runnable{
 		
 		return httpGet;
 	}
+	
+	
 }
