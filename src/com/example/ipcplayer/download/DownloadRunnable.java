@@ -179,9 +179,8 @@ public class DownloadRunnable implements Runnable{
 				request.setHeader("Range" , "bytes="+mDownloadFile.length()+"-");
 				mPreviousFileSize = mTempFile.length();
 				
-//				((Closeable) client).close();
-//				client = HttpApi.getDefaultHttpClientSimple();
-//				response = client.execute(request);
+				client = HttpApi.getDefaultHttpClientSimple();
+				response = client.execute(request);
 			}
 			
 			byte[] buf = new byte[BUFFER_SIZE];
