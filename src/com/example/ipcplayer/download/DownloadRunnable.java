@@ -1,5 +1,6 @@
 package com.example.ipcplayer.download;
 
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -56,7 +57,7 @@ public class DownloadRunnable implements Runnable{
 		mFileName = getFileName();
 		mFilePath = mDownloadPath + File.separator + mFileName;
 		mDownloadFile = new File(mDownloadPath,mFileName);
-		mTempFile = new File(mDownloadPath,mFileName + DownloadConfig.TEMP);
+		mTempFile = new File(mDownloadPath,mFileName + DownloadConfig.TEMP_TYPE);
 		mDownloadInfo = new DownloadInfo();
 		mDownloadInfo.setmUrl(mUrl);
 		mDownloadInfo.setmFilePath(mDownloadPath);
@@ -148,10 +149,12 @@ public class DownloadRunnable implements Runnable{
 		HttpResponse response ;
 		FileOutputStream out = null ;
 		InputStream in = null;
+		DefaultHttpClient client ;
+		HttpGet request ;
 		
 		try{
-			HttpGet request = new HttpGet(url);
-			DefaultHttpClient client = HttpApi.getDefaultHttpClientSimple();
+			request = new HttpGet(url);
+			client = HttpApi.getDefaultHttpClientSimple();
 			response = client.execute(request);
 			int statusCode = response.getStatusLine().getStatusCode();
 			if(HttpStatus.SC_OK != statusCode && HttpStatus.SC_PARTIAL_CONTENT != statusCode){
@@ -164,18 +167,21 @@ public class DownloadRunnable implements Runnable{
 			mTotalSize = mDownloadSize + len ;
 
 			in = reEntity.getContent();
-			out = new FileOutputStream(downloadPath+File.separator + mFileName,true);
+			out = new FileOutputStream(downloadPath+File.separator + mFileName + DownloadConfig.TEMP_TYPE ,true);
 			if (mDownloadFile.exists()) {
-				//why is the length of donwloadfile null?  mDownloadFile.length == 0
-//				if (getDownloadFileSize() >= mTotalSize) {
+				if (getDownloadFileSize() >= mTotalSize) {
 					mDownloadInfo.setmDownloadState(DWONLOADFINISH);
 					handleFinish();
 					LogUtil.d(TAG + " file already exists then return ; ");
 					return;
-//				}
+				}
 			}else if(mTempFile.exists()) {
 				request.setHeader("Range" , "bytes="+mDownloadFile.length()+"-");
 				mPreviousFileSize = mTempFile.length();
+				
+//				((Closeable) client).close();
+//				client = HttpApi.getDefaultHttpClientSimple();
+//				response = client.execute(request);
 			}
 			
 			byte[] buf = new byte[BUFFER_SIZE];
@@ -195,6 +201,7 @@ public class DownloadRunnable implements Runnable{
 					out.close();
 					if(mDownloadSize == mTotalSize){
 						//update state to successful status
+						LogUtil.d(TAG + " mTempFile size = " + FileUtil.getFileSize(mTempFile));
 						mTempFile.renameTo(mDownloadFile);
 						mDownloadInfo.setmDownloadState(DWONLOADFINISH);
 						handleFinish();
