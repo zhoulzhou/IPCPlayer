@@ -34,12 +34,13 @@ public class DownloadRunnable implements Runnable{
 	private static final int KB = 1024;
 	private static final int BUFFER_SIZE = 10* KB;
 	private DownloadInfo mDownloadInfo ;
+	private static final String DOWNLOADIDLE = "downloadidle";
 	private static final String DOWNLOADING = "downloading";
 	private static final String DOWNLOADERROR = "downloaderror";
-	private static final String DWONLOADFINISH = "downloadfinish";
+	private static final String DOWNLOADFINISH = "downloadfinish";
 	private static final String DOWNLOADPAUSE = "downloadpasue";
-	private static final String DWONLOADCANCEL = "downloadcancel";
-	private String mDownloadState ;
+	private static final String DOWNLOADCANCEL = "downloadcancel";
+	private String mDownloadState = DOWNLOADIDLE;
 	private DownloadListener mDownloadListener;
 	private static final int STATUS_HTTP_FORBIDDEN = 12;
 	private static final int STATUS_HTTP_EXCEPTION = 13;
@@ -156,6 +157,7 @@ public class DownloadRunnable implements Runnable{
 		InputStream in = null;
 		DefaultHttpClient client ;
 		HttpGet request ;
+		HttpEntity reEntity;
 		
 		try{
 			request = new HttpGet(url);
@@ -167,25 +169,28 @@ public class DownloadRunnable implements Runnable{
 				handleHttpError(statusCode);
 				return ;
 			}
-			HttpEntity reEntity = response.getEntity();
+			reEntity = response.getEntity();
 			long len = reEntity.getContentLength();
-			mTotalSize = mDownloadSize + len ;
+			mTotalSize = len ;
+//			mTotalSize = mDownloadSize + len ;
 
 			in = reEntity.getContent();
 			out = new FileOutputStream(downloadPath+File.separator + mFileName + DownloadConfig.TEMP_TYPE ,true);
 			if (mDownloadFile.exists()) {
 				if (getDownloadFileSize() >= mTotalSize) {
-					mDownloadInfo.setmDownloadState(DWONLOADFINISH);
+					mDownloadInfo.setmDownloadState(DOWNLOADFINISH);
 					handleFinish();
 					LogUtil.d(TAG + " file already exists then return ; ");
 					return;
 				}
 			}else if(mTempFile.exists()) {
-				request.setHeader("Range" , "bytes="+mDownloadFile.length()+"-");
+				request.setHeader("Range" , "bytes="+mTempFile.length()+"-");
 				mPreviousFileSize = mTempFile.length();
 				
 				client = HttpApi.getDefaultHttpClientSimple();
 				response = client.execute(request);
+				reEntity = response.getEntity();
+				in = reEntity.getContent();
 			}
 			
 			byte[] buf = new byte[BUFFER_SIZE];
@@ -207,7 +212,7 @@ public class DownloadRunnable implements Runnable{
 						//update state to successful status
 						LogUtil.d(TAG + " mTempFile size = " + FileUtil.getFileSize(mTempFile));
 						mTempFile.renameTo(mDownloadFile);
-						mDownloadInfo.setmDownloadState(DWONLOADFINISH);
+						mDownloadInfo.setmDownloadState(DOWNLOADFINISH);
 						handleFinish();
 					}else {
 						//handle cancel and error
@@ -217,7 +222,7 @@ public class DownloadRunnable implements Runnable{
 			}
 			if(isCanceled()){
 				//update status 
-				mDownloadInfo.setmDownloadState(DWONLOADCANCEL);
+				mDownloadInfo.setmDownloadState(DOWNLOADCANCEL);
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -274,9 +279,21 @@ public class DownloadRunnable implements Runnable{
 
 	private boolean isCanceled() {
 		LogUtil.d(TAG + " isCanceled ");
-		return false;
+		return DOWNLOADCANCEL.equals(mDownloadInfo.getmDownloadState());
+	}
+	
+	public void cancelDownload(){
+		mDownloadInfo.setmDownloadState(DOWNLOADCANCEL);
+	}
+	
+	public void resumeDownload(){
+		mDownloadInfo.setmDownloadState(DOWNLOADING);
 	}
 
+	public boolean isDownloading(){
+		return DOWNLOADING.equals(mDownloadInfo.getmDownloadState());
+	}
+	
 	private void handleHttpError(int statusCode) {
 		LogUtil.d(TAG + " handleHttpError ");
 		if(HttpStatus.SC_FORBIDDEN == statusCode){

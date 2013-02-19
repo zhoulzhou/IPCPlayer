@@ -8,6 +8,7 @@ import com.example.ipcplayer.download.DownloadConfig;
 import com.example.ipcplayer.download.DownloadInfo;
 import com.example.ipcplayer.download.DownloadListener;
 import com.example.ipcplayer.download.DownloadRunnable;
+import com.example.ipcplayer.thread.ThreadF;
 import com.example.ipcplayer.utils.FileUtil;
 import com.example.ipcplayer.utils.LogUtil;
 
@@ -15,6 +16,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
@@ -42,7 +45,7 @@ public class DownloadActivity extends Activity implements DownloadListener{
 	private static final int ERROR_HTTP_FORBID = 12;
 	private static final int ERROR_HTTP_EXCEPTION = 13;
 	private static final int ERROR_HTTP_UNAVAILABLE = 14;
-	
+	private Thread mDownloadThread;
 	private DownloadInfo mDownloadInfo;
 	
 	private Handler mHandler = new Handler(){
@@ -105,7 +108,31 @@ public class DownloadActivity extends Activity implements DownloadListener{
 		progressBar.setProgress(0);
 		progressBar.setMax(100);
 		mPauseBtn = (Button) findViewById(R.id.pausebtn);
+		mPauseBtn.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(mDownloadRunnable.isDownloading()){
+					mDownloadRunnable.cancelDownload();
+					mPauseBtn.setText("Go");
+				}else {
+					mDownloadRunnable.resumeDownload();
+					ThreadF.getInstance().submit(mDownloadRunnable);
+					mPauseBtn.setText("Pause");
+				}
+				
+			}
+			   
+		});
 		mCancelBtn = (Button) findViewById(R.id.cancelbtn);
+		mCancelBtn.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+	            mDownloadRunnable.cancelDownload();			
+			}
+			
+		});
 		mTotalSizeTv = (TextView) findViewById(R.id.totalsize);
 		mDownloadSizeTv = (TextView) findViewById(R.id.downloadsize);
 		
@@ -121,9 +148,7 @@ public class DownloadActivity extends Activity implements DownloadListener{
 //		URL url = new URL(mUrl);
 		mDownloadRunnable = new DownloadRunnable(this,mUrl,mDownloadPath);
 		mDownloadRunnable.setDownloadListener(this);
-		Thread downloadThread = new Thread(mDownloadRunnable);
-		downloadThread.start();
-		
+		ThreadF.getInstance().submit(mDownloadRunnable);
 	}
 
 	@Override

@@ -21,7 +21,9 @@ public class ThreadF{
 			synchronized(ThreadF.class){
 				sInstance = new ThreadF();
 			}
-			mExecutor = createExecutor();
+			if(mExecutor == null || mExecutor.isShutdown()){
+				mExecutor = createExecutor();
+			}
 		}
 		return sInstance;
 	}
@@ -48,7 +50,9 @@ public class ThreadF{
 	
 	public void ShutDownAll(){
 		LogUtil.d(TAG + " shutdown all thread ");
-		mExecutor.shutdown();
+		if(mExecutor != null && !mExecutor.isShutdown()){
+			mExecutor.shutdown();
+		}
 //		mExecutor.shutdownNow();
 	}
 }
