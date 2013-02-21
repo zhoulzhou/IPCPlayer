@@ -5,14 +5,15 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 public class ParseJson{
-	
+	//this is good 
+	//http://blog.csdn.net/aomandeshangxiao/article/details/7000077
 	private static final String JSON =   
 			"{" +  
 			    "   \"phone\" : [\"12345678\", \"87654321\"]," +  
 			    "   \"name\" : \"yuanzhifei89\"," +  
 			    "   \"age\" : 100," +  
 			    "   \"address\" : { \"country\" : \"china\", \"province\" : \"jiangsu\" }," +  
-			    "   \"married\" : false," +  
+			    "   \"married\" : false" +  
 			"}"; 
 
 	public void parse3(String json) {
@@ -57,6 +58,7 @@ public class ParseJson{
 			// 此时还未读取任何json文本，直接读取就是一个JSONObject对象。  
 		    // 如果此时的读取位置在"name" : 了，那么nextValue就是"yuanzhifei89"（String）  
 			JSONObject person = (JSONObject) jsonParser.nextValue();
+			System.out.println("parse: get jsonobject ");
 			// 接下来的就是JSON对象的操作了  
 			person.getString("name");
 			System.out.println("name: " + person.getString("name"));

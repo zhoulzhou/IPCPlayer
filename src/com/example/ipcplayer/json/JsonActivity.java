@@ -21,7 +21,7 @@ public class JsonActivity extends Activity{
 			    "   \"name\" : \"yuanzhifei89\"," +  
 			    "   \"age\" : 100," +  
 			    "   \"address\" : { \"country\" : \"china\", \"province\" : \"jiangsu\" }," +  
-			    "   \"married\" : false," +  
+			    "   \"married\" : false" +  
 			"}"; 
 
 	@Override
@@ -40,6 +40,7 @@ public class JsonActivity extends Activity{
 		
 		mParseJson = new ParseJson();
 		mParseJson.parse2(JSON);
+		mParseJson.parse(JSON);
 		
 		mParseSample = new ParseSample();
 		mParseSample.parseJson();
