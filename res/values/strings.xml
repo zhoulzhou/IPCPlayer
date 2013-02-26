@@ -4,5 +4,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="auth_weibo">授权新浪微博</string>
+    <string name="auth_tencent">授权腾讯微博</string>
+    
 
 </resources>
