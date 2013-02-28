@@ -6,6 +6,6 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="auth_weibo">授权新浪微博</string>
     <string name="auth_tencent">授权腾讯微博</string>
-    
+    <string name="pull_up_to_refresh_refreshing_label">加载中...</string>
 
 </resources>

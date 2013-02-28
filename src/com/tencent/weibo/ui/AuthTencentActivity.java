@@ -17,13 +17,9 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.baidu.mobstat.StatActivity;
-import com.baidu.news.setting.SettingManager;
-import com.baidu.news.setting.SettingManagerFactory;
-import com.baidu.news.ui.SettingController;
-import com.baidu.news.ui.TypefaceHelper;
-import com.baidu.news.ui.widget.LoadingView;
 import com.example.ipcplayer.R;
+import com.example.ipcplayer.setting.SettingManager;
+import com.example.ipcplayer.setting.SettingManagerFactory;
 import com.example.ipcplayer.utils.LogUtil;
 import com.tencent.weibo.oauthv2.OAuthV2;
 import com.tencent.weibo.oauthv2.OAuthV2Client;
