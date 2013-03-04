@@ -45,7 +45,7 @@ import com.tencent.weibo.oauthv2.OAuthV2;
 import com.tencent.weibo.oauthv2.OAuthV2Client;
 
 /**
- * 新浪微博分享界面
+ * 腾讯微博分享界面
  * 
  * @version 1.0
  * @data 2012-8-22
