@@ -41,24 +41,21 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.baidu.mobstat.StatActivity;
-import com.baidu.news.R;
-import com.baidu.news.setting.SettingManager;
-import com.baidu.news.setting.SettingManagerFactory;
-import com.baidu.news.ui.TypefaceHelper;
-import com.baidu.news.ui.widget.LoadingView;
-import com.baidu.news.util.LogUtil;
-import com.baidu.news.util.Utils;
+import com.example.ipcplayer.R;
+import com.example.ipcplayer.setting.SettingManager;
+import com.example.ipcplayer.setting.SettingManagerFactory;
+import com.example.ipcplayer.utils.LogUtil;
+import com.example.ipcplayer.utils.StringUtil;
+import com.tencent.weibo.ui.LoadingView;
 import com.tencent.weibo.ui.ShareTencentController;
 
 /**
  * 新浪微博授权界面
  * 
- * @author yuankai
  * @version 1.0
  * @data 2012-8-21
  */
-public class AuthWeiboActivity extends StatActivity implements OnClickListener
+public class AuthWeiboActivity extends Activity implements OnClickListener
 {
 	public final static String KEY_URL = "url";
 
@@ -99,7 +96,7 @@ public class AuthWeiboActivity extends StatActivity implements OnClickListener
 		mUrl = getIntent().getStringExtra(KEY_URL);
 		mWeibo = Weibo.getInstance();
 		mListener = mWeibo.getAuthListener();
-		if(mWeibo == null || mListener == null || Utils.isVoid(mUrl))
+		if(mWeibo == null || mListener == null || StringUtil.isEmpty(mUrl))
 		{
 			finish();
 			return;
@@ -199,8 +196,8 @@ public class AuthWeiboActivity extends StatActivity implements OnClickListener
 			}
 			*/
 			if(!mIsFirstLoading){
-            	mLoadingView.setLoadingTextVisable(View.GONE);
-            	mLoadingView.setDefaultImageViewVisable(View.GONE);
+            	mLoadingView.setLoadingTextVisible(View.GONE);
+            	mLoadingView.setDefaultImageViewVisible(View.GONE);
             	mLoadingView.startLoading();
         	}
         	if(mIsFirstLoading){

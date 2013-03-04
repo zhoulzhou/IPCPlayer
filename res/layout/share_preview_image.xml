@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/preview_image"
+	android:layout_width="46dp" 
+	android:layout_height="46dp"
+	android:orientation="vertical"
+	android:background="#ffffff"
+	>
+	<ImageView 
+	    android:id="@+id/image"
+	    android:layout_width="@dimen/share_image_preview_width"
+	    android:layout_height="@dimen/share_image_preview_height"
+	    android:layout_alignParentBottom="true"
+	    android:layout_alignParentLeft="true"
+	    android:scaleType="centerCrop"
+	    android:focusable="false"
+	    />
+	<ImageView 
+	    android:id="@+id/pic"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentTop="true"
+	    android:layout_alignParentRight="true"
+	    android:src="@drawable/text_page_share_pic_selected"
+	    android:focusable="false"/>
+</RelativeLayout>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <drawable name="color_background">#ffe7e7e7</drawable>
+   <drawable name="color_stdbg">#fff1f1f1</drawable> 
+   <drawable name="color_stdbg2">#ffF3F3F3</drawable>
+   <drawable name="splash_bg">#ffFFF359</drawable>
+   <drawable name="dlg_text">#ff333333</drawable>
+   <drawable name="dlg_bg">#ffffffff</drawable>
+   <drawable name="black">#ff000000</drawable>
+   <drawable name="white">#ffffffff</drawable>
+   <drawable name="color_border">#ffcccccc</drawable>
+   <drawable name="color_border2">#ffcfcfcf</drawable>
+   <drawable name="red">#ffcc3333</drawable>
+   <drawable name="button_text">#ff363636</drawable>
+   <drawable name="tabbar_normal">#ff464646</drawable>
+   <drawable name="tabbar_highlight">#ff29aaf7</drawable>
+   <drawable name="gray">#ffc7c7c7</drawable>
+   <drawable name="color_text">#ff262626</drawable>
+   <drawable name="alpha_black">#99000000</drawable>
+   <drawable name="color_transparent">#00000000</drawable>
+   <drawable name="color_title_bar_text">#ffb5b5b5</drawable>
+   <drawable name="color_price">#ffa9e9f7</drawable>
+   <drawable name="color_item_normal">#ffe7e7e7</drawable>
+   <drawable name="color_item_selected">#fff9f9f9</drawable>
+   <drawable name="color_item_text_normal">#ff565656</drawable>
+   <drawable name="color_item_text_normal2">#ff919191</drawable>
+   <drawable name="color_item_text_selected">#ff4A97C9</drawable>
+
+   <color name="color_black">#ff000000</color>
+   <color name="color_white">#ffffffff</color>
+   <color name="color_financial_downupplus">#ffdc0909</color>
+   <color name="color_financial_downupreduce">#ff009000</color>
+   <color name="color_offline_down_noti_text">#ff000000</color>
+   <color name="color_item_text_copyright">#57575766</color>
+   <color name="color_btn_normal">#ff000000</color>
+   <color name="color_btn_selected">#ffFFFFFF</color>
+   <color name="color_forward_unbind_text">#ffdc0909</color>
+   <color name="color_forward_bind_text">#ff000000</color>   
+   <color name="color_title_bar_text_normal">#ffb5b5b5</color>
+   <color name="color_title_bar_text_focuse">#ffffffff</color>
+   <color name="color_widget_news41_text">#ffc8c8c8</color>
+   <color name="color_widget_news41_source">#ff878787</color>
+   <color name="color_widget_news41_time">#ff878787</color> 
+   <color name="color_about_other">#ff393939</color> 
+   <color name="color_news_content">#ff2b2b2b</color>
+   
+   <color name="scroll_bar_color">#ff969696</color>
+   <color name="info_list_title_normal_color">#ff000000</color>
+   <color name="info_list_title_normal_color_night">#ff565656</color>
+   <color name="info_list_site_normal_color">#ff777777</color>
+   <color name="info_list_site_normal_color_night">#ff3d3d3d</color>
+   <color name="info_list_abs_normal_color">#ffa5a5a5</color>
+   <color name="info_list_title_read_color">#ff8e8e8e</color>
+   <color name="info_list_title_read_color_night">#ff3d3d3d</color>
+   <color name="info_list_selector_color">#ffe9e9e9</color>
+   <color name="info_list_divider_color">#fffafafa</color>
+   <color name="list_bg_color">#fffafafa</color>
+   <color name="list_scrollbar_color">#ff969696</color>
+   <color name="news_detail_bar_bg_color">#ff333333</color>
+   <color name="news_detail_bar_bg_color_night">#ff282828</color>
+   <color name="bg_color">#fffafafa</color>
+   <color name="bg_color_night">#ff161616</color>
+   <color name="navigation_gap_left_color">#ff323232</color>
+   <color name="navigation_gap_right_color">#ff505050</color>
+   <color name="navigation_list_item_front_color">#ff30a5ff</color>
+   <color name="navigation_list_item_bg_color">#ff252525</color>
+   <color name="info_list_selector_color_night">#ff252525</color>
+   <color name="list_bg_color_night">#ff161616</color>
+   <color name="navigate_title_color">#ffffffff</color>
+   <color name="navigate_title_color_night">#ff426e90</color>
+   <color name="news_header_title_color">#ffffffff</color>
+   <color name="news_header_title_color_night">#ff6e6e6e</color>
+   <color name="news_header_bg_color">#99000000</color>
+   <color name="list_refresh_header_title_color">#ff545454</color>
+   <color name="list_refresh_header_sub_title_color">#ff7e7e7e</color>
+   <color name="list_refresh_header_title_color_night">#ff545454</color>
+   <color name="list_refresh_header_sub_title_color_night">#ff3d3d3d</color>
+   <color name="notice_tip_color">#ffffffff</color>
+   <color name="notice_tip_color_night">#ff287cc4</color>
+   <color name="text_page_tool_bar_color">#fffafafa</color>
+   <color name="text_page_tool_bar_color_night">#ff282828</color>
+   <color name="share_title_text_color">#ff525252</color>
+   <color name="share_title_text_color_night">#ff797979</color>
+   <color name="indicator_fill_color">#ffffffff</color>
+   <color name="indicator_fill_color_night">#ff7d7d7d</color>
+   <color name="indicator_page_color">#cc909090</color>
+   <color name="indicator_page_color_night">#cc545454</color>
+   <color name="more_layout_bg_color">#fffafafa</color>
+   <color name="more_layout_bg_color_night">#ff282828</color>
+   <color name="more_title_color">#ff303030</color>
+   <color name="more_title_color_night">#ff797979</color>
+   <color name="more_sub_title_color">#ff7c7c7c</color>
+   <color name="more_sub_title_color_night">#ff797979</color>
+   <color name="more_btn_title_color">#ff303030</color>
+   <color name="more_btn_title_color_night">#ff797979</color>
+   <color name="more_line_color">#ffe7e7e7</color>
+   <color name="more_line_color_night">#ff323232</color>
+   <!-- 
+   <color name="intercept_color">#59000000</color>
+   <color name="intercept_color_night">#3f000000</color>
+   -->
+   <color name="intercept_show_color">#00000000</color>
+   <color name="intercept_color_night">#3f000000</color>
+   <color name="intercept_color">#ff000000</color>
+   
+   <!-- Widget -->
+   <color name="widget_textback_color">#ff4b4b4b</color>
+   <color name="widget_timeback_color">#ffb0b0b0</color>
+   <color name="widget_search41text_color">#ffc4c4c4</color>
+   <color name="widget_hottext_color">#ffa4a4a4</color>
+   	<color name="widget_pageback_color">#ffc0c0c0</color>
+   
+   	<bool name="default_circle_indicator_centered">true</bool>
+    <color name="default_circle_indicator_fill_color">#fffafafa</color>
+    <color name="default_circle_indicator_page_color">#ff000000</color>
+    <integer name="default_circle_indicator_orientation">0</integer>
+    <dimen name="default_circle_indicator_radius">3dp</dimen>
+    <bool name="default_circle_indicator_snap">true</bool>
+    <color name="default_circle_indicator_stroke_color">#fffafafa</color>
+    <dimen name="default_circle_indicator_stroke_width">0dp</dimen>
+    
+    <color name="default_bg_beauty_daytime_model_color">#fff5f5f5</color>
+    <color name="default_bg_beauty_night_model_color">#ff242424</color>
+    
+    <color name="news_page_bg_color">#fffafafa</color>
+    <color name="news_page_bg_color_night">#ff161616</color>
+    
+    <!-- version dialog -->
+    <color name="version_dialog_title_text_color">#ff2874ff</color>
+    <color name="version_dialog_content_text_color">#ff373737</color>
+    <color name="version_dialog_btn_pressed_text_color">#ff2f5db1</color>
+    <color name="version_dialog_btn_bg_color">#fff2f2f2</color>
+    <color name="version_dialog_btn_pressed_bg_color">#ffe2e2e2</color>
+    
+    <!-- setting -->
+    <color name="setting_item_bg_default">#ffffffff</color>
+    <color name="setting_item_bg_pressed">#fff4f4f4</color>
+    
+    <color name="list_divider">#ffe0e0e0</color>
+    <color name="list_diver_night_mode">#ff1f1f1f</color>
+    <color name="list_footer_text_color">#ff373737</color>
+    
+    <color name="title_bar_bottom_divider_color">#ffe0e0e0</color>
+    <color name="title_bar_bottom_divider_night_color">#ff2b2b2b</color>
+    <color name="title_bar_title_color">#ff373737</color>
+    <color name="title_bar_title_night_color">#ff686868</color>
+    <color name="title_bar_bg_color">#ffebebeb</color>
+    <color name="title_bar_bg_night_color">#ff282828</color>
+    
+    <!-- search -->
+    <color name="search_bar_bg_layout_color">#fff4f4f4</color>
+    <color name="search_bar_btn_color">#ff373737</color>
+    <color name="search_bar_bg_light_line"> #ffd7d7d7</color>
+
+    
+     <color name="search_bar_btn_night_color">#ff686868</color>
+    <color name="search_bar_bg_layout_night_color">#353535</color>
+    <color name="search_bar_bg_night_line">#3a3a3a</color>
+    <color name ="search_edittext_light_hiht">#adadad</color>
+    <color name ="search_edittext_night_hiht">#565656</color>
+    
+   <color name ="search_keywordfly_night">#161616</color>
+   
+    
+</resources>

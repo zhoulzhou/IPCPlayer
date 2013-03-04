@@ -1,11 +1,11 @@
 package com.tencent.weibo.ui;
 
+import com.example.ipcplayer.manager.LogicController;
+import com.example.ipcplayer.setting.SettingManager;
+import com.example.ipcplayer.setting.SettingManagerFactory;
+
 import android.content.Context;
 import android.os.Handler;
-
-import com.baidu.news.setting.SettingManager;
-import com.baidu.news.setting.SettingManagerFactory;
-import com.baidu.news.ui.LogicController;
 
 /**
  * @author licong

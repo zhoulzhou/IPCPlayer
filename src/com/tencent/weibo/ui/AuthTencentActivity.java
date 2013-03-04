@@ -171,8 +171,8 @@ public class AuthTencentActivity extends Activity implements OnClickListener
                 return;
             }else{
             	if(!mIsFirstLoading){
-                	mLoadingView.setLoadingTextVisable(View.GONE);
-                	mLoadingView.setDefaultImageViewVisable(View.GONE);
+                	mLoadingView.setLoadingTextVisible(View.GONE);
+                	mLoadingView.setDefaultImageViewVisible(View.GONE);
                 	mLoadingView.startLoading();
             	}
             	if(mIsFirstLoading){
@@ -186,7 +186,7 @@ public class AuthTencentActivity extends Activity implements OnClickListener
         public void onReceivedError(WebView view, int errorCode, String description,
                 String failingUrl) {
             super.onReceivedError(view, errorCode, description, failingUrl);
-            mLoadingView.onError(getString(R.string.load_fail));
+            mLoadingView.onError("加载失败...");
             
 			if(mListener != null){
 				mListener.onWeiboException(new WeiboException(errorCode));
@@ -212,7 +212,7 @@ public class AuthTencentActivity extends Activity implements OnClickListener
             } else {
                 handler.cancel(); // 默认的处理方式，WebView变成空白页
             }
-            mLoadingView.onError(getString(R.string.load_fail));
+            mLoadingView.onError("加载失败...");
             // handleMessage(Message msg); 其他处理
         }
 

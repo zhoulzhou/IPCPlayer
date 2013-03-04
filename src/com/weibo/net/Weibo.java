@@ -20,11 +20,11 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
-import com.baidu.news.R;
-import com.baidu.news.setting.SettingManager;
-import com.baidu.news.setting.SettingManagerFactory;
-import com.baidu.news.util.LogUtil;
-import com.baidu.news.util.Utils;
+import com.example.ipcplayer.R;
+import com.example.ipcplayer.setting.SettingManager;
+import com.example.ipcplayer.setting.SettingManagerFactory;
+import com.example.ipcplayer.utils.LogUtil;
+import com.example.ipcplayer.utils.StringUtil;
 
 import android.Manifest;
 import android.app.Activity;
@@ -252,7 +252,7 @@ public class Weibo {
     	mShareWeiboIntent.putExtra(ShareWeiboActivity.EXTRA_URL, url);
     	mShareWeiboIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     	
-    	if(token == null || Utils.isVoid(token.getToken()) || Utils.isVoid(token.getSecret())){
+    	if(token == null || StringUtil.isEmpty(token.getToken()) || StringUtil.isEmpty(token.getSecret())){
     		authorize(activity, mAuthListener);
     	}else{
             activity.startActivity(mShareWeiboIntent);	

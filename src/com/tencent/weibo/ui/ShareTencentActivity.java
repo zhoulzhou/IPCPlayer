@@ -34,14 +34,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.mobstat.StatActivity;
-import com.baidu.news.R;
-import com.baidu.news.setting.SettingManager;
-import com.baidu.news.setting.SettingManagerFactory;
-import com.baidu.news.ui.TypefaceHelper;
-import com.baidu.news.ui.widget.LoadingView;
-import com.baidu.news.util.LogUtil;
-import com.baidu.news.util.Utils;
+import com.example.ipcplayer.R;
+import com.example.ipcplayer.setting.SettingManager;
+import com.example.ipcplayer.setting.SettingManagerFactory;
+import com.example.ipcplayer.utils.LogUtil;
+import com.example.ipcplayer.utils.StringUtil;
 import com.tencent.weibo.api.TAPI;
 import com.tencent.weibo.constants.OAuthConstants;
 import com.tencent.weibo.oauthv2.OAuthV2;
@@ -50,11 +47,10 @@ import com.tencent.weibo.oauthv2.OAuthV2Client;
 /**
  * 新浪微博分享界面
  * 
- * @author yuankai
  * @version 1.0
  * @data 2012-8-22
  */
-public class ShareTencentActivity extends StatActivity implements TextWatcher, OnClickListener
+public class ShareTencentActivity extends Activity implements TextWatcher, OnClickListener
 {
 	private final static String TAG = "ShareTencentActivity";
 	/**
@@ -186,7 +182,7 @@ public class ShareTencentActivity extends StatActivity implements TextWatcher, O
 		mContentTxt.requestFocus();
 		mContentTxt.setSelection(0);
     	
-    	if(!Utils.isVoid(token))
+    	if(!StringUtil.isEmpty(token))
     	{
     		OAuthV2Client.parseAccessTokenAndOpenId(token, oAuthV2);
     		
@@ -213,7 +209,7 @@ public class ShareTencentActivity extends StatActivity implements TextWatcher, O
             {
             	final String localPath = mPicPaths.get(i);
             	LogUtil.d("localPath = " + localPath);
-            	if(!Utils.isVoid(localPath))
+            	if(!StringUtil.isEmpty(localPath))
             	{
 	            	Bitmap bitmap = createBitmap(localPath);
 	            	if(bitmap != null)
@@ -311,7 +307,7 @@ public class ShareTencentActivity extends StatActivity implements TextWatcher, O
     	mContentTxt.addTextChangedListener(this);
     	
 		mLoadingView = (LoadingView)findViewById(R.id.loading);
-		mLoadingView.setDefaultImageViewVisable(View.GONE);
+		mLoadingView.setDefaultImageViewVisible(View.GONE);
 		mLoadingView.setLoadingText(getString(R.string.weibo_sharing));
 		mLoadingView.setVisibility(View.GONE);
     }
@@ -351,7 +347,7 @@ public class ShareTencentActivity extends StatActivity implements TextWatcher, O
     	{
     		super.onPostExecute(result);
     		mLoadingView.startLoading();
-    		if(Utils.isVoid(result))
+    		if(StringUtil.isEmpty(result))
     		{
     			Toast.makeText(getApplicationContext(),
     					R.string.network_exception, Toast.LENGTH_LONG).show();
@@ -497,7 +493,7 @@ public class ShareTencentActivity extends StatActivity implements TextWatcher, O
     	{
     		super.onPostExecute(result);
     		mLoadingView.stopLoading();
-    		if(Utils.isVoid(result))
+    		if(StringUtil.isEmpty(result))
     		{
     			// 网络异常
     			Toast.makeText(getApplicationContext(),
@@ -553,7 +549,7 @@ public class ShareTencentActivity extends StatActivity implements TextWatcher, O
     
     private String buildWeiboContent()
     {
-    	if(Utils.isVoid(mContent))
+    	if(StringUtil.isEmpty(mContent))
     	{
     		return " 【" + mTitle +  "】" + " " + mUrl + " " + getString(R.string.weibo_share_source);
     	}

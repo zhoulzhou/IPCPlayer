@@ -72,4 +72,25 @@ public class LoadingView extends RelativeLayout{
 				mAnimationLoadingDrawable.start();
 			}});
 	}
+	
+	public void stopLoading(){
+		setVisibility(View.GONE);
+		if(mLoadingProgress.getVisibility() == View.VISIBLE){
+			mLoadingProgress.setVisibility(View.GONE);
+		}
+		mLoadingText.post(new Runnable(){
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				mAnimationLoadingDrawable = (AnimationDrawable) mLoadingProgress.getBackground();
+				mAnimationLoadingDrawable.stop();
+			}});
+	}
+	
+	public void onError(String errorString){
+		mLoadingText.setText(errorString);
+		mAnimationLoadingDrawable.stop();
+		mLoadingProgress.setVisibility(View.GONE);
+	}
 }

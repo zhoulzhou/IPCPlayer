@@ -1,14 +1,13 @@
 package com.weibo.net;
 
+import com.example.ipcplayer.manager.LogicController;
+import com.example.ipcplayer.setting.SettingManager;
+import com.example.ipcplayer.setting.SettingManagerFactory;
+
 import android.content.Context;
 import android.os.Handler;
 
-import com.baidu.news.setting.SettingManager;
-import com.baidu.news.setting.SettingManagerFactory;
-import com.baidu.news.ui.LogicController;
-
 /**
- * @author licong
  * @version 1.0
  * @data 2012-10-10
  */

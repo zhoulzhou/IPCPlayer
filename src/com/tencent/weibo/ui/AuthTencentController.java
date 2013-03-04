@@ -1,16 +1,12 @@
 package com.tencent.weibo.ui;
 
+import com.example.ipcplayer.manager.LogicController;
 import com.example.ipcplayer.setting.SettingManager;
 import com.example.ipcplayer.setting.SettingManagerFactory;
 
 import android.content.Context;
 import android.os.Handler;
 
-
-/**
- * @version 1.0
- * @data 2012-10-10
- */
 public class AuthTencentController extends LogicController {
 	private SettingManager mSettingManager = null;
 	

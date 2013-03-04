@@ -52,4 +52,70 @@ public class SettingManagerImpl implements SettingManager{
 	public void setTencentOpenKey(String openKey) {
 		
 	}
+
+	@Override
+	public void setAppForegroundTime(long peroid) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public long getAppForegroundTime() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String getTencentAccessToken() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getTencentOpenKey() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getTencentOpenId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getSinaAccessToken() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getSinaExpireIn() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSinaAccessToken(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setSinaUid(String uid) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSinaUid() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSinaExpireIn(String expire) {
+		// TODO Auto-generated method stub
+		
+	}
 }
