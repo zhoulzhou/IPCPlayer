@@ -19,16 +19,21 @@ public class PlaybackService extends Service{
 	private static final int STOP = 3;
 	private MediaPlayer mPlayer;
 	
+	private int mPlayState = 0;
+	private static final int STATE_PLAYING = 1;
+	private static final int STATE_PAUSE = 2;
+	private static final int STATE_STOP = 3;
+	private static final int STATE_IDLE = 0;
+	private static final int STATE_ERROR = -1;
+	
 	
 	@Override
 	public IBinder onBind(Intent arg0) {
-		// TODO Auto-generated method stub
 		return binder;
 	}
 	
 	@Override
 	public void onCreate() {
-		// TODO Auto-generated method stub
 		super.onCreate();
 		mPlayer = MediaPlayer.create(this,R.raw.believe);
 		mPlayer.setOnCompletionListener(completeListener);
@@ -41,7 +46,6 @@ public class PlaybackService extends Service{
 		
 		@Override
 		public void onCompletion(MediaPlayer mp) {
-			// TODO Auto-generated method stub
 			
 		}
 	};
@@ -50,7 +54,6 @@ public class PlaybackService extends Service{
 		
 		@Override
 		public boolean onError(MediaPlayer mp, int what, int extra) {
-			// TODO Auto-generated method stub
 			return false;
 		}
 	};
@@ -59,7 +62,6 @@ public class PlaybackService extends Service{
 		
 		@Override
 		public void onPrepared(MediaPlayer mp) {
-			// TODO Auto-generated method stub
 			
 		}
 	};
@@ -68,20 +70,17 @@ public class PlaybackService extends Service{
 		
 		@Override
 		public void onSeekComplete(MediaPlayer mp) {
-			// TODO Auto-generated method stub
 			
 		}
 	};
 	
 	@Override
 	public void onStart(Intent intent, int startId) {
-		// TODO Auto-generated method stub
 		super.onStart(intent, startId);
 	}
 
 	@Override
 	public void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
 	}
 	
@@ -91,14 +90,12 @@ public class PlaybackService extends Service{
 		
 		@Override
 		public void stop() throws RemoteException {
-			// TODO Auto-generated method stub
 			mPlayer.stop();
 			state = STOP;
 		}
 		
 		@Override
 		public void start() throws RemoteException {
-			// TODO Auto-generated method stub
 			if(state == STOP){
 				try{
 					mPlayer.prepare();
@@ -115,7 +112,6 @@ public class PlaybackService extends Service{
 		
 		@Override
 		public void release() throws RemoteException {
-			// TODO Auto-generated method stub
 			mPlayer.release();
 			mPlayer = null;
 			state = IDLE;
@@ -123,13 +119,11 @@ public class PlaybackService extends Service{
 		
 		@Override
 		public void previous() throws RemoteException {
-			// TODO Auto-generated method stub
 			
 		}
 		
 		@Override
 		public void pause() throws RemoteException {
-			// TODO Auto-generated method stub
 			if(mPlayer.isPlaying()){
 				mPlayer.pause();
 				state = PAUSE;
@@ -138,61 +132,51 @@ public class PlaybackService extends Service{
 		
 		@Override
 		public void next() throws RemoteException {
-			// TODO Auto-generated method stub
 			
 		}
 		
 		@Override
 		public boolean isPlaying() throws RemoteException {
-			// TODO Auto-generated method stub
 			return mPlayer.isPlaying();
 		}
 		
 		@Override
 		public boolean isPaused() throws RemoteException {
-			// TODO Auto-generated method stub
 			return false;
 		}
 		
 		@Override
 		public String getTitle() throws RemoteException {
-			// TODO Auto-generated method stub
 			return null;
 		}
 		
 		@Override
 		public int getId() throws RemoteException {
-			// TODO Auto-generated method stub
 			return 0;
 		}
 		
 		@Override
 		public int getDuration() throws RemoteException {
-			// TODO Auto-generated method stub
 			return mPlayer.getDuration();
 		}
 		
 		@Override
 		public String getArtist() throws RemoteException {
-			// TODO Auto-generated method stub
 			return null;
 		}
 		
 		@Override
 		public String getAlbumn() throws RemoteException {
-			// TODO Auto-generated method stub
 			return null;
 		}
 
 		@Override
 		public int getCurrentTime() throws RemoteException {
-			// TODO Auto-generated method stub
 			return mPlayer.getCurrentPosition();
 		}
 
 		@Override
 		public void seekTo(int position) throws RemoteException {
-			// TODO Auto-generated method stub
 			mPlayer.seekTo(position);
 		}
 	};
