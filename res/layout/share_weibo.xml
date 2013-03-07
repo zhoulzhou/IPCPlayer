@@ -142,7 +142,7 @@
 			        android:layout_gravity="bottom"/>
 			</LinearLayout>
 		</LinearLayout>
-	    <com.baidu.news.ui.widget.LoadingView 
+	    <com.tencent.weibo.ui.LoadingView 
 		    android:id="@+id/loading"
 		    android:layout_width="fill_parent"
 		    android:layout_height="fill_parent" 

@@ -29,7 +29,6 @@ import com.weibo.net.WeiboException;
 /**
  * 腾讯微博授权界面
  * 
- * @author yuankai
  * @version 1.0
  * @data 2012-8-23
  */
