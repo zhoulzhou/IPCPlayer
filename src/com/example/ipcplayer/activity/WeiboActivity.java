@@ -1,9 +1,12 @@
 package com.example.ipcplayer.activity;
 
+import java.util.ArrayList;
+
 import com.example.ipcplayer.R;
 import com.tencent.weibo.oauthv2.OAuthV2;
 import com.tencent.weibo.ui.AuthTencentActivity;
 import com.tencent.weibo.ui.ShareTencentActivity;
+import com.weibo.net.ShareWeiboActivity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -36,7 +39,15 @@ public class WeiboActivity extends Activity{
 
 			@Override
 			public void onClick(View v) {
-				
+				ArrayList<String> picUrls =new ArrayList<String>();
+				picUrls.add("icp pic url 1");
+				picUrls.add("ipc pic url 2");
+				Intent intent = new Intent(mContext, ShareWeiboActivity.class);
+				intent.putExtra(ShareWeiboActivity.CONTENT, "ipc share content");
+				intent.putExtra(ShareWeiboActivity.EXTRA_PIC_URI, picUrls);
+				intent.putExtra(ShareWeiboActivity.EXTRA_TITLE, "ipc title");
+				intent.putExtra(ShareWeiboActivity.EXTRA_URL, "ipc url");
+				startActivity(intent);
 			}
 			
 		});
@@ -45,20 +56,14 @@ public class WeiboActivity extends Activity{
 
 			@Override
 			public void onClick(View v) {
-//				OAuthV2 oAuthV2Tencent;
-//	    		oAuthV2Tencent=new OAuthV2(redirectUri);
-//	    		oAuthV2Tencent.setClientId(clientId);
-//	    		oAuthV2Tencent.setClientSecret(clientSecret);	
-//	    		
-//	    		Intent intent = new Intent(mContext, AuthTencentActivity.class);
-//				intent.putExtra("oauth", oAuthV2Tencent);
-//				startActivityForResult(intent, REQUEST_AUTH);
-				
+				ArrayList<String> picUrls =new ArrayList<String>();
+				picUrls.add("icp pic url 1");
+				picUrls.add("ipc pic url 2");
 				Intent intent = new Intent(mContext, ShareTencentActivity.class);
-				intent.putExtra(ShareTencentActivity.CONTENT, "share ipc");
-				intent.putExtra(ShareTencentActivity.EXTRA_PIC_URI, "pic url");
-				intent.putExtra(ShareTencentActivity.EXTRA_TITLE, "title");
-				intent.putExtra(ShareTencentActivity.EXTRA_URL, "news url");
+				intent.putExtra(ShareTencentActivity.CONTENT, "ipc share content");
+				intent.putExtra(ShareTencentActivity.EXTRA_PIC_URI, picUrls);
+				intent.putExtra(ShareTencentActivity.EXTRA_TITLE, "ipc title");
+				intent.putExtra(ShareTencentActivity.EXTRA_URL, "ipc url");
 				startActivity(intent);
 			}
 			

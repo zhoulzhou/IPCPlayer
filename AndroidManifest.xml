@@ -35,6 +35,14 @@
             android:name="com.tencent.weibo.ui.ShareTencentActivity"
             ></activity>
         
+        <activity 
+            android:name="com.weibo.net.AuthWeiboActivity"
+            ></activity>
+        
+        <activity 
+            android:name="com.weibo.net.ShareWeiboActivity"
+            ></activity>
+        
         <service android:name=".service.PlaybackService" android:process=":remote">
             <intent-filter>
                 <action android:name="com.example.ipcplayer.service.IPlayback"></action>
