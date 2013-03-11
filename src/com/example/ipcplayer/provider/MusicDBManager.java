@@ -79,6 +79,7 @@ public class MusicDBManager {
 		int ALBUMIndex = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM);
 		int SIEZIndex = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.SIZE);
 		int DURATIONIndex = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION);
+		int DATA = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
 		
 		cursor.moveToFirst();
 		
@@ -92,11 +93,12 @@ public class MusicDBManager {
 				String albumn = cursor.getString(ALBUMIndex);
 				long size = cursor.getLong(SIEZIndex);
 				long duration = cursor.getLong(DURATIONIndex);
+				String data = cursor.getString(DATA);
 				
 				StringBuilder sb = new StringBuilder();
 				sb.append("insert into ");
 				sb.append(MusicDBHelper.TABLE_MUSICINFO);
-				sb.append("(_id,size,musicname,artistname,albumnname)");
+				sb.append("(_id,size,musicname,artistname,albumnname,_data)");
 				sb.append("values('");
 				sb.append(_Id);
 				sb.append("','");
@@ -107,6 +109,8 @@ public class MusicDBManager {
 				sb.append(artist);
 				sb.append("','");
 				sb.append(albumn);
+				sb.append("','");
+				sb.append(data);
 				sb.append("')");
 				try{
 					LogUtil.d(TAG + "sb.toString = " + sb.toString());
@@ -136,7 +140,8 @@ public class MusicDBManager {
 				MediaStore.Audio.Media.ARTIST,
 				MediaStore.Audio.Media.ALBUM,
 				MediaStore.Audio.Media.SIZE,
-				MediaStore.Audio.Media.DURATION
+				MediaStore.Audio.Media.DURATION,
+				MediaStore.Audio.Media.DATA
 		};
 		
 		Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;

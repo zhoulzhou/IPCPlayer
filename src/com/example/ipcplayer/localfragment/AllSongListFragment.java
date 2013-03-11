@@ -42,6 +42,7 @@ public class AllSongListFragment extends ListFragment{
 		super.onListItemClick(l, v, position, id);
 		LogUtil.d(TAG + " onListItemClick ");
 		mCurChoicePosition = position ;
+		
 	}
 
 	

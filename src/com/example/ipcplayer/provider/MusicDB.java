@@ -22,6 +22,11 @@ public class MusicDB {
 		public static final String ARTIST = "artistname";
 		public static final String IMAGE = "image";
 		public static final int SIZE = 0;
+		public static final long MUSICID = 0;
+		/**
+		 *éŸ³é¢‘æ–‡ä»¶çš„ç»å¯¹è·¯å¾„ 
+		 **/
+		public static final String DATA = "data";
 	}
 	
 	public static final class DownloadInfoColumns implements BaseColumns{
@@ -31,7 +36,6 @@ public class MusicDB {
 		
 		public static final String MUSICNAME = "_display_name";
 		public static final String URL = "url";
-		//ºóÃæĞèÒªÊ±ÔÙ¼Ó
 	}
 
 }

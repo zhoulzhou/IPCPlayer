@@ -88,7 +88,8 @@ public class MusicDBHelper extends SQLiteOpenHelper{
 					" musicname TEXT," + 
 					" artistname TEXT," +
 					" albumnname TEXT," +
-					" size INTEGER" +
+					" size INTEGER," +
+					" _data TEXT" +
 					
 					" )" ;
 			LogUtil.d(TAG + "create sql1 "+ sql1);
