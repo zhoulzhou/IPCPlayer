@@ -11,9 +11,9 @@ interface IPlayback{
    String getTitle();
    String getArtist();
    String getAlbumn();
-   int getDuration();
-   int getCurrentTime();
+   long getDuration();
+   long getCurrentTime();
    boolean isPlaying();
    boolean isPaused();
-   void seekTo(int position);
+   void seekTo(long position);
 }

@@ -1,31 +1,50 @@
 package com.example.ipcplayer.service;
 
+import java.lang.ref.WeakReference;
+
 import com.example.ipcplayer.R;
+import com.example.ipcplayer.utils.LogUtil;
 
 import android.app.Service;
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.RemoteException;
 
 public class PlaybackService extends Service{
-
-	private int state = IDLE;
-	private static final int IDLE = 0;
-	private static final int PLAYING = 1;
-	private static final int PAUSE = 2;
-	private static final int STOP = 3;
-	private MediaPlayer mPlayer;
+    private static final String TAG = PlaybackService.class.getSimpleName();
+	private LocalPlayer mLocalPlayer;
 	
 	private int mPlayState = 0;
-	private static final int STATE_PLAYING = 1;
+	private static final int STATE_PLAY = 1;
 	private static final int STATE_PAUSE = 2;
 	private static final int STATE_STOP = 3;
 	private static final int STATE_IDLE = 0;
 	private static final int STATE_ERROR = -1;
 	
+	public boolean isPlaying(){
+		return mPlayState == STATE_PLAY;
+	}
+	
+	public boolean isStop(){
+		return mPlayState == STATE_STOP;
+	}
+	
+	public boolean isPaused(){
+		return mPlayState == STATE_PAUSE;
+	}
+	
+	public boolean isError(){
+		return mPlayState == STATE_ERROR;
+	}
+	
+	public boolean isIdle(){
+		return mPlayState == STATE_IDLE;
+	}
+	
+	public void setPlayState(int state){
+		mPlayState = state;
+	}
 	
 	@Override
 	public IBinder onBind(Intent arg0) {
@@ -35,41 +54,52 @@ public class PlaybackService extends Service{
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		mPlayer = MediaPlayer.create(this,R.raw.believe);
-		mPlayer.setOnCompletionListener(completeListener);
-		mPlayer.setOnErrorListener(errorListener);
-		mPlayer.setOnPreparedListener(prepareListener);
-		mPlayer.setOnSeekCompleteListener(seekListener);
+		
+		initPlayers();
+	}
+	
+	private void initPlayers(){
+		mLocalPlayer = new LocalPlayer(this);
+		try {
+			mLocalPlayer.setDataSource(R.raw.believe);
+		} catch (Exception e) {
+			LogUtil.d(TAG + " setDataSource exception e: " );
+			e.printStackTrace();
+		}
+		mLocalPlayer.setOnCompletionListener(mOnCompleteListener);
+		mLocalPlayer.setOnErrorListener(mOnErrorListener);
+		mLocalPlayer.setOnSeekCompleteListener(mOnSeekCompleteListener);
+		mLocalPlayer.setOnPreparedListener(mOnPreparedListener);
 	}
 
-	private MediaPlayer.OnCompletionListener completeListener = new MediaPlayer.OnCompletionListener() {
+	private LocalPlayer.OnCompletionListener mOnCompleteListener = new LocalPlayer.OnCompletionListener() {
 		
 		@Override
-		public void onCompletion(MediaPlayer mp) {
+		public void onCompletion() {
+			next();
+		}
+	};
+	
+	private LocalPlayer.OnErrorListener mOnErrorListener = new LocalPlayer.OnErrorListener() {
+		
+		@Override
+		public void onError() {
 			
 		}
 	};
 		
-	private MediaPlayer.OnErrorListener errorListener = new MediaPlayer.OnErrorListener() {
+	private LocalPlayer.OnPreparedListener mOnPreparedListener = new LocalPlayer.OnPreparedListener() {
 		
 		@Override
-		public boolean onError(MediaPlayer mp, int what, int extra) {
-			return false;
+		public void onPrepared() {
+			start();
 		}
 	};
 	
-	private MediaPlayer.OnPreparedListener prepareListener = new MediaPlayer.OnPreparedListener() {
+	private LocalPlayer.OnSeekCompleteListener mOnSeekCompleteListener = new LocalPlayer.OnSeekCompleteListener() {
 		
 		@Override
-		public void onPrepared(MediaPlayer mp) {
-			
-		}
-	};
-	
-	private MediaPlayer.OnSeekCompleteListener seekListener = new MediaPlayer.OnSeekCompleteListener() {
-		
-		@Override
-		public void onSeekComplete(MediaPlayer mp) {
+		public void onSeekComplete() {
 			
 		}
 	};
@@ -84,101 +114,163 @@ public class PlaybackService extends Service{
 		super.onDestroy();
 	}
 	
-	
-	
-	private Binder binder = new IPlayback.Stub() {
-		
-		@Override
-		public void stop() throws RemoteException {
-			mPlayer.stop();
-			state = STOP;
+	public void start(){
+		if(mLocalPlayer == null){
+			return ;
 		}
-		
-		@Override
-		public void start() throws RemoteException {
-			if(state == STOP){
-				try{
-					mPlayer.prepare();
-					mPlayer.start();
-					state = PLAYING;
-				}catch(Exception e){
-					e.printStackTrace();
-				}
-			}else{
-				mPlayer.start();
-				state = PLAYING;
-			}
+		mLocalPlayer.start();
+		setPlayState(STATE_PLAY);
+	}
+
+	public void pause(){
+		if(mLocalPlayer == null){
+			return ;
 		}
-		
-		@Override
-		public void release() throws RemoteException {
-			mPlayer.release();
-			mPlayer = null;
-			state = IDLE;
+		mLocalPlayer.pause();
+		setPlayState(STATE_PAUSE);
+	}
+
+	public void stop(){
+		if(mLocalPlayer == null){
+			return ;
 		}
-		
-		@Override
-		public void previous() throws RemoteException {
-			
+		mLocalPlayer.stop();
+		setPlayState(STATE_STOP);
+	}
+
+	public void release(){
+		if(mLocalPlayer == null){
+			return ;
 		}
+		mLocalPlayer.release();
+	}
+
+	public void previous(){
 		
-		@Override
-		public void pause() throws RemoteException {
-			if(mPlayer.isPlaying()){
-				mPlayer.pause();
-				state = PAUSE;
-			}
-		}
+	}
+
+	public void next(){
 		
-		@Override
-		public void next() throws RemoteException {
-			
-		}
-		
-		@Override
-		public boolean isPlaying() throws RemoteException {
-			return mPlayer.isPlaying();
-		}
-		
-		@Override
-		public boolean isPaused() throws RemoteException {
-			return false;
-		}
-		
-		@Override
-		public String getTitle() throws RemoteException {
-			return null;
-		}
-		
-		@Override
-		public int getId() throws RemoteException {
+	}
+
+	public int getId(){
+		return 0;
+	}
+
+	public String getTitle(){
+		return null;
+	}
+
+	public String getArtist(){
+		return null;
+	}
+
+	public String getAlbumn(){
+		return null;
+	}
+
+	public long getDuration(){
+		if(mLocalPlayer == null){
 			return 0;
 		}
-		
-		@Override
-		public int getDuration() throws RemoteException {
-			return mPlayer.getDuration();
+		return mLocalPlayer.getDuration();
+	}
+
+	public long getCurrentTime(){
+		return mLocalPlayer.getCurrentPosition();
+	}
+
+	public void seekTo(long position){
+		if(mLocalPlayer == null){
+			return ;
 		}
-		
+		mLocalPlayer.seek(position);
+	}
+	
+	private Binder binder = new ServiceStub(this);
+    private final class ServiceStub extends IPlayback.Stub{
+    	WeakReference<PlaybackService> mService;
+    	
+    	public ServiceStub(PlaybackService service){
+    		mService = new WeakReference<PlaybackService>(service);
+    	}
+
 		@Override
-		public String getArtist() throws RemoteException {
-			return null;
-		}
-		
-		@Override
-		public String getAlbumn() throws RemoteException {
-			return null;
+		public void start(){
+			mService.get().start();
 		}
 
 		@Override
-		public int getCurrentTime() throws RemoteException {
-			return mPlayer.getCurrentPosition();
+		public void pause(){
+			mService.get().pause();
 		}
 
 		@Override
-		public void seekTo(int position) throws RemoteException {
-			mPlayer.seekTo(position);
+		public void stop(){
+			mService.get().stop();
 		}
+
+		@Override
+		public void release(){
+			mService.get().release();
+		}
+
+		@Override
+		public void previous(){
+			mService.get().previous();
+		}
+
+		@Override
+		public void next(){
+			mService.get().next();
+		}
+
+		@Override
+		public int getId(){
+			return mService.get().getId();
+		}
+
+		@Override
+		public String getTitle(){
+			return mService.get().getTitle();
+		}
+
+		@Override
+		public String getArtist(){
+			return mService.get().getArtist();
+		}
+
+		@Override
+		public String getAlbumn(){
+			return mService.get().getAlbumn();
+		}
+
+		@Override
+		public long getDuration(){
+			return mService.get().getDuration();
+		}
+
+		@Override
+		public long getCurrentTime(){
+			return mService.get().getCurrentTime();
+		}
+
+		@Override
+		public boolean isPlaying(){
+			return mService.get().isPlaying();
+		}
+
+		@Override
+		public boolean isPaused(){
+			return mService.get().isPaused();
+		}
+
+		@Override
+		public void seekTo(long position) throws RemoteException {
+			mService.get().seekTo(position);
+			
+		}
+	
 	};
 
 }
