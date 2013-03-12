@@ -16,11 +16,19 @@ public class MusicDBManager {
 	private  MusicDBHelper mDBHelper ;
 	private  SQLiteDatabase mDB = null;
 	private Context mContext;
+	private static MusicDBManager mInstance;
 	
-	public MusicDBManager(Context context){
+	private MusicDBManager(Context context){
 		mContext = context;
 		mDBHelper = MusicDBHelper.getInstance(context);
 		mDB = mDBHelper.getWritableDatabase();
+	}
+	
+	public static MusicDBManager getInstance(Context context){
+		if(mInstance == null){
+			mInstance = new MusicDBManager(context);
+		}
+		return mInstance;
 	}
 	
 	public Cursor query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy){

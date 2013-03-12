@@ -31,6 +31,7 @@ public class MusicDBProvider extends ContentProvider{
 		
 		URI_MATCHER.addURI(MusicDB.AUTHORITY, "/downloadinfo",DOWNLOADINFO);
 		URI_MATCHER.addURI(MusicDB.AUTHORITY, "/downloadinfo/#", DOWNLOADINFO_ITEM);
+		LogUtil.d(TAG + " static code block init uri  URI_MATCHER: " + URI_MATCHER.toString());
 	}
 	
 	@Override

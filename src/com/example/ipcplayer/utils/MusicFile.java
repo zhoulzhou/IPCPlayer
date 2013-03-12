@@ -8,6 +8,17 @@ public class MusicFile {
 	public String path;
 	public long id;
 	
+	
+	
+	@Override
+	public String toString() {
+	    return "MusicFile musicName: " + musicName
+	    		+ " artsitName: " + artistName
+	    		+ " albumnName: " + albumnName
+	    		+ " path: " + path
+	    		+ " id: " + id
+	    		;
+	}
 	public long getId() {
 		return id;
 	}

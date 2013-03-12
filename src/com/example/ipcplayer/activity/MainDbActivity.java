@@ -23,7 +23,7 @@ public class MainDbActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.example);
         
-        mDBManager = new MusicDBManager(this);
+        mDBManager = MusicDBManager.getInstance(this);
         mLocalMusicManager = new LocalMusicManager(this);
         mDBManager.insertLocalData();
         

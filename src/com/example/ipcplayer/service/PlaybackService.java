@@ -118,8 +118,13 @@ public class PlaybackService extends Service{
 		if(mLocalPlayer == null){
 			return ;
 		}
-		mLocalPlayer.start();
-		setPlayState(STATE_PLAY);
+		if (mLocalPlayer.isInitialized()) {
+			mLocalPlayer.start();
+			setPlayState(STATE_PLAY);
+		}else {
+			setPlayState(STATE_ERROR);
+		}
+		
 	}
 
 	public void pause(){

@@ -80,6 +80,7 @@ public class MusicDBHelper extends SQLiteOpenHelper{
 		}
 	}
 	
+	//column name equals the same column name of MusicDB
 	public void createTable(SQLiteDatabase db){
 		try{
 			String sql1 = "CREATE TABLE IF NOT EXISTS " + TABLE_MUSICINFO +

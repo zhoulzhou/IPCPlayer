@@ -2,6 +2,7 @@ package com.example.ipcplayer.localfragment;
 
 import com.example.ipcplayer.R;
 import com.example.ipcplayer.adapter.AllSongListAdapter;
+import com.example.ipcplayer.controller.LocalMusicController;
 import com.example.ipcplayer.manager.LocalMusicManager;
 import com.example.ipcplayer.utils.LogUtil;
 
@@ -41,8 +42,9 @@ public class AllSongListFragment extends ListFragment{
 		// TODO Auto-generated method stub
 		super.onListItemClick(l, v, position, id);
 		LogUtil.d(TAG + " onListItemClick ");
+		LogUtil.d(TAG + " onListItemClick position: " + position + " id: " + id);
 		mCurChoicePosition = position ;
-		
+		LocalMusicController.getInstance(mContext).playMusic(id);
 	}
 
 	

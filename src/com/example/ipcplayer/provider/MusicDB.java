@@ -26,7 +26,7 @@ public class MusicDB {
 		/**
 		 *音频文件的绝对路径 
 		 **/
-		public static final String DATA = "data";
+		public static final String DATA = "_data";
 	}
 	
 	public static final class DownloadInfoColumns implements BaseColumns{

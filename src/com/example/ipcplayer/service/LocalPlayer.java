@@ -61,6 +61,7 @@ public class LocalPlayer{
 	}
 	
 	public void setPlayState(int state){
+		LogUtil.d(TAG + " setPlayState state: " + state);
 		mPlayState = state;
 	}
 	
@@ -151,11 +152,12 @@ public class LocalPlayer{
 	}
 	
 	public void setDataSource(String path) {
+		LogUtil.d(TAG + " setDataSource  path: " + path);
 		mPath = path;
 		if (StringUtil.isEmpty(mPath)) {
 			return;
 		}
-
+		
 		try {
 			mMediaPlayer.reset();
 			mMediaPlayer.setOnPreparedListener(null);
