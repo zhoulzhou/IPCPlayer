@@ -60,12 +60,12 @@ public class PlaybackService extends Service{
 	
 	private void initPlayers(){
 		mLocalPlayer = new LocalPlayer(this);
-		try {
-			mLocalPlayer.setDataSource(R.raw.believe);
-		} catch (Exception e) {
-			LogUtil.d(TAG + " setDataSource exception e: " );
-			e.printStackTrace();
-		}
+//		try {
+//			mLocalPlayer.setDataSource(R.raw.believe);
+//		} catch (Exception e) {
+//			LogUtil.d(TAG + " setDataSource exception e: " );
+//			e.printStackTrace();
+//		}
 		mLocalPlayer.setOnCompletionListener(mOnCompleteListener);
 		mLocalPlayer.setOnErrorListener(mOnErrorListener);
 		mLocalPlayer.setOnSeekCompleteListener(mOnSeekCompleteListener);

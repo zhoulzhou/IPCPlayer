@@ -1,5 +1,6 @@
 package com.example.ipcplayer.controller;
 
+import com.example.ipcplayer.activity.PlayingActivity;
 import com.example.ipcplayer.convert.ConvertToMusicFile;
 import com.example.ipcplayer.manager.LocalMusicManager;
 import com.example.ipcplayer.service.LocalPlayer;
@@ -8,6 +9,7 @@ import com.example.ipcplayer.utils.LogUtil;
 import com.example.ipcplayer.utils.MusicFile;
 
 import android.content.Context;
+import android.content.Intent;
 
 public class LocalMusicController{
 	private static final String TAG = LocalMusicController.class.getSimpleName();
@@ -39,5 +41,7 @@ public class LocalMusicController{
 		LogUtil.d(TAG + " playMusic path: " + path);
 		mLocalPlayer.setDataSource(path);
 		mService.start();
+		Intent intent = new Intent(mContext,PlayingActivity.class);
+		mContext.startActivity(intent);
 	}
 }

@@ -30,6 +30,10 @@
         -->
         
         <activity 
+            android:name=".activity.PlayingActivity"
+            ></activity>
+        
+        <activity 
             android:name="com.tencent.weibo.ui.AuthTencentActivity"
             ></activity>
         
