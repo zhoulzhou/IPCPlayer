@@ -10,6 +10,7 @@ import com.example.ipcplayer.utils.MusicFile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 
 public class LocalMusicController{
 	private static final String TAG = LocalMusicController.class.getSimpleName();
@@ -42,6 +43,7 @@ public class LocalMusicController{
 		mLocalPlayer.setDataSource(path);
 		mService.start();
 		Intent intent = new Intent(mContext,PlayingActivity.class);
+		intent.putExtra("path", path);
 		mContext.startActivity(intent);
 	}
 }

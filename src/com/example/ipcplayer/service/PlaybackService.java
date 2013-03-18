@@ -114,6 +114,13 @@ public class PlaybackService extends Service{
 		super.onDestroy();
 	}
 	
+	public void setDataSource(String path){
+		if(mLocalPlayer == null){
+			return ;
+		}
+		mLocalPlayer.setDataSource(path);
+	}
+	
 	public void start(){
 		if(mLocalPlayer == null){
 			return ;
@@ -274,6 +281,11 @@ public class PlaybackService extends Service{
 		public void seekTo(long position) throws RemoteException {
 			mService.get().seekTo(position);
 			
+		}
+
+		@Override
+		public void setDataSource(String path) throws RemoteException {
+	        mService.get().setDataSource(path);		
 		}
 	
 	};

@@ -35,6 +35,7 @@ public class PlayingActivity extends Activity implements View.OnClickListener
 	private Button preBtn;
 	private Button playControlBtn;
 	private Button nextBtn;
+	private String path;
 	
 	private Context mContext;
 	private final static int UPDATE = 1;
@@ -77,6 +78,9 @@ public class PlayingActivity extends Activity implements View.OnClickListener
         playControlBtn = (Button) findViewById(R.id.playcontrolbtn);
         playControlBtn.setOnClickListener(this);
         nextBtn = (Button) findViewById(R.id.nextbtn);
+        
+        path = getIntent().getStringExtra("path");
+        LogUtil.d(TAG + " path: " + path);
         
         Intent mServiceIntent = new Intent(IPlayback.class.getName());
         bindService(mServiceIntent,conn,BIND_AUTO_CREATE);
@@ -134,7 +138,7 @@ public class PlayingActivity extends Activity implements View.OnClickListener
     	try{
     		if(service != null){
     			long pos = service.getCurrentTime();
-    			LogUtil.d(TAG + " position = " + pos);
+//    			LogUtil.d(TAG + " position = " + pos);
     			seekBar.setProgress((int)(1000*pos/duration));
     			currentTime.setText(pos+"");
     			totalTime.setText(duration + "");
@@ -153,6 +157,7 @@ public class PlayingActivity extends Activity implements View.OnClickListener
 			// TODO Auto-generated method stub
 			service = IPlayback.Stub.asInterface(binder);
 			try {
+				service.setDataSource(path);
 				service.start();
 				duration = service.getDuration();
 				LogUtil.d(TAG + " duration = " + duration );

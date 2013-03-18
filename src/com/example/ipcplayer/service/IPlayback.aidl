@@ -16,4 +16,5 @@ interface IPlayback{
    boolean isPlaying();
    boolean isPaused();
    void seekTo(long position);
+   void setDataSource(String path);
 }
