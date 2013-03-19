@@ -24,7 +24,6 @@ public class LocalMainMusicActivity extends FragmentActivity implements OnItemCl
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		LogUtil.d(TAG + " onCreate ");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.local_main);
@@ -35,70 +34,60 @@ public class LocalMainMusicActivity extends FragmentActivity implements OnItemCl
 	
 	@Override
 	public void onAttachFragment(Fragment fragment) {
-		// TODO Auto-generated method stub
 		LogUtil.d(TAG + " onAttachFragment ");
 		super.onAttachFragment(fragment);
 	}
 
 	@Override
 	public FragmentManager getSupportFragmentManager() {
-		// TODO Auto-generated method stub
 		LogUtil.d(TAG + " getSupportFragmentManager ");
 		return super.getSupportFragmentManager();
 	}
 
 	@Override
 	public LoaderManager getSupportLoaderManager() {
-		// TODO Auto-generated method stub
 		LogUtil.d(TAG + " getSupportLoaderManager ");
 		return super.getSupportLoaderManager();
 	}
 
 	@Override
 	public View onCreateView(String name, Context context, AttributeSet attrs) {
-		// TODO Auto-generated method stub
 		LogUtil.d(TAG + " onCreateView ");
 		return super.onCreateView(name, context, attrs);
 	}
 
 	@Override
 	protected void onPause() {
-		// TODO Auto-generated method stub
 		LogUtil.d(TAG + " onPause ");
 		super.onPause();
 	}
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		LogUtil.d(TAG + " onResume ");
 		super.onResume();
 	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		// TODO Auto-generated method stub
 		LogUtil.d(TAG + " onSaveInstanceState ");
 		super.onSaveInstanceState(outState);
 	}
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		LogUtil.d(TAG + " onStart ");
 		super.onStart();
 	}
 
 	@Override
 	protected void onStop() {
-		// TODO Auto-generated method stub
 		LogUtil.d(TAG + " onStop ");
 		super.onStop();
 	}
 
 	@Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
 		LogUtil.d(TAG + " onDestroy ");
 		super.onDestroy();
 	}
@@ -109,7 +98,6 @@ public class LocalMainMusicActivity extends FragmentActivity implements OnItemCl
 
 	@Override
 	public void onAllSongList() {
-		// TODO Auto-generated method stub
 		LogUtil.d(TAG + " onAllSongList ");
 		if(isMultiPane()){
 			AllSongListFragment allSongListFragment = (AllSongListFragment) getSupportFragmentManager().findFragmentById(R.id.local_container);
