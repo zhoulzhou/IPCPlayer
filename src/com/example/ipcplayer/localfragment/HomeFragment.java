@@ -25,7 +25,7 @@ public class HomeFragment extends BaseFragment{
 	private List<View> mViewList = new ArrayList<View>();
 	private List<String> mTitles = new ArrayList<String>();
 	
-	public void HomeFragment(){
+	public HomeFragment(){
 		
 	}
 
