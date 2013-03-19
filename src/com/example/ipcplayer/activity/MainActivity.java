@@ -1,10 +1,13 @@
 package com.example.ipcplayer.activity;
 
 import com.example.ipcplayer.R;
+import com.example.ipcplayer.localfragment.HomeFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -20,6 +23,12 @@ public class MainActivity extends BaseFragmentActivity{
 	    
 	    mHome_Container = (FrameLayout) findViewById(R.id.home_container);
 	    mBottom_View = (View) findViewById(R.id.bottom_view);
+	    
+	    FragmentManager fragmentManager = getSupportFragmentManager();
+	    FragmentTransaction	 fragmentTransaction = fragmentManager.beginTransaction();
+	    HomeFragment homeFragment = new HomeFragment();
+	    fragmentTransaction.add(R.id.home_container,homeFragment);
+	    fragmentTransaction.commit();
 	}
 
 	@Override
