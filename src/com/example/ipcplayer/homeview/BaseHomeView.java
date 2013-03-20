@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 public abstract class BaseHomeView extends FrameLayout{
-	private static final String TAG = BaseHomeView.class.getSimpleName();
+	private final String TAG = getClass().getSimpleName();
 
 	public BaseHomeView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);

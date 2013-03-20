@@ -20,6 +20,8 @@
         android:textSize="18sp"
         android:lines="1"
         android:text="text1"
+        android:focusable="false"
+        android:clickable="false"
         />
     
 </LinearLayout>

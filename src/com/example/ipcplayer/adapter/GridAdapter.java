@@ -50,7 +50,7 @@ public class GridAdapter extends BaseAdapter{
 	@Override
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
-		LogUtil.d(TAG + " getItemId ");
+		LogUtil.d(TAG + " getItemId " + position);
 		return position;
 	}
 

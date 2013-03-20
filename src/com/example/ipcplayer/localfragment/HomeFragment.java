@@ -35,6 +35,7 @@ public class HomeFragment extends BaseFragment{
 		super.onActivityCreated(savedInstanceState);
 		mAdapter = new ViewPagerAdapter(mViewList,mTitles);
 		mViewPager.setAdapter(mAdapter);
+		mViewPager.setCurrentItem(1);
 	}
 
 	@Override

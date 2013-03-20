@@ -22,12 +22,10 @@
             </intent-filter>
         </activity>
         
-        <!--  
         <activity 
             android:name=".activity.AllSongListActivity"
             
             ></activity>
-        -->
         
         <activity 
             android:name=".activity.PlayingActivity"
