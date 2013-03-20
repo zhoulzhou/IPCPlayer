@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.ipcplayer.R;
 import com.example.ipcplayer.adapter.ViewPagerAdapter;
+import com.example.ipcplayer.homeview.LocalMainView;
 
 import android.app.Activity;
 import android.content.Context;
@@ -55,8 +56,9 @@ public class HomeFragment extends BaseFragment{
 		mPagerTitleStrip = (PagerTitleStrip) v.findViewById(R.id.vp_1_title);
 		
 		LayoutInflater inflate = LayoutInflater.from(mContext);
-		View view1 = inflate.inflate(R.layout.vp_1_view1, null);
-		View view2 = inflate.inflate(R.layout.vp_1_view2, null);
+		View view1 = inflate.inflate(R.layout.vp_1_view1,null);
+		View view2 = new LocalMainView(mContext);
+//		View view2 = inflate.inflate(R.layout.vp_1_view2, null);
 		View view3 = inflate.inflate(R.layout.vp_1_view3, null);
 		
 		mViewList.add(view1);

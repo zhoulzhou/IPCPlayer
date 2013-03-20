@@ -11,15 +11,17 @@ public abstract class BaseHomeView extends FrameLayout{
 
 	public BaseHomeView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		// TODO Auto-generated constructor stub
+		initializeViews(context,attrs);
 	}
 	
 	public BaseHomeView(Context context,AttributeSet attrs){
 		super(context,attrs);
+		initializeViews(context,attrs);
 	}
 	
 	public BaseHomeView(Context context){
 		super(context);
+		initializeViews(context,null);
 	}
 	
 	public final void Release(){

@@ -22,10 +22,10 @@ public class GridAdapter extends BaseAdapter{
 	};
 	
 	private String[] texts = {
-			"È«²¿¸èÇú",
-			"ÔÆÊÕ²Ø",
-			"ÏÂÔØ¹ÜÀí",
-			"×î½üÔÚÏß²¥·Å"
+			"æœ¬åœ°éŸ³ä¹",
+			"äº‘æ”¶è—",
+			"æœ€è¿‘æ’­æ”¾",
+			"é¢„ç•™åŒºåŸŸ"
 	};
 	
 	public GridAdapter(Context context){
