@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <ScrollView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        >
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <TextView 
+                android:id="@+id/home_top_view"
+                android:layout_width="match_parent"
+                android:layout_height="30dip"
+                />
+            
+             <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/ui_separator_line_background" />
+             
+             <com.example.ipcplayer.homeview.MusicHomeCenterView
+                 android:id="@+id/home_center_view"
+                 android:layout_width="match_parent"
+                 android:layout_height="300dip"
+                 />
+             
+             <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/ui_separator_line_background" />
+             
+             <ImageView 
+                 android:id="@+id/home_bottom_view"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:src="@drawable/ic_launcher"
+                 />
+            
+        </LinearLayout>
+        
+    </ScrollView>
+    
+</LinearLayout>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <LinearLayout 
+        android:id="@+id/home_center_up"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        >
+        <com.example.ipcplayer.homeview.MusicHomeCenterItemView
+            android:id="@+id/home_center_local_music"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            />
+        <View 
+            android:id="@+id/separator1"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/ui_separator_line_background"
+            />
+        <com.example.ipcplayer.homeview.MusicHomeCenterItemView
+            android:id="@+id/home_center_cloud_music"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            />
+        
+    </LinearLayout>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/ui_separator_line_background" />
+    
+    <LinearLayout 
+        android:id="@+id/home_center_down"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        >
+        <com.example.ipcplayer.homeview.MusicHomeCenterItemView
+            android:id="@+id/home_center_download_music"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            />
+        <View 
+            android:id="@+id/separator2"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/ui_separator_line_background"
+            />
+        <com.example.ipcplayer.homeview.MusicHomeCenterItemView
+            android:id="@+id/home_center_other_music"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            />
+        
+    </LinearLayout>
+        
+</LinearLayout>
