@@ -28,7 +28,7 @@ public class MusicHomeView extends BaseHomeView{
 	@Override
 	protected void onCreateView(Context context, AttributeSet attrs) {
 		LayoutInflater inflate = LayoutInflater.from(context);
-		inflate.inflate(R.layout.music_home_view, null);
+		inflate.inflate(R.layout.music_home_view, this);
 		
 		initViews();
 	}

@@ -34,7 +34,7 @@ public class MusicHomeCenterItemView extends BaseHomeView{
 
 	@Override
 	protected void onCreateView(Context context, AttributeSet attrs) {
-		View v = LayoutInflater.from(context).inflate(R.layout.music_home_center_item_view, null);
+		View v = LayoutInflater.from(context).inflate(R.layout.music_home_center_item_view, this);
 		setClickable(true);
 		setDescendantFocusability(FOCUS_BLOCK_DESCENDANTS);
 		

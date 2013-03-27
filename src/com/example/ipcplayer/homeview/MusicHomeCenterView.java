@@ -1,6 +1,7 @@
 package com.example.ipcplayer.homeview;
 
 import com.example.ipcplayer.R;
+import com.example.ipcplayer.utils.LogUtil;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class MusicHomeCenterView extends BaseHomeView{
+	private static final String TAG = MusicHomeCenterView.class.getSimpleName();
 	private ViewGroup mHomeCenterUp;
 	private ViewGroup mHomeCenterDown;
 	
@@ -32,7 +34,7 @@ public class MusicHomeCenterView extends BaseHomeView{
 	@Override
 	protected void onCreateView(Context context, AttributeSet attrs) {
 	    LayoutInflater inflate = LayoutInflater.from(context);	
-	    inflate.inflate(R.layout.music_home_center_view, null);
+	    inflate.inflate(R.layout.music_home_center_view, this);
 	    
 		mHomeCenterUp = (ViewGroup) findViewById(R.id.home_center_up);
 		mHomeCenterDown = (ViewGroup) findViewById(R.id.home_center_down);
@@ -45,6 +47,10 @@ public class MusicHomeCenterView extends BaseHomeView{
 
 	private void initLocalMusicView() {
 		mLocalMusicView = (MusicHomeCenterItemView) findViewById(R.id.home_center_local_music);
+		if(mLocalMusicView == null){
+			LogUtil.d(TAG + " mLocalMusicView is null");
+		}
+		
 		mLocalMusicView.setIcon(R.drawable.ic_launcher);
 		mLocalMusicView.setTitle("本地音乐");
 		mLocalMusicView.setInfo("暂空");
