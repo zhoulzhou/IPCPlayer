@@ -102,7 +102,6 @@ public class PlayingActivity extends Activity implements View.OnClickListener
 			service = null;
 		}
     	
-    	
     	super.onDestroy();
 	}
 
@@ -157,8 +156,8 @@ public class PlayingActivity extends Activity implements View.OnClickListener
 			// TODO Auto-generated method stub
 			service = IPlayback.Stub.asInterface(binder);
 			try {
-				service.setDataSource(path);
-				service.start();
+//				service.setDataSource(path);
+//				service.start();
 				duration = service.getDuration();
 				LogUtil.d(TAG + " duration = " + duration );
 			} catch (RemoteException e) {
@@ -203,7 +202,5 @@ public class PlayingActivity extends Activity implements View.OnClickListener
 		// TODO Auto-generated method stub
 		super.onStop();
 	}
-	
-	
 	
 	}

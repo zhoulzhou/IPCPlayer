@@ -182,10 +182,17 @@ public class PlaybackService extends Service{
 	}
 
 	public long getDuration(){
+		long duration = 0;
 		if(mLocalPlayer == null){
 			return 0;
 		}
-		return mLocalPlayer.getDuration();
+		try{
+			duration = mLocalPlayer.getDuration();
+		}catch(Exception e){
+			LogUtil.d(TAG + " getDuration exception: ");
+			e.printStackTrace();
+		}
+		return duration;
 	}
 
 	public long getCurrentTime(){

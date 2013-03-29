@@ -1,6 +1,8 @@
 package com.example.ipcplayer.homeview;
 
 import com.example.ipcplayer.R;
+import com.example.ipcplayer.activity.MainActivity;
+import com.example.ipcplayer.controller.UICallBackController;
 import com.example.ipcplayer.utils.LogUtil;
 
 import android.content.Context;
@@ -18,6 +20,8 @@ public class MusicHomeCenterView extends BaseHomeView{
 	private MusicHomeCenterItemView mCloudMusicView;
 	private MusicHomeCenterItemView mDownloadMusicView;
 	private MusicHomeCenterItemView mOtherMusicView;
+	
+	private MainActivity mMainActivity;
 
 	public MusicHomeCenterView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -33,6 +37,7 @@ public class MusicHomeCenterView extends BaseHomeView{
 
 	@Override
 	protected void onCreateView(Context context, AttributeSet attrs) {
+		mMainActivity = (MainActivity) context;
 	    LayoutInflater inflate = LayoutInflater.from(context);	
 	    inflate.inflate(R.layout.music_home_center_view, this);
 	    
@@ -58,7 +63,7 @@ public class MusicHomeCenterView extends BaseHomeView{
 
 			@Override
 			public void onClick(View v) {
-				
+				onAllSongListClick();
 			}
 			
 		});
@@ -109,6 +114,12 @@ public class MusicHomeCenterView extends BaseHomeView{
 		});
 	}
 
+	private void onAllSongListClick(){
+		LogUtil.d(TAG + " onAllSongListClick() ");
+		UICallBackController.showAllSongListFragment(mMainActivity);
+	}
+	
+	
 	@Override
 	protected void onRelease() {
 		

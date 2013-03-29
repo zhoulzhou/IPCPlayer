@@ -3,10 +3,16 @@ package com.example.ipcplayer.activity;
 import com.example.ipcplayer.R;
 import com.example.ipcplayer.controller.IUICallBack;
 import com.example.ipcplayer.localfragment.HomeFragment;
+import com.example.ipcplayer.service.IPlayback;
+import com.example.ipcplayer.service.PlaybackService;
 import com.example.ipcplayer.utils.LogUtil;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.os.RemoteException;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -18,6 +24,7 @@ public class MainActivity extends BaseFragmentActivity implements IUICallBack{
 	private static final String TAG = MainActivity.class.getSimpleName();
 	private FrameLayout mHome_Container;
 	private View mBottom_View;
+	private IPlayback service = null;
 	
 	private FragmentManager mFragmentManager;
 
@@ -29,11 +36,15 @@ public class MainActivity extends BaseFragmentActivity implements IUICallBack{
 	    initView();
 	    initManagers();
 	    initHomeFragment();
+	    bindService();
 	}
 	
+	
+
 	private void initView(){
 		 mHome_Container = (FrameLayout) findViewById(R.id.home_container);
 		 mBottom_View = (View) findViewById(R.id.bottom_view);
+		 mBottom_View.setBackgroundColor(999999);
 	}
 	
 	private void initManagers(){
@@ -48,6 +59,13 @@ public class MainActivity extends BaseFragmentActivity implements IUICallBack{
 //		fragmentTransaction.addToBackStack(homeFragment.getClass()
 //				.getSimpleName());
 		fragmentTransaction.commit();
+	}
+	
+	private void bindService() {
+		Intent mServiceIntent = new Intent(IPlayback.class.getName());
+		bindService(mServiceIntent, conn, BIND_AUTO_CREATE);
+		Intent intent = new Intent(this, PlaybackService.class);
+		startService(intent);
 	}
 	
 	@Override
@@ -116,4 +134,19 @@ public class MainActivity extends BaseFragmentActivity implements IUICallBack{
 		
 		ft.commitAllowingStateLoss();
 	}
+	
+	private ServiceConnection conn = new ServiceConnection(){
+
+		@Override
+		public void onServiceConnected(ComponentName name, IBinder binder) {
+			service = IPlayback.Stub.asInterface(binder);
+		}
+
+		@Override
+		public void onServiceDisconnected(ComponentName name) {
+			service = null;
+		}
+    	
+    };
+	
 }

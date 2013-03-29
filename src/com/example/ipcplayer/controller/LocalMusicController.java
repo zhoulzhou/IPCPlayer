@@ -40,6 +40,9 @@ public class LocalMusicController{
 		LogUtil.d(TAG + " playMusic musicFile: " + musicFile.toString());
 		String path = mLocalMusicManager.getPlayPath(musicFile);
 		LogUtil.d(TAG + " playMusic path: " + path);
+		if(mService.isPlaying()){
+			mService.stop();
+		}
 		mLocalPlayer.setDataSource(path);
 		mService.start();
 		Intent intent = new Intent(mContext,PlayingActivity.class);
