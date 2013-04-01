@@ -160,6 +160,10 @@ public class LocalPlayer{
 		
 		try {
 //			mMediaPlayer.reset();
+			if(mMediaPlayer == null){
+				LogUtil.d(TAG + " setDataSource mMediaPlayer is null");
+				return ;
+			}
 			mMediaPlayer.setOnPreparedListener(null);
 			if (mPath.startsWith("content:\\")){
 				mMediaPlayer.setDataSource(mContext, Uri.parse(mPath));
@@ -221,7 +225,7 @@ public class LocalPlayer{
 	
 	public void stop(){
 		mMediaPlayer.stop();
-		mMediaPlayer.reset();
+		mMediaPlayer.release();
 		mIsInitialized = false ;
 		setPlayState(STATE_STOP);
 	}

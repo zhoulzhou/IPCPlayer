@@ -1,8 +1,10 @@
 package com.example.ipcplayer.controller;
 
+import com.example.ipcplayer.activity.MainActivity;
 import com.example.ipcplayer.activity.PlayingActivity;
 import com.example.ipcplayer.convert.ConvertToMusicFile;
 import com.example.ipcplayer.manager.LocalMusicManager;
+import com.example.ipcplayer.service.IPlayback;
 import com.example.ipcplayer.service.LocalPlayer;
 import com.example.ipcplayer.service.PlaybackService;
 import com.example.ipcplayer.utils.LogUtil;
@@ -18,13 +20,13 @@ public class LocalMusicController{
 	private static LocalMusicController mInstance;
 	private LocalMusicManager mLocalMusicManager;
 	private LocalPlayer mLocalPlayer;
-	private PlaybackService mService;
+	private IPlayback mService;
 	
 	private LocalMusicController(Context context){
 		mContext = context;
 		mLocalMusicManager = new LocalMusicManager(context);
 		mLocalPlayer = new LocalPlayer(context);
-		mService = new PlaybackService();
+		mService = MainActivity.getPlayService();
 	}
 	
 	public static LocalMusicController getInstance(Context context){
@@ -40,11 +42,16 @@ public class LocalMusicController{
 		LogUtil.d(TAG + " playMusic musicFile: " + musicFile.toString());
 		String path = mLocalMusicManager.getPlayPath(musicFile);
 		LogUtil.d(TAG + " playMusic path: " + path);
-		if(mService.isPlaying()){
-			mService.stop();
+		try {
+//			if (mService.isPlaying()) {
+//				mService.stop();
+//			}
+			// mLocalPlayer.setDataSource(path);
+			mService.setDataSource(path);
+			mService.start();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		mLocalPlayer.setDataSource(path);
-		mService.start();
 		Intent intent = new Intent(mContext,PlayingActivity.class);
 		intent.putExtra("path", path);
 		mContext.startActivity(intent);

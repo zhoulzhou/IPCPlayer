@@ -93,13 +93,13 @@ public class PlayingActivity extends Activity implements View.OnClickListener
 		if (service != null) {
 			try {
 				service.stop();
-				service.release();
+//				service.release();
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
 
-			mContext.unbindService(conn);
-			service = null;
+//			mContext.unbindService(conn);
+//			service = null;
 		}
     	
     	super.onDestroy();

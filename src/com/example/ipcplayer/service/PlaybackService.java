@@ -184,6 +184,11 @@ public class PlaybackService extends Service{
 	public long getDuration(){
 		long duration = 0;
 		if(mLocalPlayer == null){
+			LogUtil.d(TAG + " getDuration: mLocalPlayer is null");
+			return 0;
+		}
+		if(!mLocalPlayer.isInitialized()){
+			LogUtil.d(TAG + " getDuration: mLocalPlayer is not initialized");
 			return 0;
 		}
 		try{
@@ -196,11 +201,20 @@ public class PlaybackService extends Service{
 	}
 
 	public long getCurrentTime(){
+		if(mLocalPlayer == null){
+			return 0;
+		}
+		if(!mLocalPlayer.isInitialized()){
+			return 0;
+		}
 		return mLocalPlayer.getCurrentPosition();
 	}
 
 	public void seekTo(long position){
 		if(mLocalPlayer == null){
+			return ;
+		}
+		if(!mLocalPlayer.isInitialized()){
 			return ;
 		}
 		mLocalPlayer.seek(position);

@@ -24,7 +24,7 @@ public class MainActivity extends BaseFragmentActivity implements IUICallBack{
 	private static final String TAG = MainActivity.class.getSimpleName();
 	private FrameLayout mHome_Container;
 	private View mBottom_View;
-	private IPlayback service = null;
+	private static IPlayback service = null;
 	
 	private FragmentManager mFragmentManager;
 
@@ -148,5 +148,9 @@ public class MainActivity extends BaseFragmentActivity implements IUICallBack{
 		}
     	
     };
+    
+    public static IPlayback getPlayService(){
+    	return service;
+    }
 	
 }
