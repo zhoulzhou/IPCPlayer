@@ -92,6 +92,14 @@ public class HomeFragment extends BaseFragment{
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
+		if(mAdapter != null){
+			mAdapter.clearViews();
+			mAdapter = null;
+		}
+		
+//		if(view2 != null){
+//			view2.release();
+//		}
 	}
 
 	

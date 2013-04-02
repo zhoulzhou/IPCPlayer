@@ -59,6 +59,7 @@ public class MusicHomeCenterView extends BaseHomeView{
 		mLocalMusicView.setIcon(R.drawable.ic_launcher);
 		mLocalMusicView.setTitle("本地音乐");
 		mLocalMusicView.setInfo("暂空");
+		mLocalMusicView.setBackgroundResource(R.drawable.ui_home_center_item_background);
 		mLocalMusicView.setOnClickListener(new OnClickListener(){
 
 			@Override
