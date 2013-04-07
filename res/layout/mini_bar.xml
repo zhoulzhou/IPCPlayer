@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dip"
+    android:orientation="horizontal"
+    >"
+    <ImageView
+        android:id="@+id/music_image"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="4dip"
+        android:src="@drawable/ic_launcher" 
+        />
+    <LinearLayout 
+        android:id="@+id/music_content"
+        android:layout_width="0dip"
+        android:layout_height="match_parent"
+        android:layout_margin="4dip"
+        android:layout_toRightOf="@id/bottom_view"
+        android:orientation="vertical"
+        >
+        <TextView 
+            android:id="@+id/music_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            />
+        <ProgressBar 
+            android:id="@+id/music_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            />
+        
+    </LinearLayout>
+    <LinearLayout 
+        android:id="@+id/music_control"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="4dip"
+        android:orientation="horizontal"
+        >
+        <View 
+            android:layout_width="2dip"
+            android:layout_height="6dip"/>
+        <ImageButton 
+            android:id="@+id/music_pause"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/button_general_mini_playing_play" 
+            />
+        <View 
+            android:layout_width="2dip"
+            android:layout_height="6dip"/>
+        
+         <ImageButton 
+            android:id="@+id/music_next"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+           android:src="@drawable/button_general_mini_playing_next" 
+            />
+    </LinearLayout>
+        
+</RelativeLayout>

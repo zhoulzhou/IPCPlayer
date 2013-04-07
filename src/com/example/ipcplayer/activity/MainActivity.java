@@ -2,6 +2,8 @@ package com.example.ipcplayer.activity;
 
 import com.example.ipcplayer.R;
 import com.example.ipcplayer.controller.IUICallBack;
+import com.example.ipcplayer.homeview.MiniBar;
+import com.example.ipcplayer.homeview.MiniBar.MiniBarCallback;
 import com.example.ipcplayer.localfragment.HomeFragment;
 import com.example.ipcplayer.service.IPlayback;
 import com.example.ipcplayer.service.PlaybackService;
@@ -20,7 +22,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
-public class MainActivity extends BaseFragmentActivity implements IUICallBack{
+public class MainActivity extends BaseFragmentActivity implements IUICallBack , MiniBarCallback{
 	private static final String TAG = MainActivity.class.getSimpleName();
 	private FrameLayout mHome_Container;
 	private View mBottom_View;
@@ -110,6 +112,7 @@ public class MainActivity extends BaseFragmentActivity implements IUICallBack{
 		
 	}
 	
+	@SuppressWarnings("unused")
 	private void doShowAction(Fragment fragment, boolean saveToStack, Bundle data){
 		LogUtil.d(TAG + " doShowAction fragment: " + fragment.toString());
 		
@@ -152,5 +155,20 @@ public class MainActivity extends BaseFragmentActivity implements IUICallBack{
     public static IPlayback getPlayService(){
     	return service;
     }
+
+	@Override
+	public void onNextAction(MiniBar miniBar) {
+		miniBar.onNextButtonClick();
+	}
+
+	@Override
+	public void onPlayAction(MiniBar miniBar) {
+		miniBar.onControlButtonClick();
+	}
+
+	@Override
+	public void onClickAction(MiniBar miniBar) {
+		miniBar.onMiniBarClick();
+	}
 	
 }
