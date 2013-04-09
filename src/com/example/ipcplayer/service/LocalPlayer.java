@@ -159,7 +159,7 @@ public class LocalPlayer{
 		}
 		
 		try {
-//			mMediaPlayer.reset();
+			mMediaPlayer.reset();
 			if(mMediaPlayer == null){
 				LogUtil.d(TAG + " setDataSource mMediaPlayer is null");
 				return ;
@@ -210,6 +210,7 @@ public class LocalPlayer{
 		} catch (Exception e) {
 			LogUtil.d(TAG + " resume exception e:");
 			e.printStackTrace();
+			setPlayState(STATE_PAUSE);
 		}
 	}
 	
@@ -218,14 +219,15 @@ public class LocalPlayer{
 			mMediaPlayer.start();
 		} else {
 			LogUtil.d(TAG + " mediaplayer init error ");
+			setPlayState(STATE_ERROR);
             return ;
 		}
 		setPlayState(STATE_PLAY);
 	}
 	
 	public void stop(){
-		mMediaPlayer.stop();
-		mMediaPlayer.release();
+		mMediaPlayer.reset();
+//		mMediaPlayer.release();
 		mIsInitialized = false ;
 		setPlayState(STATE_STOP);
 	}
