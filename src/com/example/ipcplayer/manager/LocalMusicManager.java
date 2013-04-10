@@ -41,8 +41,16 @@ public class LocalMusicManager{
 		return null;
 	}
 	
+	/**
+	 * get songid list 
+	 * @param cursor
+	 * @return long[]
+	 */
 	public long[]  getSongIdList(Cursor cursor){
 		long[] list ;
+		if(cursor == null){
+			return null;
+		}
 		try {
 			int length = cursor.getCount();
 			list = new long[length];
@@ -66,25 +74,7 @@ public class LocalMusicManager{
 		return list;
 	} 
 	
-	public ArrayList<MusicFile> getPlayList(Cursor cursor){
-		ArrayList<MusicFile> musicFiles = new ArrayList<MusicFile>();
-		MusicFile musicFile = new MusicFile();
-		try{
-			int length = cursor.getCount();
-			if(length > 0){
-				for(int i=0; i<length; i++){
-					musicFile.id = cursor.getLong(cursor.getColumnIndexOrThrow(MusicDB.MusicInfoColumns._ID));
-					musicFile.artistName = cursor.getString(cursor.getColumnIndexOrThrow(MusicDB.MusicInfoColumns.ARTIST));
-					musicFile.musicName = cursor.getString(cursor.getColumnIndexOrThrow(MusicDB.MusicInfoColumns.MUSICNAME));
-					musicFiles.add(musicFile);
-				}
-			}
-		}catch(Exception e)	{
-			e.printStackTrace();
-			musicFile = null ;
-		}
-		return musicFiles;
-	}
+	
 	
 	public Cursor getAllSongCursor(){
 		LogUtil.d(TAG + " getAllSongCurso ");

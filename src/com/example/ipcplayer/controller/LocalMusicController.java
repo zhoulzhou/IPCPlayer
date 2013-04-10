@@ -4,6 +4,7 @@ import com.example.ipcplayer.activity.MainActivity;
 import com.example.ipcplayer.activity.PlayingActivity;
 import com.example.ipcplayer.convert.ConvertToMusicFile;
 import com.example.ipcplayer.manager.LocalMusicManager;
+import com.example.ipcplayer.manager.NowPlayingList;
 import com.example.ipcplayer.service.IPlayback;
 import com.example.ipcplayer.service.LocalPlayer;
 import com.example.ipcplayer.service.PlaybackService;
@@ -12,6 +13,7 @@ import com.example.ipcplayer.utils.MusicFile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 
 public class LocalMusicController{
@@ -36,7 +38,7 @@ public class LocalMusicController{
 		return mInstance;
 	}
 	
-	public void playMusic(long id){
+	public void playMusic(long id, Cursor cursor){
 		LogUtil.d(TAG + " playMusic id: " + id);
 		MusicFile musicFile = ConvertToMusicFile.getInstance(mContext).idToMusicFile(id);
 		LogUtil.d(TAG + " playMusic musicFile: " + musicFile.toString());
@@ -47,6 +49,7 @@ public class LocalMusicController{
 //				mService.stop();
 //			}
 			// mLocalPlayer.setDataSource(path);
+			NowPlayingList.getInstance().setPlayList(cursor);
 			mService.setDataSource(path);
 			mService.start();
 		} catch (Exception e) {
