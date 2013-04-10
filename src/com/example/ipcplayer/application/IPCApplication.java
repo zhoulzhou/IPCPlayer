@@ -24,7 +24,6 @@ public class IPCApplication extends Application{
 	}
 
 	public Context getApplicationContext() {
-		// TODO Auto-generated method stub
 		return mContext;
 	}
 	
