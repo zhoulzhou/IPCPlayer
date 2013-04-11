@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.ipcplayer.widget.CellLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:iknow="http://schemas.android.com/apk/res/com.example.ipcplayer"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center" >
+    
+     <ImageView
+            android:id="@+id/help_item_img"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="centerInside"
+            android:background="@null" 
+            android:padding="20dip"/>
+
+
+</com.example.ipcplayer.widget.CellLayout>

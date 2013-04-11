@@ -44,7 +44,7 @@ public class SplashActivity extends Activity{
 	}
 	
 	private boolean shouldShowHelp(){
-		return false ;
+		return true ;
 	}
 	
 	@Override

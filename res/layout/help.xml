@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-        
-</LinearLayout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res/com.example.ipcplayer"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:orientation="vertical"
+	>
+
+	<com.example.ipcplayer.widget.Workspace
+		android:id="@+id/help_workspace" android:layout_width="fill_parent"
+		android:layout_height="fill_parent"  
+		android:layout_alignParentTop="true" />
+	
+	<com.example.ipcplayer.widget.DocIndicator
+		android:id="@+id/help_indicator" android:layout_width="fill_parent"
+		android:layout_height="15dp"
+		android:layout_centerHorizontal="true"
+		android:layout_marginBottom="20dp"
+		android:layout_alignParentBottom="true" app:darkImage="@drawable/pitch_off"
+        app:dotWidth="15dp"
+        app:lightImage="@drawable/pitch_on"/>
+	
+	<TextView android:id="@+id/start"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_above="@id/help_indicator"
+	    android:text="开启音乐之旅"
+	    android:layout_centerHorizontal="true"
+	    android:gravity="center"
+	    android:padding="10dip"
+	    android:layout_marginBottom="50dip"
+	    android:visibility="gone"/>
+</RelativeLayout>

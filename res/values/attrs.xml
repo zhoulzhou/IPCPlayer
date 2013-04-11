@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+	<!-- CellLayout 单个屏幕布局 -->
+	<declare-styleable name="CellLayout">
+		<!-- The width of a single cell -->
+		<attr name="cellWidth" format="dimension" />
+		<!-- The height of a single cell -->
+		<attr name="cellHeight" format="dimension" />
+		<!-- Padding to apply at the start of the long axis -->
+		<attr name="longAxisStartPadding" format="dimension" />
+		<!-- Padding to apply at the end of the long axis -->
+		<attr name="longAxisEndPadding" format="dimension" />
+		<!-- Padding to apply at the start of the short axis -->
+		<attr name="shortAxisStartPadding" format="dimension" />
+		<!-- Padding to apply at the end of the short axis -->
+		<attr name="shortAxisEndPadding" format="dimension" />
+		<!-- Number of cells on the short axis of the CellLayout -->
+		<attr name="shortAxisCells" format="integer" />
+		<!-- Number of cells on the long axis of the CellLayout -->
+		<attr name="longAxisCells" format="integer" />
+	</declare-styleable>
+
+	<declare-styleable name="DocIndicator">
+		<attr name="lightImage" format="integer" />
+		<attr name="darkImage" format="integer" />
+		<attr name="dotWidth" format="dimension" />
+		<attr name="total" format="integer" />
+		<attr name="current" format="integer" />
+	</declare-styleable>
+
+
+	<declare-styleable name="TabButton">
+		<!-- Indicates the initial checked state of this button. -->
+		<attr name="checked" format="boolean" />
+		<!-- Drawable used for the button graphic (e.g. checkbox, radio button, 
+			etc). -->
+		<attr name="button" format="reference" />
+	</declare-styleable>
+
+	<declare-styleable name="TabGroup">
+		<attr name="tabButtonStyle" format="reference" />
+
+		<!-- The id of the child radio button that should be checked by default 
+			within this radio group. -->
+		<attr name="checkedButton" format="integer" />
+		<!-- Should the radio group be a column or a row? Use "horizontal" for 
+			a row, "vertical" for a column. The default is vertical. -->
+		<!-- Standard orientation constant. -->
+		<attr name="orientation">
+			<!-- Defines an horizontal widget. -->
+			<enum name="horizontal" value="0" />
+			<!-- Defines a vertical widget. -->
+			<enum name="vertical" value="0" />
+		</attr>
+	</declare-styleable>
+
+
+</resources>
