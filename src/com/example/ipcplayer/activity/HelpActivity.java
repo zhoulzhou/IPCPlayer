@@ -11,6 +11,7 @@ import com.example.ipcplayer.widget.Workspace.IWorkspaceListener;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -66,7 +67,7 @@ public class HelpActivity extends Activity implements IWorkspaceListener{
 	
 	private void updateIndicatorFromWorkspace(){
 		mDocIndicator.setTotal(mWorkspace.getChildCount());
-		mDocIndicator.setCurrent(mWorkspace.getChildCount());
+		mDocIndicator.setCurrent(mWorkspace.getCurrentScreen());
 	}
 	
 	private void doStartActivity(){
@@ -113,6 +114,17 @@ public class HelpActivity extends Activity implements IWorkspaceListener{
 		}else{
 			hideStartButton();
 		}
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {// 屏蔽回退键
+			mExited = true;
+			doStartActivity();
+			return true;
+		}
+
+		return super.onKeyDown(keyCode, event);
 	}
 	
 }
