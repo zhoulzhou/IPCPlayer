@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.ipcplayer.widget.CellLayout
+	xmlns:android="http://schemas.android.com/apk/res/android" 
+	xmlns:iknow="http://schemas.android.com/apk/res/com.example.ipcplayer"
+	android:layout_width="fill_parent" android:layout_height="fill_parent">
+	
+    <ImageView android:id="@+id/lyric_background"
+        android:layout_width="fill_parent" android:layout_height="fill_parent"
+        android:scaleType="centerCrop"/>
+
+    <TextView android:id="@+id/playing_item2_title"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:layout_marginTop="5dip" android:layout_marginBottom="5dip"
+		android:layout_marginLeft="13dip" android:layout_marginRight="13dip"
+		android:textSize="20sp" android:textColor="#ffffff"
+		android:singleLine="true" android:layout_alignParentTop="true"
+		android:layout_centerHorizontal="true"/>
+
+	<TextView android:id="@+id/playing_item2_artist"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:layout_marginTop="5dip" android:layout_marginBottom="5dip"
+		android:layout_marginLeft="13dip" android:layout_marginRight="13dip"
+		android:textSize="16sp" android:textColor="#ffcccccc"
+		android:singleLine="true" android:layout_below="@id/playing_item2_title"
+		android:layout_centerHorizontal="true"/>
+	
+	<TextView android:id="@+id/playing_item2_song_source"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:layout_marginTop="5dip" android:layout_marginBottom="5dip"
+		android:layout_marginLeft="40dip" android:layout_marginRight="40dip"
+		android:textSize="12sp" android:textColor="#ff6e6e6e"
+		android:singleLine="true" android:layout_below="@id/playing_item2_artist"
+		android:layout_centerHorizontal="true"
+		android:visibility="gone"/>
+    
+	<RelativeLayout android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:layout_below="@id/playing_item2_song_source">
+		
+		<com.example.ipcplayer.widget.LyricView
+		    android:id="@+id/player2_music_lyric2"
+		    android:focusable="true"
+		    android:layout_width="fill_parent" 
+		    android:layout_height="fill_parent" 
+			android:layout_marginLeft="7dip" 
+			android:layout_marginRight="7dip"
+		    />
+
+	</RelativeLayout>
+
+</com.example.ipcplayer.widget.CellLayout>

@@ -6,7 +6,6 @@ import com.example.ipcplayer.localfragment.LocalMainMusicFragment;
 import com.example.ipcplayer.localfragment.OnItemClickListener;
 import com.example.ipcplayer.utils.LogUtil;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;

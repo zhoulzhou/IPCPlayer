@@ -4,6 +4,9 @@ import com.example.ipcplayer.R;
 import com.example.ipcplayer.service.IPlayback;
 import com.example.ipcplayer.service.PlaybackService;
 import com.example.ipcplayer.utils.LogUtil;
+import com.example.ipcplayer.widget.CellLayout;
+import com.example.ipcplayer.widget.DocIndicator;
+import com.example.ipcplayer.widget.Workspace;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,6 +19,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View.OnClickListener;
@@ -35,8 +39,11 @@ public class PlayingActivity extends Activity implements View.OnClickListener
 	private Button preBtn;
 	private Button playControlBtn;
 	private Button nextBtn;
-	private String path;
+	private Workspace mPlayerWorkspace;
+	private DocIndicator mDocIndicator;
 	
+	private String path;
+	private LayoutInflater mInflater;
 	private Context mContext;
 	private final static int UPDATE = 1;
 	private IPlayback service = null;
@@ -66,6 +73,26 @@ public class PlayingActivity extends Activity implements View.OnClickListener
         setContentView(R.layout.playing);
         
         mContext = PlayingActivity.this;
+        mInflater = LayoutInflater.from(mContext);
+        
+        initViews();
+        
+        path = getIntent().getStringExtra("path");
+        LogUtil.d(TAG + " path: " + path);
+        
+        Intent mServiceIntent = new Intent(IPlayback.class.getName());
+        bindService(mServiceIntent,conn,BIND_AUTO_CREATE);
+        Intent intent = new Intent(this,PlaybackService.class);
+        startService(intent);
+    }
+    
+    private void initViews(){
+    	mPlayerWorkspace = (Workspace) findViewById(R.id.player_workspace);
+        mDocIndicator = (DocIndicator) findViewById(R.id.player_indicator);
+        CellLayout playerImage = (CellLayout) mInflater.inflate(R.layout.playing_item_1, null);
+        CellLayout playerLyric = (CellLayout) mInflater.inflate(R.layout.playing_item_2, null);
+        mPlayerWorkspace.addView(playerImage);
+        mPlayerWorkspace.addView(playerLyric);
         titleTV = (TextView) findViewById(R.id.title);
         artistTV = (TextView) findViewById(R.id.artist);
         seekBar = (SeekBar) findViewById(R.id.seekbar);
@@ -78,14 +105,6 @@ public class PlayingActivity extends Activity implements View.OnClickListener
         playControlBtn = (Button) findViewById(R.id.playcontrolbtn);
         playControlBtn.setOnClickListener(this);
         nextBtn = (Button) findViewById(R.id.nextbtn);
-        
-        path = getIntent().getStringExtra("path");
-        LogUtil.d(TAG + " path: " + path);
-        
-        Intent mServiceIntent = new Intent(IPlayback.class.getName());
-        bindService(mServiceIntent,conn,BIND_AUTO_CREATE);
-        Intent intent = new Intent(this,PlaybackService.class);
-        startService(intent);
     }
     
     @Override
