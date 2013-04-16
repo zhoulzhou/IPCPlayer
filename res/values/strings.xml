@@ -1,5 +1,6 @@
-<resources>
-
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    
     <string name="app_name">IPCPlayer</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
@@ -34,5 +35,12 @@
     <string name="network_exception">你的网络不给力呀</string>
     <string name="content_more_than_140">内容不得超过140字</string>
     <string name="load_fail">加载失败</string>
+    
+    <string name="slogan">只能告诉你确实是没有歌词</string>
+    <string name="lyric_loading_message">歌词加载中 ... </string>
+    <!-- Do not translate. Duration format for duration < 1 hour -->
+    <string name="durationformatshort" translatable="false"><xliff:g id="format">%2$d:%5$02d</xliff:g></string>
+    <!-- Do not translate. Duration format for duration >= 1 hour -->
+    <string name="durationformatlong" translatable="false"><xliff:g id="format">%1$d:%3$02d:%5$02d</xliff:g></string>
 
 </resources>

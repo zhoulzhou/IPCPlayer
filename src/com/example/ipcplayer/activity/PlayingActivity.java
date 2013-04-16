@@ -7,6 +7,7 @@ import com.example.ipcplayer.utils.LogUtil;
 import com.example.ipcplayer.widget.CellLayout;
 import com.example.ipcplayer.widget.DocIndicator;
 import com.example.ipcplayer.widget.Workspace;
+import com.example.ipcplayer.widget.Workspace.IWorkspaceListener;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,7 +31,7 @@ import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.view.View;
 
-public class PlayingActivity extends Activity implements View.OnClickListener
+public class PlayingActivity extends Activity implements View.OnClickListener, IWorkspaceListener
 	{
     private static final String TAG = PlayingActivity.class.getSimpleName();
 	private TextView titleTV,artistTV;
@@ -41,6 +42,10 @@ public class PlayingActivity extends Activity implements View.OnClickListener
 	private Button nextBtn;
 	private Workspace mPlayerWorkspace;
 	private DocIndicator mDocIndicator;
+	
+	public static final int NO_LYRIC = 1;
+	public static final int SEARCH_LYRIC = 0;
+	public static final int LYRIC_READY = 2;
 	
 	private String path;
 	private LayoutInflater mInflater;
@@ -54,7 +59,6 @@ public class PlayingActivity extends Activity implements View.OnClickListener
 
 		@Override
 		public void handleMessage(Message msg) {
-			// TODO Auto-generated method stub
 			switch(msg.what){
 			case UPDATE:
 				update();
@@ -93,6 +97,9 @@ public class PlayingActivity extends Activity implements View.OnClickListener
         CellLayout playerLyric = (CellLayout) mInflater.inflate(R.layout.playing_item_2, null);
         mPlayerWorkspace.addView(playerImage);
         mPlayerWorkspace.addView(playerLyric);
+        mPlayerWorkspace.setWorkspaceListener(this);
+        mDocIndicator.setTotal(mPlayerWorkspace.getChildCount());
+        mDocIndicator.setCurrent(mPlayerWorkspace.getCurrentScreen());
         titleTV = (TextView) findViewById(R.id.title);
         artistTV = (TextView) findViewById(R.id.artist);
         seekBar = (SeekBar) findViewById(R.id.seekbar);
@@ -133,7 +140,6 @@ public class PlayingActivity extends Activity implements View.OnClickListener
 	        	   try {
 					service.seekTo((int)(progress*duration/1000));
 				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 	           }
@@ -141,13 +147,11 @@ public class PlayingActivity extends Activity implements View.OnClickListener
 
 		@Override
 		public void onStartTrackingTouch(SeekBar arg0) {
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void onStopTrackingTouch(SeekBar arg0) {
-			// TODO Auto-generated method stub
 		}
     	
     };
@@ -172,7 +176,6 @@ public class PlayingActivity extends Activity implements View.OnClickListener
 
 		@Override
 		public void onServiceConnected(ComponentName name, IBinder binder) {
-			// TODO Auto-generated method stub
 			service = IPlayback.Stub.asInterface(binder);
 			try {
 //				service.setDataSource(path);
@@ -180,7 +183,6 @@ public class PlayingActivity extends Activity implements View.OnClickListener
 				duration = service.getDuration();
 				LogUtil.d(TAG + " duration = " + duration );
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			handler.sendMessage(handler.obtainMessage(UPDATE));
@@ -188,7 +190,6 @@ public class PlayingActivity extends Activity implements View.OnClickListener
 
 		@Override
 		public void onServiceDisconnected(ComponentName name) {
-			// TODO Auto-generated method stub
 			service = null;
 		}
     	
@@ -196,7 +197,6 @@ public class PlayingActivity extends Activity implements View.OnClickListener
 
 	@Override
 	public void onClick(View view) {
-		// TODO Auto-generated method stub
 		if(view == playControlBtn){
 			try {
 				if(service == null){
@@ -210,7 +210,6 @@ public class PlayingActivity extends Activity implements View.OnClickListener
 					service.start();
 				}
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -218,8 +217,17 @@ public class PlayingActivity extends Activity implements View.OnClickListener
 
 	@Override
 	protected void onStop() {
-		// TODO Auto-generated method stub
 		super.onStop();
+	}
+
+	@Override
+	public void onUpdateTotalNum(int total) {
+		
+	}
+
+	@Override
+	public void onUpdateCurrent(int current) {
+		
 	}
 	
 	}
