@@ -5,11 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
+import com.example.ipcplayer.object.MusicFile;
 import com.example.ipcplayer.provider.MusicDB;
 import com.example.ipcplayer.provider.MusicDBHelper;
 import com.example.ipcplayer.provider.MusicDBManager;
 import com.example.ipcplayer.utils.LogUtil;
-import com.example.ipcplayer.utils.MusicFile;
 import com.example.ipcplayer.utils.StringUtil;
 
 public class ConvertToMusicFile{

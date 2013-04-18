@@ -31,7 +31,7 @@ public class DirActivity extends Activity{
 	    mText5 = (TextView) findViewById(R.id.text5);
 	    mText7 = (TextView) findViewById(R.id.text7);
 	    
-	    String path = FileUtil.getIPCDownloadDir();
+	    String path = FileUtil.getIPCDownloadDir().getAbsolutePath();
 	    mText1.setText(" path = " + path);
 	    File dir = new File(path);
 	    if(dir.canRead()){

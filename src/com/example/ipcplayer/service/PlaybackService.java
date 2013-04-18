@@ -3,6 +3,8 @@ package com.example.ipcplayer.service;
 import java.lang.ref.WeakReference;
 
 import com.example.ipcplayer.R;
+import com.example.ipcplayer.convert.ConvertToMusicFile;
+import com.example.ipcplayer.object.MusicFile;
 import com.example.ipcplayer.utils.LogUtil;
 
 import android.app.Service;
@@ -21,6 +23,15 @@ public class PlaybackService extends Service{
 	private static final int STATE_STOP = 3;
 	private static final int STATE_IDLE = 0;
 	private static final int STATE_ERROR = -1;
+	
+	private static final int REFRESH_LYRIC = 1;
+	
+	private MusicFile mMusicFile = new MusicFile();
+	
+	private static final int LYRIC_NO_DATA = 0;
+	private static final int LYRIC_LOADING = 1;
+	private static final int LYRIC_READY = 2;
+	private int mLyricState = LYRIC_NO_DATA;
 	
 	public boolean isPlaying(){
 		return mPlayState == STATE_PLAY;
@@ -118,7 +129,22 @@ public class PlaybackService extends Service{
 		if(mLocalPlayer == null){
 			return ;
 		}
+		
 		mLocalPlayer.setDataSource(path);
+	}
+	
+	public void openCurrent(long id){
+		if(id <= 0){
+			return ;
+		}
+		mMusicFile = ConvertToMusicFile.getInstance(this).idToMusicFile(id);
+		if(mMusicFile == null){
+			LogUtil.d(TAG + " MusicFile is null");
+			return ;
+		}
+		String path = mMusicFile.getPath();
+		setDataSource(path);
+		loadMusicLyric(false);
 	}
 	
 	public void start(){
@@ -220,6 +246,23 @@ public class PlaybackService extends Service{
 		mLocalPlayer.seek(position);
 	}
 	
+	public void loadMusicLyric(boolean isOnline) {
+		if(mMusicFile == null){
+			LogUtil.d(TAG + " loadMusicLyric  MusicFile is null");
+			return ;
+		}
+		
+		mLyricState = LYRIC_LOADING;
+		notifyChange(REFRESH_LYRIC);
+		
+		
+	}
+	
+	private void notifyChange(int what){
+		
+	}
+	
+	
 	private Binder binder = new ServiceStub(this);
     private final class ServiceStub extends IPlayback.Stub{
     	WeakReference<PlaybackService> mService;
@@ -308,7 +351,18 @@ public class PlaybackService extends Service{
 		public void setDataSource(String path) throws RemoteException {
 	        mService.get().setDataSource(path);		
 		}
+
+		@Override
+		public void loadMusicLyric(boolean isOnline) throws RemoteException {
+			mService.get().loadMusicLyric(isOnline);
+		}
+
+		@Override
+		public void openCurrent(long id) throws RemoteException {
+			mService.get().openCurrent(id);
+		}
 	
-	};
+	}
+	
 
 }

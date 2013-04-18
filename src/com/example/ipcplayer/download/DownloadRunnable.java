@@ -55,7 +55,7 @@ public class DownloadRunnable implements Runnable{
 		LogUtil.d(TAG + " init object ");
 		mContext = context;
 		mUrl = url;
-		mDownloadPath = FileUtil.getIPCDownloadDir();
+		mDownloadPath = FileUtil.getIPCDownloadDir().getAbsolutePath();
 		mFileName = getFileName();
 		mFilePath = mDownloadPath + File.separator + mFileName;
 		mDownloadFile = new File(mDownloadPath,mFileName);
@@ -114,7 +114,7 @@ public class DownloadRunnable implements Runnable{
 
 	private void createDownloadFile() {
 		LogUtil.d(TAG + " createDownloadFile ");
-		String path = FileUtil.getIPCDownloadDir();
+		String path = FileUtil.getIPCDownloadDir().getAbsolutePath();
 		LogUtil.d(TAG + " create dir path = " + path);
 		File dir = new File(path.trim());
 		if (!dir.exists()) {

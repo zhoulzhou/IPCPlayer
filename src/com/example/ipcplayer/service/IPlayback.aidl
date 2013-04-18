@@ -17,4 +17,6 @@ interface IPlayback{
    boolean isPaused();
    void seekTo(long position);
    void setDataSource(String path);
+   void loadMusicLyric(boolean isOnline);
+   void openCurrent(long id);
 }

@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 import android.database.Cursor;
 
+import com.example.ipcplayer.object.MusicFile;
 import com.example.ipcplayer.provider.MusicDB;
-import com.example.ipcplayer.utils.MusicFile;
 
 public class NowPlayingList{
 	private static final String TAG = NowPlayingList.class.getSimpleName();
 	private static  NowPlayingList instance = null;
-	private ArrayList<MusicFile> mPlayList = null;
+	private ArrayList<MusicFile> mPlayList = new ArrayList<MusicFile>();
 	
 	private NowPlayingList(){
 		

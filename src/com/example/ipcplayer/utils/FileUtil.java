@@ -2,6 +2,7 @@ package com.example.ipcplayer.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.ArrayList;
 
 import android.os.Environment;
 
@@ -9,6 +10,7 @@ public class FileUtil{
 	public static String DIR_HOME = "IPC";
 	public static String DIR_MUSIC = "music";
 	public static String DIR_DOWNLOAD = "download";
+	public static String DIR_LYRIC = "lyric";
 	private static String TAG = FileUtil.class.getSimpleName();
 	
 	public static String getStoragePath(){
@@ -20,19 +22,24 @@ public class FileUtil{
 		}
 	}
 	
-	public static String getIPCHomeDir(){
+	public static File getIPCHomeDir(){
 		LogUtil.d(TAG + " getIPCHomeDir ");
-		return new File(getStoragePath(),DIR_HOME).getAbsolutePath();
+		return new File(getStoragePath(),DIR_HOME);
 	}
 	
-	public static String getIPCMusicDir(){
+	public static File getIPCMusicDir(){
 		LogUtil.d(TAG + " getIPCMusicDir ");
-		return new File(getIPCHomeDir(),DIR_MUSIC).getAbsolutePath();
+		return new File(getIPCHomeDir(),DIR_MUSIC);
 	}
 	
-	public static String getIPCDownloadDir(){
+	public static File getIPCDownloadDir(){
 		LogUtil.d(TAG + " getIPCDownloadDir ");
-		return new File(getIPCHomeDir(),DIR_DOWNLOAD).getAbsolutePath();
+		return new File(getIPCHomeDir(),DIR_DOWNLOAD);
+	}
+	
+	public static File getIPCLyricDir(){
+		LogUtil.d(TAG + " getIPCLyricDir ");
+		return new File(getIPCHomeDir(),DIR_LYRIC);
 	}
 	
 	public static long getFileSize(File f) throws Exception{
@@ -47,4 +54,27 @@ public class FileUtil{
 	        }
 	        return s;
 	}
+	
+	public static ArrayList<File> getAllDirectory(){
+		ArrayList<File> dirList = new ArrayList<File>();
+		dirList.add(getIPCHomeDir());
+		dirList.add(getIPCMusicDir());
+		dirList.add(getIPCDownloadDir());
+		dirList.add(getIPCLyricDir());
+		return dirList;
+	}
+	
+	public static boolean isDirectory(File file){
+		return file.exists() && file.isDirectory();
+	}
+	
+	public static boolean createDiretory(File file){
+		if(file.exists() && file.isDirectory()){
+			return false;
+		}else{
+			return file.mkdirs();
+		}
+		
+	}
+	
 }

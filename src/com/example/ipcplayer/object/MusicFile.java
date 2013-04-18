@@ -1,4 +1,4 @@
-package com.example.ipcplayer.utils;
+package com.example.ipcplayer.object;
 
 public class MusicFile {
 	public String musicName;

@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.ipcplayer.localfragment.ItemData;
+import com.example.ipcplayer.object.MusicFile;
 import com.example.ipcplayer.provider.MusicDB;
 import com.example.ipcplayer.provider.MusicDBHelper;
 import com.example.ipcplayer.provider.MusicDBManager;
 import com.example.ipcplayer.utils.LogUtil;
-import com.example.ipcplayer.utils.MusicFile;
 
 import android.content.Context;
 import android.database.Cursor;

@@ -6,8 +6,8 @@ import com.example.ipcplayer.R;
 import com.example.ipcplayer.adapter.AllSongListAdapter;
 import com.example.ipcplayer.controller.LocalMusicController;
 import com.example.ipcplayer.manager.LocalMusicManager;
+import com.example.ipcplayer.object.MusicFile;
 import com.example.ipcplayer.utils.LogUtil;
-import com.example.ipcplayer.utils.MusicFile;
 
 import android.app.Activity;
 import android.content.Context;
@@ -136,6 +136,7 @@ public class AllSongListFragment extends ListFragment{
 	public void onDestroy() {
 		super.onDestroy();
 		LogUtil.d(TAG + " onDestroy ");
+		LocalMusicController.releaseInstance();
 		if(mCursor != null){
 			mCursor.close();
 			mCursor = null ;

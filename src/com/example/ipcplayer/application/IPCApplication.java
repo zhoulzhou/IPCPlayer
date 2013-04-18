@@ -1,5 +1,7 @@
 package com.example.ipcplayer.application;
 
+import com.example.ipcplayer.controller.LocalMusicController;
+
 import android.app.Application;
 import android.content.Context;
 
@@ -17,10 +19,9 @@ public class IPCApplication extends Application{
 
 	@Override
 	public void onCreate() {
-		// TODO Auto-generated method stub
 		super.onCreate();
-		
 		mContext = this;
+		LocalMusicController.getInstance(mContext).checkSDCardFolder();
 	}
 
 	public Context getApplicationContext() {

@@ -141,7 +141,7 @@ public class DownloadActivity extends Activity implements DownloadListener{
 		mUrlTv.setText(mUrl);
 		LogUtil.d(TAG + " mUrl = " + mUrl);
 //		mDownloadFile = FileUtil.getIPCDownloadDir() + File.separator+"first.mp3";
-		mDownloadPath = FileUtil.getIPCDownloadDir();
+		mDownloadPath = FileUtil.getIPCDownloadDir().getAbsolutePath();
 		mFileNameTv.setText(mDownloadFile);
 //		File downloadFile = new File(mDownloadFile);
 		LogUtil.d(TAG + " mDownloadFile = " + mDownloadFile);
