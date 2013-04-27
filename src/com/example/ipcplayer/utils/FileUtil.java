@@ -1,8 +1,14 @@
 package com.example.ipcplayer.utils;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import org.apache.http.util.EncodingUtils;
 
 import android.os.Environment;
 
@@ -75,6 +81,29 @@ public class FileUtil{
 			return file.mkdirs();
 		}
 		
+	}
+	
+	public static String readSDFile(String fileName) throws Exception{
+		if(fileName == null){
+			return null;
+		}
+		StringBuffer sb = new StringBuffer();
+		File file = new File(fileName);
+		FileInputStream fis = new FileInputStream(file);
+		InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
+		BufferedReader br = new BufferedReader(isr);
+		String line = null;
+		while (br.readLine() != null) {
+			line = br.readLine();
+			sb.append(line);
+			sb.append("\n");
+		}
+		br.close();
+		isr.close();
+		fis.close();
+
+		return sb.toString();
+
 	}
 	
 }
