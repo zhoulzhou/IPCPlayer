@@ -14,6 +14,7 @@ public class LyricGetter{
 		String lyric = null;
 		try {
 			lyric = FileUtil.readSDFile(path);
+			LogUtil.d(TAG + " lyric : " + lyric);
 		} catch (Exception e) {
 			LogUtil.d(TAG + " readLyricFile Exception : ");
 			e.printStackTrace();

@@ -55,14 +55,19 @@ public class DownloadRunnable implements Runnable{
 		LogUtil.d(TAG + " init object ");
 		mContext = context;
 		mUrl = url;
-		mDownloadPath = FileUtil.getIPCDownloadDir().getAbsolutePath();
+		LogUtil.d(TAG + " download url= " + url);
+//		mDownloadPath = FileUtil.getIPCDownloadDir().getAbsolutePath();
+		mDownloadPath = filePath;
+		LogUtil.d(TAG + " download  mDirPath= 	" + mDownloadPath);
 		mFileName = getFileName();
+		LogUtil.d(TAG + " mFileName= " + mFileName);
 		mFilePath = mDownloadPath + File.separator + mFileName;
+		LogUtil.d(TAG + " mFilePath= " + mFilePath);
 		mDownloadFile = new File(mDownloadPath,mFileName);
 		mTempFile = new File(mDownloadPath,mFileName + DownloadConfig.TEMP_TYPE);
 		mDownloadInfo = new DownloadInfo();
 		mDownloadInfo.setmUrl(mUrl);
-		mDownloadInfo.setmFilePath(mDownloadPath);
+		mDownloadInfo.setmFilePath(mFilePath);
 		
 	}
 	
@@ -84,7 +89,7 @@ public class DownloadRunnable implements Runnable{
 		}
 
 		try {
-			createDownloadFile();
+			createDownloadFile(mFilePath);
 		} catch (Exception e) {
 			e.printStackTrace();
 			LogUtil.d(TAG + " create file fail ");
@@ -112,9 +117,9 @@ public class DownloadRunnable implements Runnable{
 	
 	
 
-	private void createDownloadFile() {
+	private void createDownloadFile(String path) {
 		LogUtil.d(TAG + " createDownloadFile ");
-		String path = FileUtil.getIPCDownloadDir().getAbsolutePath();
+//		String path = FileUtil.getIPCDownloadDir().getAbsolutePath();
 		LogUtil.d(TAG + " create dir path = " + path);
 		File dir = new File(path.trim());
 		if (!dir.exists()) {
@@ -213,6 +218,11 @@ public class DownloadRunnable implements Runnable{
 						LogUtil.d(TAG + " mTempFile size = " + FileUtil.getFileSize(mTempFile));
 						mTempFile.renameTo(mDownloadFile);
 						mDownloadInfo.setmDownloadState(DOWNLOADFINISH);
+						if(mTempFile.exists()){
+							if(mTempFile.delete()){
+								LogUtil.d(TAG + " delete mTempFile");
+							}
+						}
 						handleFinish();
 					}else {
 						//handle cancel and error
