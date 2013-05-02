@@ -48,6 +48,7 @@ public class FileUtil{
 		return new File(getIPCHomeDir(),DIR_LYRIC);
 	}
 	
+	@SuppressWarnings("resource")
 	public static long getFileSize(File f) throws Exception{
 		long s = 0;
 		 if (f.exists()) {

@@ -22,13 +22,13 @@ public class LyricActivity extends Activity implements DownloadListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.lyric_view);
-		downloadLyricFile();
 		lyricTV = (TextView) findViewById(R.id.lyric);
 		downloadLyricFile();
 		LyricGetter lyricGetter = new LyricGetter();
 //		lyricGetter.get(lyricFileName);
 		
 	}
+	
 	
 	private void downloadLyricFile(){
 		String url = "http://music.baidu.com/data2/lrc/13890839/13890839.lrc";

@@ -59,7 +59,7 @@ public class DownloadRunnable implements Runnable{
 //		mDownloadPath = FileUtil.getIPCDownloadDir().getAbsolutePath();
 		mDownloadPath = filePath;
 		LogUtil.d(TAG + " download  mDirPath= 	" + mDownloadPath);
-		mFileName = getFileName();
+		mFileName = setFileName();
 		LogUtil.d(TAG + " mFileName= " + mFileName);
 		mFilePath = mDownloadPath + File.separator + mFileName;
 		LogUtil.d(TAG + " mFilePath= " + mFilePath);
@@ -71,9 +71,9 @@ public class DownloadRunnable implements Runnable{
 		
 	}
 	
-	private String getFileName() {
+	public String setFileName() {
 		// TODO Auto-generated method stub
-		return "try.mp3";
+		return "try.lrc";
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class DownloadRunnable implements Runnable{
 		}
 
 		try {
-			createDownloadFile(mFilePath);
+			createDownloadFile(mDownloadPath);
 		} catch (Exception e) {
 			e.printStackTrace();
 			LogUtil.d(TAG + " create file fail ");
@@ -213,16 +213,14 @@ public class DownloadRunnable implements Runnable{
 				}else {
 					in.close();
 					out.close();
-					if(mDownloadSize == mTotalSize){
-						//update state to successful status
-						LogUtil.d(TAG + " mTempFile size = " + FileUtil.getFileSize(mTempFile));
+					if (mDownloadSize == mTotalSize) {
+						// update state to successful status
+						LogUtil.d(TAG + " mTempFile size = "
+								+ FileUtil.getFileSize(mTempFile));
+						deleteFile(mDownloadFile);
 						mTempFile.renameTo(mDownloadFile);
 						mDownloadInfo.setmDownloadState(DOWNLOADFINISH);
-						if(mTempFile.exists()){
-							if(mTempFile.delete()){
-								LogUtil.d(TAG + " delete mTempFile");
-							}
-						}
+						deleteFile(mTempFile);
 						handleFinish();
 					}else {
 						//handle cancel and error
@@ -250,6 +248,21 @@ public class DownloadRunnable implements Runnable{
 			}catch(Exception e){
 				e.printStackTrace();
 			}
+		}
+	}
+	
+	private void deleteFile(File file){
+//		if(file == null){
+//			return ;
+//		}
+		if (file.exists()) {
+			if (file.delete()) {
+				LogUtil.d(TAG + " delete file successfully  " + file.toString());
+			}else{
+				LogUtil.d(TAG + " delete file failed  " + file.toString());
+			}
+		}else{
+			LogUtil.d(TAG + " delete file doesn't exist" );
 		}
 	}
 	
