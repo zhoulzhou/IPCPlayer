@@ -25,10 +25,15 @@ public class LyricActivity extends Activity implements DownloadListener{
 		lyricTV = (TextView) findViewById(R.id.lyric);
 		downloadLyricFile();
 		LyricGetter lyricGetter = new LyricGetter();
-//		lyricGetter.get(lyricFileName);
+		String lyricFileName = "try.lrc";
+		lyricGetter.get(lyricFileName);
 		
 	}
 	
+	private void getSongList(){
+		//热歌榜 url
+		String url = "http://tingapi.ting.baidu.com/v1/restserver/ting?from=android&version=3.3.0&method=baidu.ting.billboard.billList&format=json&type=1&offset=0&size=50";
+	}
 	
 	private void downloadLyricFile(){
 		String url = "http://music.baidu.com/data2/lrc/13890839/13890839.lrc";
