@@ -5,6 +5,7 @@ import com.example.ipcplayer.download.DownloadInfo;
 import com.example.ipcplayer.download.DownloadListener;
 import com.example.ipcplayer.download.DownloadRunnable;
 import com.example.ipcplayer.lyric.LyricGetter;
+import com.example.ipcplayer.lyric.LyricView;
 import com.example.ipcplayer.thread.ThreadF;
 import com.example.ipcplayer.utils.FileUtil;
 import com.example.ipcplayer.utils.LogUtil;
@@ -22,7 +23,7 @@ public class LyricActivity extends Activity implements DownloadListener{
 	private final static int DLING = 1;
 	
 	
-	private TextView lyricTV;
+	private LyricView lyricTV;
 
 	
 	private  Handler mHandler = new Handler(){
@@ -52,12 +53,11 @@ public class LyricActivity extends Activity implements DownloadListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.lyric_view);
-		lyricTV = (TextView) findViewById(R.id.lyric);
+		lyricTV = (LyricView) findViewById(R.id.lyric);
 		downloadLyricFile();
 		LyricGetter lyricGetter = new LyricGetter();
 		String lyricFileName = "try.lrc";
 		lyricGetter.get(lyricFileName);
-		
 	}
 	
 	private void getSongList(){

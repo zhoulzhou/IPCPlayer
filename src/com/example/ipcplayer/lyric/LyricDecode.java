@@ -25,8 +25,9 @@ public class LyricDecode{
 		int left = lyricRow.indexOf("[");
 		int right = lyricRow.indexOf("]");
 		
-		String time = lyricRow.substring(left+1, right);
-		sentence.setStartTime(convertToTime(time));
+		String lyrictime = lyricRow.substring(left+1, right);
+		String time = convertToTime(lyrictime);
+		sentence.setStartTime(time);
 		sentence.setTime(convertToLong(time));
 		
 		String content = lyricRow.substring(right+1);
