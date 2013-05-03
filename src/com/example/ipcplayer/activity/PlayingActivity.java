@@ -1,6 +1,7 @@
 package com.example.ipcplayer.activity;
 
 import com.example.ipcplayer.R;
+import com.example.ipcplayer.lyric.LyricView;
 import com.example.ipcplayer.service.IPlayback;
 import com.example.ipcplayer.service.PlaybackService;
 import com.example.ipcplayer.utils.LogUtil;
@@ -42,6 +43,7 @@ public class PlayingActivity extends Activity implements View.OnClickListener, I
 	private Button nextBtn;
 	private Workspace mPlayerWorkspace;
 	private DocIndicator mDocIndicator;
+	private LyricView mLyricView;
 	
 	public static final int NO_LYRIC = 1;
 	public static final int SEARCH_LYRIC = 0;
@@ -52,6 +54,7 @@ public class PlayingActivity extends Activity implements View.OnClickListener, I
 	private Context mContext;
 	private final static int UPDATE = 1;
 	private IPlayback service = null;
+	
 	
 	private long duration;
 	
@@ -95,6 +98,7 @@ public class PlayingActivity extends Activity implements View.OnClickListener, I
         mDocIndicator = (DocIndicator) findViewById(R.id.player_indicator);
         CellLayout playerImage = (CellLayout) mInflater.inflate(R.layout.playing_item_1, null);
         CellLayout playerLyric = (CellLayout) mInflater.inflate(R.layout.playing_item_2, null);
+        mLyricView = (LyricView) playerLyric.findViewById(R.id.player2_music_lyric2);
         mPlayerWorkspace.addView(playerImage);
         mPlayerWorkspace.addView(playerLyric);
         mPlayerWorkspace.setWorkspaceListener(this);
@@ -164,13 +168,21 @@ public class PlayingActivity extends Activity implements View.OnClickListener, I
     			seekBar.setProgress((int)(1000*pos/duration));
     			currentTime.setText(pos+"");
     			totalTime.setText(duration + "");
-    			
     		}
+    		LogUtil.d(TAG + " lyric ready update");
+    		updateLyric(LYRIC_READY);
     		handler.sendMessageDelayed(handler.obtainMessage(UPDATE),300);
     	}catch(RemoteException e){
     		e.printStackTrace();
     	}
     }   
+    
+    private void updateLyric(int state){
+    	if(mLyricView != null) {
+    		LogUtil.d(TAG + " updateLyric");
+    		mLyricView.updateLyric(state);
+    	}
+    }
     
     private ServiceConnection conn = new ServiceConnection(){
 

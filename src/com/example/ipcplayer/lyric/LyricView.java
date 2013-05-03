@@ -2,6 +2,10 @@ package com.example.ipcplayer.lyric;
 
 import java.util.ArrayList;
 
+import com.example.ipcplayer.activity.PlayingActivity;
+import com.example.ipcplayer.utils.LogUtil;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -9,6 +13,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.FontMetrics;
+import android.graphics.Rect;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -31,7 +38,7 @@ public class LyricView extends View {
 	private Paint mDrawPaint;
 
 	private ArrayList<LyricSentence> mLyricSentenceList = new ArrayList<LyricSentence>();
-	private boolean mIsLoadingLyric;
+	private boolean mIsLoadingLyric = false;
 	
 	private float mRowSpace;//歌词行间距
 	private float mCenterX;
@@ -40,6 +47,24 @@ public class LyricView extends View {
 	private float mVisibleWidth;//歌词可见区域的宽度
 	private float mVisibleHeight;//歌词可见区域的高度
 	private FontMetrics mFontMetrics;
+	
+	private Rect mDirtyRect;
+	
+	@SuppressLint("HandlerLeak")
+	private  Handler mHandler = new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			int what = msg.what;
+			if (what == 0) {
+				LogUtil.d(TAG + " handle msg");
+				invalidate(mDirtyRect);
+				mHandler.sendEmptyMessageDelayed(0, 100);
+			}
+		}
+		
+	};
 	
 	public LyricView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -103,9 +128,27 @@ public class LyricView extends View {
 		mDrawPaint.set(paint);
 	}
 	
+	public void updateLyric(int state){
+		switch(state){
+		case PlayingActivity.NO_LYRIC:
+			
+			break;
+		case PlayingActivity.SEARCH_LYRIC:
+			
+			break;
+		case PlayingActivity.LYRIC_READY:
+			if (mHandler != null) {
+				LogUtil.d(TAG + " lyric ready send msg");
+				mHandler.sendEmptyMessage(0);
+			}
+			break;
+		}
+	}
+	
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
+		LogUtil.d(TAG + " draw lyric");
 		if(mIsLoadingLyric){
 			
 		}else{
@@ -114,14 +157,18 @@ public class LyricView extends View {
 	}
 	
 	private void drawLyric(Canvas canvas){
+		LogUtil.d(TAG + " start draw lyric");
 		canvas.save();
 		canvas.translate(0, 0);
 		float lineOffsetY = mRowSpace;
 		
 		LyricSentence sentence = new LyricSentence();
 		mLyricSentenceList = LyricGetter.get("try.lrc");
+		LogUtil.d(TAG + " get lyric sentence");
 		for(int dataIdx = 0; dataIdx < mLyricSentenceList.size(); dataIdx ++){
+			LogUtil.d(TAG + " get dataIdx= 	" + dataIdx);
 			sentence = mLyricSentenceList.get(dataIdx);
+			LogUtil.d(TAG + " get sentence= " + sentence.toString());
 			if(sentence == null)
 				continue;
 			String drawString = sentence.getSentence();
@@ -158,6 +205,8 @@ public class LyricView extends View {
 		mVisibleHeight = height - getPaddingTop() - getPaddingBottom();
 		
 		//handle dirtyRect
+		mDirtyRect = new Rect((int)(mCenterX - mVisibleWidth / 2), (int)(mCenterY - mVisibleHeight / 2), 
+				(int)(mCenterX + mVisibleWidth / 2), (int)(mCenterY + mVisibleHeight / 2));
 	}
 
 	@Override

@@ -37,7 +37,7 @@
 		android:layout_height="fill_parent"
 		android:layout_below="@id/playing_item2_song_source">
 		
-		<com.example.ipcplayer.widget.LyricView
+		<com.example.ipcplayer.lyric.LyricView
 		    android:id="@+id/player2_music_lyric2"
 		    android:focusable="true"
 		    android:layout_width="fill_parent" 
