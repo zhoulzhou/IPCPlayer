@@ -26,10 +26,11 @@ public class LyricDecode{
 		int right = lyricRow.indexOf("]");
 		
 		String time = lyricRow.substring(left+1, right);
-		sentence.startTime = convertToTime(time);
+		sentence.setStartTime(convertToTime(time));
+		sentence.setTime(convertToLong(time));
 		
 		String content = lyricRow.substring(right+1);
-		sentence.sentence = content;
+		sentence.setSentence(content);
 		LogUtil.d(TAG + "sentence= " + sentence.toString());
 		return sentence;
 	}
@@ -39,5 +40,17 @@ public class LyricDecode{
 		int index = time.indexOf(".");
 		standardTime = time.substring(0,index);
 		return standardTime ;
+	}
+	
+	private static long convertToLong(String time){
+		int index = time.indexOf(":");
+		String min = time.substring(0,index);
+		String sec = time.substring(index+1);
+		
+		long min1 = Long.parseLong(min);
+		long sec1 = Long.parseLong(sec);
+		long time1 = min1*60 + sec1;
+		
+		return time1;
 	}
 }

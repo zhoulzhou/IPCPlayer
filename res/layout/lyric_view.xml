@@ -4,10 +4,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
+    <View 
+        android:id="@+id/v1"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        />
+    
     <TextView 
         android:id="@+id/lyric"
         android:layout_width = "match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="90dip"
+        android:gravity="center"
+        android:text="f;akdfa;dfasdlfkfa"
+        />
+    
+     <View 
+        android:id="@+id/v2"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
         />
         
 </LinearLayout>

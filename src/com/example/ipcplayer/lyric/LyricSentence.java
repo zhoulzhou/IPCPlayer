@@ -4,7 +4,14 @@ public class LyricSentence{
 	String startTime;
 	String endTime;
 	String sentence;
+	Long time;
 	
+	public Long getTime() {
+		return time;
+	}
+	public void setTime(Long time) {
+		this.time = time;
+	}
 	public String getStartTime() {
 		return startTime;
 	}
@@ -20,12 +27,12 @@ public class LyricSentence{
 	public String getSentence() {
 		return sentence;
 	}
-	public void setmSentence(String sentence) {
+	public void setSentence(String sentence) {
 		this.sentence = sentence;
 	}
 	@Override
 	public String toString() {
-		return "StartTime= " + getStartTime() + "  Sentence= " + getSentence();
+		return "StartTime= " + getStartTime() + "  time= " + getTime() + "  Sentence= " + getSentence();
 	}
 	
 	

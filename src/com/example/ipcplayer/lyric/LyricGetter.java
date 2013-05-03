@@ -9,8 +9,9 @@ import com.example.ipcplayer.utils.LogUtil;
 public class LyricGetter{
 	private static final String TAG = LyricGetter.class.getSimpleName();
 	private File mLyricFile;
+	private static ArrayList<LyricSentence> mLyricSentenceList = new ArrayList<LyricSentence>();
 	
-	public void get(String lyricFileName){
+	public static ArrayList<LyricSentence> get(String lyricFileName){
 		String path = FileUtil.getIPCLyricDir().getAbsolutePath() + File.separator + lyricFileName;
 		ArrayList<String> lyricRows = new ArrayList<String>();
 		try {
@@ -18,7 +19,7 @@ public class LyricGetter{
 			for(String lyricRow : lyricRows){
 				if (lyricRow != null) {
 					LogUtil.d(TAG + " lyricRow : " + lyricRow);
-					LyricDecode.convetToLyricSentences(lyricRow);
+					mLyricSentenceList = LyricDecode.convetToLyricSentences(lyricRow);
 				}
 			}
 		
@@ -28,8 +29,10 @@ public class LyricGetter{
 		}
 		if(lyricRows == null || lyricRows.size() == 0){
 			LogUtil.d(TAG + " lyric is null");
-			return ;
+			return null ;
 		}
+		
+		return mLyricSentenceList;
 		
 	}
 }
