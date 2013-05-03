@@ -107,5 +107,25 @@ public class FileUtil{
 
 	}
 	
+	public static ArrayList<String> readSDFile1(String fileName) throws Exception{
+		if(fileName == null){
+			return null;
+		}
+		ArrayList<String> stringList = new ArrayList<String>();
+		File file = new File(fileName);
+		FileInputStream fis = new FileInputStream(file);
+		InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
+		BufferedReader br = new BufferedReader(isr);
+		String line = null;
+		while (br.readLine() != null) {
+			line = br.readLine();
+			stringList.add(line);
+		}
+		br.close();
+		isr.close();
+		fis.close();
+
+		return stringList;
+	}
 	
 }

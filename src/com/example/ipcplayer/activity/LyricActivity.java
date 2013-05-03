@@ -11,13 +11,43 @@ import com.example.ipcplayer.utils.LogUtil;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.widget.TextView;
 
 public class LyricActivity extends Activity implements DownloadListener{
 	private static final String TAG = LyricActivity.class.getSimpleName();
+	private final static int DLFINISH = 3;
+	private final static int DLERROR = 0;
+	private final static int DLING = 1;
+	
 	
 	private TextView lyricTV;
 
+	
+	private  Handler mHandler = new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			int what = msg.what;
+			switch(what){
+			case DLING:
+				LogUtil.d(TAG + " handleMessage  DLING");
+				break;
+			case DLERROR:
+				LogUtil.d(TAG + " handleMessage  DLERROR");
+				break;
+			case DLFINISH:
+				LogUtil.d(TAG + " handleMessage  DLFINISH");
+				break;
+			}
+			
+		}
+			
+		
+	};
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,7 +62,7 @@ public class LyricActivity extends Activity implements DownloadListener{
 	
 	private void getSongList(){
 		//热歌榜 url
-		String url = "http://tingapi.ting.baidu.com/v1/restserver/ting?from=android&version=3.3.0&method=baidu.ting.billboard.billList&format=json&type=1&offset=0&size=50";
+		String url= "http://tingapi.ting.baidu.com/v1/restserver/ting?from=android&version=3.3.0&method=baidu.ting.billboard.billList&format=json&type=1&offset=0&size=50";
 	}
 	
 	private void downloadLyricFile(){
@@ -58,16 +88,19 @@ public class LyricActivity extends Activity implements DownloadListener{
 	public void updateProgress(DownloadInfo downloadInfo) {
 		LogUtil.d(TAG + " donwload update ");
 		LogUtil.d(TAG + " donwload size: " + downloadInfo.getmDownloadSize());
+		mHandler.sendEmptyMessage(DLING);
 	}
 
 	@Override
 	public void errorDownload(DownloadInfo downloadInfo) {
 		LogUtil.d(TAG + " donwload error ");
+		mHandler.sendEmptyMessage(DLERROR);
 	}
 
 	@Override
 	public void finishDownload(DownloadInfo downloadInfo) {
 		LogUtil.d(TAG + " donwload finish ");
+		mHandler.sendEmptyMessage(DLFINISH);
 	}
 
 	@Override

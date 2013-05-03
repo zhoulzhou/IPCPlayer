@@ -1,27 +1,31 @@
 package com.example.ipcplayer.lyric;
 
 public class LyricSentence{
-	long mStartTime;
-	long mEndTime;
-	String mSentence;
+	String startTime;
+	String endTime;
+	String sentence;
 	
-	public long getmStartTime() {
-		return mStartTime;
+	public String getStartTime() {
+		return startTime;
 	}
-	public void setmStartTime(long mStartTime) {
-		this.mStartTime = mStartTime;
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
 	}
-	public long getmEndTime() {
-		return mEndTime;
+	public String getEndTime() {
+		return endTime;
 	}
-	public void setmEndTime(long mEndTime) {
-		this.mEndTime = mEndTime;
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
 	}
-	public String getmSentence() {
-		return mSentence;
+	public String getSentence() {
+		return sentence;
 	}
-	public void setmSentence(String mSentence) {
-		this.mSentence = mSentence;
+	public void setmSentence(String sentence) {
+		this.sentence = sentence;
+	}
+	@Override
+	public String toString() {
+		return "StartTime= " + getStartTime() + "  Sentence= " + getSentence();
 	}
 	
 	
