@@ -30,8 +30,14 @@ public class LyricActivity extends Activity implements DownloadListener{
 	private final static int LYRIC_REFRESH = 4;
 	private final static int LYRIC_READY = 2;
 	
+	private boolean first = false;
 	
 	private TextView lyricTV;
+	private TextView infoTV;
+	
+	long t1 = 0;
+	long t2 = 0;
+	long t3 = 0;
 	
 	private int mIndex = 0;
 
@@ -53,6 +59,7 @@ public class LyricActivity extends Activity implements DownloadListener{
 			case DLFINISH:
 				LogUtil.d(TAG + " handleMessage  DLFINISH");
 				getSentences();
+				first = true;
 				mHandler.sendEmptyMessage(LYRIC_REFRESH);
 				break;
 			case LYRIC_REFRESH:
@@ -63,7 +70,8 @@ public class LyricActivity extends Activity implements DownloadListener{
 //					mHandler.sendMessageDelayed(msg, 10000);
 //				}
 				setLyircView();
-				mHandler.sendEmptyMessageDelayed(LYRIC_REFRESH, 10000);
+//				getCurrentTime();
+				mHandler.sendEmptyMessageDelayed(LYRIC_REFRESH, 900);
 				break;
 			}
 			
@@ -77,9 +85,29 @@ public class LyricActivity extends Activity implements DownloadListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.lyric_view);
 		lyricTV = (TextView) findViewById(R.id.lyric);
+		infoTV = (TextView) findViewById(R.id.info);
 		downloadLyricFile();
 //		getSentences();
 //		setLyircView();
+//		first = true;
+//		getCurrentTime();
+//		mHandler.sendEmptyMessage(LYRIC_REFRESH);
+		
+	}
+	
+	private long getCurrentTime(){
+		
+		if(first){
+	       t1 = System.currentTimeMillis();
+	       first = false;
+		}
+		
+		t2 = System.currentTimeMillis();
+		
+		t3 = t2 - t1;
+		infoTV.setText(t3 + "");
+	   System.out.println("t1= " + t1 + " t2= " + t2 + " t3= " + t3);
+	   return t3;
 	}
 	
 	
@@ -111,26 +139,29 @@ public class LyricActivity extends Activity implements DownloadListener{
 		LogUtil.d(TAG + "  setLyircView");
 		LyricSentence sentence = new LyricSentence();
 		int size = mSentences.size();
-		LogUtil.d(TAG + " size=  " + size);
-		
-		LogUtil.d(TAG + " mIndex=  " + mIndex);
 		sentence = mSentences.get(mIndex);
-		if(mIndex < size){
-			mIndex += 1;
+		long time1 = sentence.getTime();
+		LogUtil.d(TAG + "  time1= " + time1);
+		if(getCurrentTime() - time1 > 0){
+//		if (Math.abs(getCurrentTime() - time1) < 300) {
+			LogUtil.d(TAG + " mIndex=  " + mIndex);
+			if (mIndex < size) {
+				mIndex += 1;
+			}
+
+			// Iterator iterator = mSentences.iterator();
+			// if(iterator.hasNext()){
+			// sentence = (LyricSentence) iterator.next();
+			// }
+			// LogUtil.d(TAG + " sentence=  " + sentence.toString());
+			String string = sentence.getSentence();
+			// LogUtil.d(TAG + " string=  " + string);
+			String time = sentence.getStartTime();
+			// LogUtil.d(TAG + " time=  " + time);
+			LogUtil.d(TAG + " text=  " + time + "  " + string);
+            
+			lyricTV.setText(time + "  " + string);
 		}
-		
-//		Iterator iterator = mSentences.iterator();
-//		if(iterator.hasNext()){
-//			sentence = (LyricSentence) iterator.next();
-//			mSentences.iterator();
-//		}
-//		LogUtil.d(TAG + " sentence=  " + sentence.toString());
-		String string = sentence.getSentence();
-//		LogUtil.d(TAG + " string=  " + string);
-		String time = sentence.getStartTime();
-//		LogUtil.d(TAG + " time=  " + time);
-		LogUtil.d(TAG + " text=  " + time + "  " + string);
-		lyricTV.setText(time + "  " + string);
 	}
 	
 	private void getSongList(){

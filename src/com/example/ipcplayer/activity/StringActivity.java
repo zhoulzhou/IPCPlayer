@@ -21,7 +21,7 @@ public class StringActivity extends Activity{
 		String demo2 = "00:25.66";
 		timeConvert(demo2);
 		
-		String demo3 = "22:33";
+		String demo3 = "22:33.44";
 		longConvert(demo3);
 		
 	}
@@ -49,18 +49,26 @@ public class StringActivity extends Activity{
 	}
 	
 	private void longConvert(String time){
+		System.out.println("time= " + time);
 		int index = time.indexOf(":");
 		System.out.println("index= " + index);
+		int index1 = time.indexOf(".");
+		System.out.println("index1= " + index1);
 		String min = time.substring(0,index);
 		System.out.println("min= " + min);
-		String sec = time.substring(index+1);
+		String sec = time.substring(index+1,index1);
 		System.out.println("sec= " + sec);
+		String sec1 = time.substring(index1+1);
+		System.out.println("sec1= " + sec1);
+		
 		
 		long min1 = Long.parseLong(min);
 		System.out.println("min1= " + min1);
-		long sec1 = Long.parseLong(sec);
-		System.out.println("sec1= " + sec1);
-		long time1 = min1*60 + sec1;
+		long sec2 = Long.parseLong(sec);
+		System.out.println("sec2= " + sec2);
+		long sec3 = Long.parseLong(sec1);
+		System.out.println("sec3= " + sec3);
+		long time1 = min1*60 + sec2 + sec3;
 		System.out.println("time1= " + time1);
 		
 	}

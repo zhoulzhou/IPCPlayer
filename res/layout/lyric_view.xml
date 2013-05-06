@@ -10,6 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         />
+    
+    <TextView 
+        android:id="@+id/info"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="info"
+        />
     <!--  
     <com.example.ipcplayer.lyric.LyricView
         android:id="@+id/lyric"
