@@ -60,7 +60,7 @@ public class LyricView extends View {
 			if (what == 0) {
 				LogUtil.d(TAG + " handle msg");
 				invalidate(mDirtyRect);
-				mHandler.sendEmptyMessageDelayed(0, 100);
+				mHandler.sendEmptyMessageDelayed(0, 1000);
 			}
 		}
 		

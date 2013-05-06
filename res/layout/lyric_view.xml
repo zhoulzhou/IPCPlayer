@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         />
-    
+    <!--  
     <com.example.ipcplayer.lyric.LyricView
         android:id="@+id/lyric"
         android:layout_width = "match_parent"
@@ -18,6 +18,14 @@
         android:gravity="center"
         android:text="f;akdfa;dfasdlfkfa"
         />
+        -->
+        <TextView 
+            android:id="@+id/lyric"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:gravity="center"
+            android:text="a;kdfjalksf"
+            />
     
      <View 
         android:id="@+id/v2"

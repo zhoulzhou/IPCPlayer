@@ -91,9 +91,9 @@ public class FileUtil{
 		InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
 		BufferedReader br = new BufferedReader(isr);
 		String line = null;
-		while (br.readLine() != null) {
-			line = br.readLine();
+		while ((line = br.readLine()) != null) {
 			sb.append(line);
+			LogUtil.d(TAG + " line= " + line);
 			sb.append("\n");
 		}
 		br.close();
@@ -114,8 +114,12 @@ public class FileUtil{
 		InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
 		BufferedReader br = new BufferedReader(isr);
 		String line = null;
-		while (br.readLine() != null) {
-			line = br.readLine();
+		String temp = null;
+		while ((line = br.readLine()) != null) {
+//			temp = br.readLine();
+//			line = br.readLine();// 会两次读取 所以看到的结果是隔行读取文件
+//			line = new String(temp.getBytes(),"UTF-8");
+			LogUtil.d(TAG + " line= " + line);
 			stringList.add(line);
 		}
 		br.close();

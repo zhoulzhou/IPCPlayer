@@ -23,6 +23,7 @@ public class StringActivity extends Activity{
 		
 		String demo3 = "22:33";
 		longConvert(demo3);
+		
 	}
 	
 	private void stringconvert(String demo)

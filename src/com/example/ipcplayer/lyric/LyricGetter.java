@@ -16,6 +16,7 @@ public class LyricGetter{
 		ArrayList<String> lyricRows = new ArrayList<String>();
 		try {
 			lyricRows = FileUtil.readSDFile1(path);
+			LogUtil.d(TAG + " lyricRow size  : " + lyricRows.size());
 			for(String lyricRow : lyricRows){
 				if (lyricRow != null) {
 					LogUtil.d(TAG + " lyricRow : " + lyricRow);
@@ -35,4 +36,5 @@ public class LyricGetter{
 		return mLyricSentenceList;
 		
 	}
+	
 }
