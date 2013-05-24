@@ -2,6 +2,7 @@ package com.example.ipcplayer.activity;
 
 import com.example.ipcplayer.R;
 import com.example.ipcplayer.provider.MusicDBManager;
+import com.example.ipcplayer.setting.Config;
 import com.example.ipcplayer.utils.LogUtil;
 import com.example.ipcplayer.utils.StorageUtil;
 
@@ -37,8 +38,11 @@ public class SplashActivity extends Activity{
 //                WindowManager.LayoutParams. FLAG_FULLSCREEN);   
 		setContentView(R.layout.welcome);
 		mContext = this;
-		
-		loadDataAndInitActivity();
+		if (Config.LOAD_DATA) {
+			loadDataAndInitActivity();
+		} else {
+			showHelporMain(true);
+		}
 	}
 	
 	private void loadDataAndInitActivity(){
@@ -60,7 +64,7 @@ public class SplashActivity extends Activity{
 	}
 	
 	private boolean shouldShowHelp(){
-		return true ;
+		return Config.SHOW_HELP ;
 	}
 	
 	@Override

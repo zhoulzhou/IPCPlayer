@@ -111,6 +111,20 @@ public class CacheEntity {
 		}
 		return this.object.calculateMemSize();
 	}
+	
+	public String getData(){
+		if(object == null){
+			return null;
+		}
+		return object.buildCacheData();
+	}
+	
+	public void setData(String data){
+		if(object == null){
+			return ;
+		}
+		object.parseCacheData(data);
+	}
 
 	@Override
 	public String toString() {

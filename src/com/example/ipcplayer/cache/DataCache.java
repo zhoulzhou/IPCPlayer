@@ -1,7 +1,9 @@
 package com.example.ipcplayer.cache;
 
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.example.ipcplayer.cache.db.CacheDBHelper;
 import com.example.ipcplayer.utils.LogUtil;
 import com.example.ipcplayer.utils.StringUtil;
 
@@ -93,7 +95,7 @@ public class DataCache{
 		LogUtil.d(TAG, "readFromMemCache entry : " + cacheEntity);
 		
 		if(cacheEntity == null){
-			// 从数据库中读取
+			cacheEntity = readFromDatabase(key);
 		}
 		
 		Cacheable cacheObject = null;
@@ -123,6 +125,18 @@ public class DataCache{
 	}
 	
 	/**
+	 * 从数据库读取缓存数据
+	 * @param key
+	 * @return CacheEntity
+	 */
+	private CacheEntity readFromDatabase(String key){
+		CacheEntity entity = new  CacheEntity();
+		entity = CacheDBHelper.getInstance(mContext).get(key);
+		putIntoMemCache(key, entity);
+		return entity;
+	}
+	
+	/**
 	 * 数据放入缓存模块
 	 * @param key
 	 * @param obj
@@ -146,8 +160,13 @@ public class DataCache{
 	/**
 	 * 更新数据库中缓存数据
 	 */
-	private void updateDB(){
-		
+	private void updateDB() {
+		Set<Integer> keys = mUpdateSet.keySet();
+		CacheEntity entity = null;
+		for (Integer key : keys) {
+			entity = mUpdateSet.remove(key);
+			CacheDBHelper.getInstance(mContext).update(entity);
+		}
 	}
 	
 	/**
@@ -156,14 +175,20 @@ public class DataCache{
 	 * @param entity
 	 */
 	private void putIntoMemCache(String key, CacheEntity entity){
-		
+		if(StringUtil.isEmpty(key) || entity == null){
+			return ;
+		}
+		mCache.put(key, entity);
+		mCachedSpace += entity.calculateMemSize();// 计算缓存所占空间
 	}
 	
 	/**
 	 * 检查缓存空间
 	 */
 	private void validate(){
-		
+		if(mCachedSpace > mMaxSpace){
+			LogUtil.d(TAG + " cache space is expired ");
+		}
 	}
 	
 	/**
@@ -171,6 +196,32 @@ public class DataCache{
 	 * @param entity
 	 */
 	private void saveToDB(CacheEntity entity){
+		if(entity == null){
+			return ;
+		}
 		
+		CacheDBHelper.getInstance(mContext).insert(entity);
+	}
+	
+	/**
+	 * 获取命中率
+	 * 
+	 * @return 命中率(%)
+	 */
+	public int getHitRate() {
+		int accesses = mHitCount + mMissCount;
+		int hitPercent = accesses != 0 ? (100 * mHitCount / accesses) : 0;
+		return hitPercent;
+	}
+	
+	/**
+	 * 清空内存缓存
+	 */
+	public void clearMemSpace(){
+		updateDB();
+		if(mCache != null){
+			mCache.evictAll();
+		}
+		mCachedSpace = 0;
 	}
 }
