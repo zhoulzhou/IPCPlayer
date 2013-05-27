@@ -8,7 +8,7 @@ public class CacheEntity {
 	/** 被缓存的数据对象 */
 	private Cacheable object;
 	
-	/** 缓存标识 */
+	/** 缓存标识   根据URL及参数构造网络请求缓存key*/
 	private String key;
 	
 	/**  进入缓存时间  （毫秒） */
@@ -100,7 +100,9 @@ public class CacheEntity {
 	 * @return boolean
 	 */
 	public boolean isExpired(){
-		return System.currentTimeMillis() > (enterTime + validTime);
+		long time =System.currentTimeMillis();
+		LogUtil.d(TAG + "currentTime= " + time +" (enterTime + validTime)= " +(enterTime + validTime));
+		return time > (enterTime + validTime);
 	}
 	
 	/**

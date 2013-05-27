@@ -118,9 +118,9 @@ public class DataCache{
 			LogUtil.d(TAG + " datacache miss, mMissCount = " + mMissCount);
 		}else{
 			mHitCount ++;
-			LogUtil.d(TAG + " datacache hit, mMissCount = " + mMissCount);
+			LogUtil.d(TAG + " datacache hit, mHitCount = " + mHitCount);
 		}
-//		cacheEntity.setObject(cacheObject);//有用吗？
+		cacheEntity.setCacheable(cacheObject);//有用吗？
 		if(cacheObject == null){
 			throw new CacheUncachedException();
 		}
