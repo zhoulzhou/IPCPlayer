@@ -14,14 +14,14 @@ public interface Cacheable {
 	abstract long calculateMemSize();
 
 	/**
-	 * 构建要缓存的数据
+	 * 构建要缓存的数据(获得json)
 	 * 
 	 * @return 缓存数据
 	 */
 	abstract String buildCacheData();
 
 	/**
-	 * 将缓存数据解析成数据对象
+	 * 将缓存数据解析成数据对象(解析json 得到cacheable 对象)
 	 * 
 	 * @param 缓存数据
 	 * 

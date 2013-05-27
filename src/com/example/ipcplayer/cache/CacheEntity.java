@@ -1,8 +1,10 @@
 package com.example.ipcplayer.cache;
 
+import com.example.ipcplayer.utils.LogUtil;
+
 
 public class CacheEntity {
-
+    private static final String TAG = CacheEntity.class.getSimpleName();
 	/** 被缓存的数据对象 */
 	private Cacheable object;
 	
@@ -120,7 +122,9 @@ public class CacheEntity {
 	}
 	
 	public void setData(String data){
+		LogUtil.d(TAG + " setData, data = " + data);
 		if(object == null){
+			LogUtil.d(TAG + " setData, object is null ");
 			return ;
 		}
 		object.parseCacheData(data);

@@ -7,6 +7,7 @@ import com.example.ipcplayer.cache.db.CacheDBHelper;
 import com.example.ipcplayer.utils.LogUtil;
 import com.example.ipcplayer.utils.StringUtil;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.LruCache;
 
@@ -36,6 +37,7 @@ public class DataCache{
 	/** 缓存的最大阀值  达到此值后就存入数据库 */
 	private final int UPDATE_THRESHOLD = 10;
 	
+	@SuppressLint("NewApi")
 	private DataCache(Context context){
 		mContext = context;
 		mCache = new LruCache<String, CacheEntity>(2){
@@ -49,7 +51,7 @@ public class DataCache{
 		
 	}
 	
-	public DataCache getInstance(Context context){
+	public static DataCache getInstance(Context context){
 		if (mInstance != null)
 			return mInstance;
 		
@@ -74,7 +76,7 @@ public class DataCache{
 	 * @param count
 	 */
 	public void setDBMaxRowCount(int count){
-		
+		CacheDBHelper.getInstance(mContext).setMaxCount(count);
 	}
 	
 	/**
@@ -85,7 +87,9 @@ public class DataCache{
 	 * @throws CacheExpiredException
 	 * @throws CacheUncachedException
 	 */
-	public Cacheable get(String key, CacheEntity entity) 
+	@SuppressWarnings("unused")
+	@SuppressLint("NewApi")
+	public Cacheable get(String key,CacheEntity entity) 
 	        throws CacheExpiredException, CacheUncachedException {
 		if(StringUtil.isEmpty(key) || entity == null){
 			return null;
@@ -95,7 +99,8 @@ public class DataCache{
 		LogUtil.d(TAG, "readFromMemCache entry : " + cacheEntity);
 		
 		if(cacheEntity == null){
-			cacheEntity = readFromDatabase(key);
+			cacheEntity = readFromDatabase(key,entity.getCacheable());
+			LogUtil.d(TAG, "readFromDB entry : " + cacheEntity.toString());
 		}
 		
 		Cacheable cacheObject = null;
@@ -110,8 +115,10 @@ public class DataCache{
 		
 		if(cacheObject == null){
 			mMissCount ++ ;
+			LogUtil.d(TAG + " datacache miss, mMissCount = " + mMissCount);
 		}else{
 			mHitCount ++;
+			LogUtil.d(TAG + " datacache hit, mMissCount = " + mMissCount);
 		}
 //		cacheEntity.setObject(cacheObject);//有用吗？
 		if(cacheObject == null){
@@ -129,9 +136,11 @@ public class DataCache{
 	 * @param key
 	 * @return CacheEntity
 	 */
-	private CacheEntity readFromDatabase(String key){
+	private CacheEntity readFromDatabase(String key,Cacheable obj){
+		LogUtil.d(TAG + " read from db key = " + key);
 		CacheEntity entity = new  CacheEntity();
-		entity = CacheDBHelper.getInstance(mContext).get(key);
+		entity.setCacheable(obj);
+		entity = CacheDBHelper.getInstance(mContext).get(key,entity);
 		putIntoMemCache(key, entity);
 		return entity;
 	}
@@ -161,6 +170,7 @@ public class DataCache{
 	 * 更新数据库中缓存数据
 	 */
 	private void updateDB() {
+		LogUtil.d(TAG + " updateDB ");
 		Set<Integer> keys = mUpdateSet.keySet();
 		CacheEntity entity = null;
 		for (Integer key : keys) {
@@ -174,12 +184,15 @@ public class DataCache{
 	 * @param key
 	 * @param entity
 	 */
+	@SuppressLint("NewApi")
 	private void putIntoMemCache(String key, CacheEntity entity){
+		LogUtil.d(TAG + " putintoMem ");
 		if(StringUtil.isEmpty(key) || entity == null){
 			return ;
 		}
 		mCache.put(key, entity);
 		mCachedSpace += entity.calculateMemSize();// 计算缓存所占空间
+		LogUtil.d(TAG + " putintoMen, mCachedSpace = " + mCachedSpace);
 	}
 	
 	/**
@@ -199,7 +212,7 @@ public class DataCache{
 		if(entity == null){
 			return ;
 		}
-		
+		LogUtil.d(TAG + " saveToDB , entity = " + entity.toString());
 		CacheDBHelper.getInstance(mContext).insert(entity);
 	}
 	
@@ -217,6 +230,7 @@ public class DataCache{
 	/**
 	 * 清空内存缓存
 	 */
+	@SuppressLint("NewApi")
 	public void clearMemSpace(){
 		updateDB();
 		if(mCache != null){

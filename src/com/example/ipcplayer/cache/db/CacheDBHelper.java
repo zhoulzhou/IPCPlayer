@@ -42,6 +42,7 @@ public class CacheDBHelper extends SQLiteOpenHelper{
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
+		LogUtil.d(TAG + " oncreate ");
 		createTable(db);
 		mDB = db;
 	}
@@ -55,6 +56,7 @@ public class CacheDBHelper extends SQLiteOpenHelper{
 	private void openDB(){
 		try{
 			mDB = getWritableDatabase();
+			LogUtil.d(TAG + " openDB");
 		}catch(Exception e){
 			e.printStackTrace();
 			mDB = null;
@@ -63,7 +65,7 @@ public class CacheDBHelper extends SQLiteOpenHelper{
 	
 	private void createTable(SQLiteDatabase db){
 		try{
-		String sql = " CRATE TABEL IF NOT EXISTS " 
+		String sql = " CREATE TABLE IF NOT EXISTS " 
 				+ CacheDBConfig.Cache.TABLE_NAME + " (" + BaseColumns._ID 
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT," 
 				+ CacheDBConfig.Cache.KEY + " TEXT UNIQUE,"
@@ -71,10 +73,10 @@ public class CacheDBHelper extends SQLiteOpenHelper{
 				+ CacheDBConfig.Cache.ENTER_TIME + " INTEGER NOT NULL,"
 				+ CacheDBConfig.Cache.LAST_USED_TIME + " INTEGER NOT NULL," 
 				+ CacheDBConfig.Cache.VALID_TIME + " INTEGER NOT NULL);";
-	      db.execSQL(sql);
+		LogUtil.d(TAG + " createtabel sql = " + sql);
+	    db.execSQL(sql);
 		}catch(Exception e){
 			LogUtil.d(TAG + " create table error ");
-			e.printStackTrace();
 		}
 	      
 	}
@@ -101,6 +103,10 @@ public class CacheDBHelper extends SQLiteOpenHelper{
 	 * @param entity
 	 */
 	public void insert(CacheEntity entity){
+		if(entity == null){
+			return ;
+		}
+		LogUtil.d(TAG + " insert into DB , entity =	" + entity.toString());
 		String key = entity.getKey();
 		String data = entity.getData();
 		long enterTime = entity.getEnterTime();
@@ -117,7 +123,7 @@ public class CacheDBHelper extends SQLiteOpenHelper{
 		values.put(CacheDBConfig.Cache.ENTER_TIME, enterTime);
 		values.put(CacheDBConfig.Cache.LAST_USED_TIME, lastUsedTime);
 		values.put(CacheDBConfig.Cache.VALID_TIME, validTime);
-		
+		LogUtil.d(TAG + " insert into DB, values = " + values.toString());
 		try{
 			mDB.insert(CacheDBConfig.Cache.TABLE_NAME, null, values);
 			triggerDelete();
@@ -132,13 +138,12 @@ public class CacheDBHelper extends SQLiteOpenHelper{
 	 * @param key
 	 * @return
 	 */
-	public CacheEntity get(String key){
+	public CacheEntity get(String key,CacheEntity entity){
 		if(StringUtil.isEmpty(key)){
 			LogUtil.d(TAG + " get error  key is null ");
 			return null;
 		}
-		CacheEntity entity = new  CacheEntity();
-		
+		LogUtil.d(TAG + " get, key = " + key);
 		String selection = CacheDBConfig.Cache.KEY + " = ?";
 		String[] selectionArgs = new String[1];
 		selectionArgs[0] = key;
@@ -153,7 +158,7 @@ public class CacheDBHelper extends SQLiteOpenHelper{
 				return null;
 			}
 			cursor.moveToFirst();
-			entity = getCacheEntityFromCursor(cursor);
+			entity = getCacheEntityFromCursor(cursor,entity);
 		}catch(Exception e){
 			e.printStackTrace();
 			cursor = null;
@@ -171,16 +176,17 @@ public class CacheDBHelper extends SQLiteOpenHelper{
 	 * @param cursor
 	 * @return
 	 */
-	private CacheEntity getCacheEntityFromCursor(Cursor cursor){
-		if(cursor == null || cursor.getCount() == 0){
+	private CacheEntity getCacheEntityFromCursor(Cursor cursor,CacheEntity entity){
+		LogUtil.d(TAG + "  getCacheEntityFromCursor");
+		if(cursor == null || cursor.getCount() == 0 || entity == null){
 			return null;
 		}
-		CacheEntity entity = new CacheEntity();
 		entity.setKey(cursor.getString(cursor.getColumnIndex(CacheDBConfig.Cache.KEY)));
 		entity.setData(cursor.getString(cursor.getColumnIndex(CacheDBConfig.Cache.DATA)));
 		entity.setEnterTime(cursor.getLong(cursor.getColumnIndex(CacheDBConfig.Cache.ENTER_TIME)));
 		entity.setValidTime(cursor.getLong(cursor.getColumnIndex(CacheDBConfig.Cache.VALID_TIME)));
 		entity.setLastUsedTime(cursor.getLong(cursor.getColumnIndex(CacheDBConfig.Cache.LAST_USED_TIME)));
+		LogUtil.d(TAG + "  getCacheEntityFromCursor, entity = " + entity.toString());
 		return entity;
 	}
 	
@@ -193,7 +199,7 @@ public class CacheDBHelper extends SQLiteOpenHelper{
 			LogUtil.d(TAG + " update error entity is null");
 			return ;
 		}
-		
+		LogUtil.d(TAG + " update DB , entity = " + entity.toString());
 		ContentValues values = new ContentValues();
 		values.put(CacheDBConfig.Cache.LAST_USED_TIME, entity.getLastUsedTime());
 		values.put(CacheDBConfig.Cache.VALID_TIME, entity.getValidTime());
@@ -212,9 +218,10 @@ public class CacheDBHelper extends SQLiteOpenHelper{
 			LogUtil.d(TAG + " delete error key is null ");
 			return ;
 		}
+		LogUtil.d(TAG + " delete key = " + key);
 		String[] whereArgs = new String[1];
 		whereArgs[0] = key;
-		mDB.delete(CacheDBConfig.Cache.TABLE_NAME, CacheDBConfig.Cache.KEY + " =?", whereArgs);
+		mDB.delete(CacheDBConfig.Cache.TABLE_NAME, CacheDBConfig.Cache.KEY + " = ?", whereArgs);
 	}
 	
 	/**
@@ -224,7 +231,7 @@ public class CacheDBHelper extends SQLiteOpenHelper{
 		String whereClause = " _id IN (SELECT _id FROM "
 				+ CacheDBConfig.Cache.TABLE_NAME + " ORDER BY "
 				+ CacheDBConfig.Cache.LAST_USED_TIME
-				+ " LIMIT 0, max((SELECT COUNT(*) FROM CACHE)-" + MAX_ROW_COUNT
+				+ " LIMIT 0, max((SELECT COUNT(*) FROM CACHE) - " + MAX_ROW_COUNT
 				+ ", 0))";
 		LogUtil.d(TAG + " triggerDelete whereClause= " + whereClause);
 		mDB.delete(CacheDBConfig.Cache.TABLE_NAME, whereClause, null);
@@ -248,7 +255,7 @@ public class CacheDBHelper extends SQLiteOpenHelper{
 			}
 			while (cursor.moveToNext()) {
 				CacheEntity entity = new CacheEntity();
-				entity = getCacheEntityFromCursor(cursor);
+				entity = getCacheEntityFromCursor(cursor,entity);
 				entityList.add(entity);
 			}
 		}catch(Exception e){
