@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:gravity="center_horizontal"
+    >
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dip"
+        >
+        <View 
+            android:layout_width="50dip"
+            android:layout_height="30dip"
+            />
+        <Button 
+            android:id="@+id/start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="start"
+            />
+        <View 
+            android:layout_width="50dip"
+            android:layout_height="30dip"
+            />
+        <Button 
+            android:id="@+id/stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="stop"
+            />
+        
+    </LinearLayout>
+    
+    <ImageView 
+        android:id="@+id/myAnimation"
+        android:layout_width="300dip"
+        android:layout_height="200dip"
+        android:layout_marginTop="50dip"
+        />       
+</LinearLayout>
