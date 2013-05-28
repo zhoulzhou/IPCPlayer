@@ -7,6 +7,8 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -15,18 +17,22 @@ public class AnimationActivity extends Activity implements OnClickListener{
 	private ImageView anima;
 	private Button start, stop;
 	private AnimationDrawable animaD;
+	private Animation mAnima;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.animation);
+		setContentView(R.layout.animation1);
 		anima = (ImageView) findViewById(R.id.myAnimation);
+		anima.setBackgroundResource(R.drawable.welcome_1);
 		start = (Button) findViewById(R.id.start);
 		stop = (Button) findViewById(R.id.stop);
 		
-		anima.setBackgroundResource(R.anim.anima);
-		 
-		animaD = (AnimationDrawable) anima.getBackground();
+//		anima.setBackgroundResource(R.anim.anima);
+//		animaD = (AnimationDrawable) anima.getBackground();
+		
+		mAnima = new AnimationUtils().loadAnimation(this, R.anim.rotate_anima);
+		
 		
 		start.setOnClickListener(this);
 		stop.setOnClickListener(this);
@@ -50,10 +56,10 @@ public class AnimationActivity extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		switch(v.getId()){
 		case R.id.start:
-			animaD.start();
+			anima.startAnimation(mAnima);
 			break;
 		case R.id.stop:
-			animaD.stop();
+			
 			break;
 		default:
 			
