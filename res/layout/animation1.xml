@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:gravity="center_horizontal"
     >
     
     <LinearLayout 
@@ -11,6 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="30dip"
+        android:gravity="center_horizontal"
         >
         <View 
             android:layout_width="50dip"
@@ -37,8 +37,8 @@
     
     <ImageView 
         android:id="@+id/myAnimation"
-        android:layout_width="300dip"
-        android:layout_height="200dip"
+        android:layout_width="60dip"
+        android:layout_height="40dip"
         android:layout_marginTop="50dip"
         />       
 </LinearLayout>
