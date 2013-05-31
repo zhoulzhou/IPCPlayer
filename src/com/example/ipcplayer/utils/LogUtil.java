@@ -8,7 +8,7 @@ public class LogUtil{
 	private static  boolean DEBUG = Config.DEBUG_MODE;
 	private static final String DEFAULT_TAG = "[IPC's ready for coming]";
 	
-	public static void trace(String log ) {    
+	public static void d(String log ) {    
         String lineFormat = "%s--%s--%d";    
         StackTraceElement traceElement = Thread.currentThread().getStackTrace()[3];    
         String logText = String.format(lineFormat, traceElement.getFileName(),    
@@ -53,7 +53,7 @@ public class LogUtil{
 		return message;
 	}
 	
-	public static void d(String str){
+	public static void debug(String str){
 		if(DEBUG){
 			str = createMessage(str);
 			Log.d(DEFAULT_TAG, str);
