@@ -1,5 +1,7 @@
 package com.example.ipcplayer.module;
 
+import com.example.ipcplayer.manager.LocalMusicManager;
+
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -10,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class SampleFragment extends ListViewBaseFragment{
+	private Cursor mCursor;
+	private LocalMusicManager mLocalMusicManager;
 
 	@Override
 	public void onAttach(Activity activity) {

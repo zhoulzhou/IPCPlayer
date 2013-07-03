@@ -60,6 +60,7 @@ public class MusicDBProvider extends ContentProvider{
 		long rowId ;
 		
 		int match = URI_MATCHER.match(uri);
+		LogUtil.d(" match= " + match);
 		switch(match){
 		case MUSICINFO:
 		{
