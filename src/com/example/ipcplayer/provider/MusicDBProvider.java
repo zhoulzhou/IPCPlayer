@@ -26,12 +26,13 @@ public class MusicDBProvider extends ContentProvider{
 	
 	static {
 		LogUtil.d(TAG + " static code block init uri");
-		URI_MATCHER.addURI(MusicDB.AUTHORITY, "/musicinfo", MUSICINFO);
-		URI_MATCHER.addURI(MusicDB.AUTHORITY, "/musicinfo/#", MUSICINFO_ITEM);
+		URI_MATCHER.addURI(MusicDB.AUTHORITY, "/musicInfo", MUSICINFO);
+		URI_MATCHER.addURI(MusicDB.AUTHORITY, "/musicInfo/#", MUSICINFO_ITEM);
 		
 		URI_MATCHER.addURI(MusicDB.AUTHORITY, "/downloadinfo",DOWNLOADINFO);
 		URI_MATCHER.addURI(MusicDB.AUTHORITY, "/downloadinfo/#", DOWNLOADINFO_ITEM);
-		LogUtil.d(TAG + " static code block init uri  URI_MATCHER: " + URI_MATCHER.toString());
+		LogUtil.d(TAG + " static code block init uri  URI_MATCHER: " + URI_MATCHER);
+		LogUtil.d("uri_matcher match= " + URI_MATCHER.match(Uri.parse("com.music/musicInfo")));
 	}
 	
 	@Override
@@ -58,7 +59,7 @@ public class MusicDBProvider extends ContentProvider{
 		SQLiteDatabase db = mDbHelper.getWritableDatabase();
 		Uri newUri = null ;
 		long rowId ;
-		
+		LogUtil.d("uri= " + uri);
 		int match = URI_MATCHER.match(uri);
 		LogUtil.d(" match= " + match);
 		switch(match){
