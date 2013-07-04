@@ -4,6 +4,7 @@ import com.example.ipcplayer.utils.LogUtil;
 
 import android.R.string;
 import android.app.Activity;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ public class TestActivity extends Activity{
 	
 	private void insertDB(){
 		LogUtil.d("insertDB");
+//		Uri uri = ContentUris.withAppendedId(MusicDB.MusicInfoColumns.getContentUri(),MusicDBProvider.MUSICINFO);
 		Uri uri = MusicDB.MusicInfoColumns.getContentUri();
 		LogUtil.d("uri= " + uri);
 		ContentValues values = new ContentValues();

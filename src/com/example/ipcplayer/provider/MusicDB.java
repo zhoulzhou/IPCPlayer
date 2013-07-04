@@ -14,7 +14,7 @@ public class MusicDB {
 	
 	public static final class MusicInfoColumns implements BaseColumns{
 		public static Uri getContentUri(){
-			return Uri.parse(CONTENT_AUTHORITY + "/musicInfo");
+			return Uri.parse(CONTENT_AUTHORITY + "/musicinfo");
 		}
 		
 		public static final String MUSICNAME = "musicname";
