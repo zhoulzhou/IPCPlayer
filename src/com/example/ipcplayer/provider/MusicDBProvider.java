@@ -165,6 +165,7 @@ public class MusicDBProvider extends ContentProvider{
 		SQLiteDatabase db = mDbHelper.getWritableDatabase();
 		
 		int match = URI_MATCHER.match(uri);
+		LogUtil.d("match= " + match);
 		switch(match){
 		case MUSICINFO:
 		{
@@ -187,14 +188,17 @@ public class MusicDBProvider extends ContentProvider{
 		{
 			LogUtil.d(TAG + " update MUSICINFO_ITEM ");
 			String segmen = uri.getPathSegments().get(1);
+			LogUtil.d("segmen= " + segmen);
 			long rowId = Long.parseLong(segmen);
+			LogUtil.d("rowId= " + rowId);
 			String where = MusicDB.MusicInfoColumns._ID + "=" + rowId ;
-			
+			LogUtil.d("where= " + where);
 			if(values.size() > 0){
 				count = db.update(MusicDBHelper.TABLE_MUSICINFO, values, where, null);
 			}else {
 				count = 0;
 			}
+			LogUtil.d("count= " + count);
 			getContext().getContentResolver().notifyChange(uri, null);
 			break ;
 		}
@@ -251,6 +255,7 @@ public class MusicDBProvider extends ContentProvider{
 			{
 				LogUtil.d(TAG + " delete MUSICINFO ");
 				count = db.delete(MusicDBHelper.TABLE_MUSICINFO, selection, selectionArgs);
+				LogUtil.d("count= " + count);
 				getContext().getContentResolver().notifyChange(uri, null);
 				break ;
 			}
@@ -261,8 +266,8 @@ public class MusicDBProvider extends ContentProvider{
 				String segment = uri.getPathSegments().get(1);
 				long rowId = Long.parseLong(segment);
 				String where = MusicDB.MusicInfoColumns._ID + "=" + rowId;
-				
 				count = db.delete(MusicDBHelper.TABLE_MUSICINFO, where, null);
+				LogUtil.d("count= " + count);
 				getContext().getContentResolver().notifyChange(uri, null);
 				break ;
 			}
