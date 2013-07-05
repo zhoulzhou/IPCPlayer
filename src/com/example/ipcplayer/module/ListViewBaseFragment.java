@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import com.example.ipcplayer.R;
 import com.example.ipcplayer.localfragment.BaseFragment;
+import com.example.ipcplayer.utils.LogUtil;
 
 /**
  * 总体框架  
@@ -32,6 +33,7 @@ public abstract class ListViewBaseFragment extends BaseFragment{
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
+		LogUtil.d("onAttach");
 		mContext = getActivity();
 	}
 
@@ -39,7 +41,7 @@ public abstract class ListViewBaseFragment extends BaseFragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
-		
+		LogUtil.d("onCreateView");
 		mContentView = inflater.from(mContext).inflate(R.layout.listview_base, null);
 		mListView = (ListView) mContentView.findViewById(R.id.list_base);
 		
@@ -58,6 +60,7 @@ public abstract class ListViewBaseFragment extends BaseFragment{
 	@Override
 	public void onResume() {
 		super.onResume();
+		LogUtil.d("onResume");
 		//刷新列表  可能需要条件
 		refreshListView();
 	}

@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 
 public class MusicDBManager {
+	private static final boolean DEBUG = false;
 	private static String TAG = "MusicDBManager "; 
 	private  MusicDBHelper mDBHelper ;
 	private  SQLiteDatabase mDB = null;
@@ -121,7 +122,9 @@ public class MusicDBManager {
 				sb.append(data);
 				sb.append("')");
 				try{
-					LogUtil.d(TAG + "sb.toString = " + sb.toString());
+					if (DEBUG) {
+						LogUtil.d(TAG + "sb.toString = " + sb.toString());
+					}
 					mDB.execSQL(sb.toString());
 				}catch(Exception e){
 //					LogUtil.e(TAG+"insert to db error! ");

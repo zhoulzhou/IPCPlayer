@@ -23,7 +23,7 @@ public class AllSongListAdapter extends CursorAdapter{
 	public AllSongListAdapter(Context context, Cursor c, int resource) {
 		super(context, c, resource);
 		// TODO Auto-generated constructor stub
-		LogUtil.d(TAG + " create this class Object");
+		LogUtil.d(" create this class Object");
 		mInflater = LayoutInflater.from(context);
 		mHolder = new ViewHolder();
 		mLayoutId = resource;

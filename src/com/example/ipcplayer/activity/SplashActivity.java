@@ -1,6 +1,7 @@
 package com.example.ipcplayer.activity;
 
 import com.example.ipcplayer.R;
+import com.example.ipcplayer.module.SampleActivity;
 import com.example.ipcplayer.provider.MusicDBManager;
 import com.example.ipcplayer.setting.Config;
 import com.example.ipcplayer.utils.LogUtil;
@@ -55,12 +56,21 @@ public class SplashActivity extends Activity{
 			if (shouldShowHelp()) {
 				Intent intent = new Intent(this, HelpActivity.class);
 				mContext.startActivity(intent);
-			} else {
+			} else if(showSample()){
+				LogUtil.d("start sampleActivity");
+				Intent intent = new Intent(this,SampleActivity.class);
+				mContext.startActivity(intent);
+			}else
+			{
 				Intent intent = new Intent(this, MainActivity.class);
 				mContext.startActivity(intent);
 			}
 			finish();
 		}
+	}
+	
+	private boolean showSample(){
+		return Config.SHOW_SAMPLE;
 	}
 	
 	private boolean shouldShowHelp(){
