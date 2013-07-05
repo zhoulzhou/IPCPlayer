@@ -68,9 +68,7 @@ public class TestActivity extends Activity{
 		Uri newUri = ContentUris.withAppendedId(uri,2);//后面的数字指数据库中第几行
 		ContentValues values = new ContentValues();
 		values.put(MusicDB.MusicInfoColumns.MUSICNAME, "20xx");
-		String where = MusicDB.MusicInfoColumns.MUSICNAME + " = " +"name_3 xx";
-		LogUtil.d("where= " + where);
-	    getContentResolver().update(newUri, values, where, null);
+	    getContentResolver().update(newUri, values, null, null);
 	}
 	
 	private void update() {
@@ -78,9 +76,10 @@ public class TestActivity extends Activity{
 //		Uri newUri = ContentUris.withAppendedId(uri,MusicDBProvider.MUSICINFO_ITEM);
 		ContentValues values = new ContentValues();
 		values.put(MusicDB.MusicInfoColumns.MUSICNAME, "20xx");
-		String where = MusicDB.MusicInfoColumns.MUSICNAME + " = " + "name_3";
+		String where = MusicDB.MusicInfoColumns.MUSICNAME + " = ?" ;
 		LogUtil.d("where= " + where);
-		getContentResolver().update(uri, values, where, null);
+		String[] selectionArgs = {"name_3"};
+		getContentResolver().update(uri, values, where, selectionArgs);
 	}
 	
 	private void delete(){
