@@ -20,9 +20,11 @@ public class TestActivity extends Activity{
 		super.onCreate(savedInstanceState);
 //		insertDB();
 //		updateOne();
-		update();
+//		update();
 //		delete();
-		query();
+//		deleteOne();
+//		query();
+		queryOne();
 	}
 
 	@Override
@@ -85,6 +87,25 @@ public class TestActivity extends Activity{
 	private void delete(){
 		Uri uri = MusicDB.MusicInfoColumns.getContentUri();
 		getContentResolver().delete(uri, null, null);
+	}
+	
+	private void deleteOne(){
+		Uri uri = MusicDB.MusicInfoColumns.getContentUri();
+		String selection = MusicDB.MusicInfoColumns.MUSICNAME + " = ?";
+		String[] selectionArgs = {"name_2"}; 
+		getContentResolver().delete(uri, selection, selectionArgs);
+	}
+	
+	private void queryOne(){
+		Uri uri = MusicDB.MusicInfoColumns.getContentUri();
+		String[] projection = {MusicDB.MusicInfoColumns.MUSICNAME};
+		String where = MusicDB.MusicInfoColumns.MUSICNAME + " = ?";
+		String[] selectionArgs = {"name_1"};
+		Cursor c = getContentResolver().query(uri, projection, where, selectionArgs, null);
+		while(c.moveToNext()){
+			String name = c.getString(c.getColumnIndex(MusicDB.MusicInfoColumns.MUSICNAME));
+			LogUtil.d("name= " + name);
+		}
 	}
 	
 }
