@@ -82,7 +82,7 @@ public class MusicDBManager {
 			LogUtil.d(TAG+"cursor is null! try find reason ");
 			return ;
 		}
-		int _IDIndex = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID);
+//		int _IDIndex = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID);
 		int DISPLAY_NAMEIndex = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DISPLAY_NAME);
 		int ARTISTIndex = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST);
 		int ALBUMIndex = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM);
@@ -96,7 +96,7 @@ public class MusicDBManager {
 		if (mDB != null && mDB.isOpen()) {
 			mDB.beginTransaction();
 			do {
-				long _Id = cursor.getLong(_IDIndex);
+//				long _Id = cursor.getLong(_IDIndex);
 				String displayName = cursor.getString(DISPLAY_NAMEIndex);
 				String artist = cursor.getString(ARTISTIndex);
 				String albumn = cursor.getString(ALBUMIndex);
@@ -107,10 +107,10 @@ public class MusicDBManager {
 				StringBuilder sb = new StringBuilder();
 				sb.append("insert into ");
 				sb.append(MusicDBHelper.TABLE_MUSICINFO);
-				sb.append("(_id,size,musicname,artistname,albumnname,_data)");
+				sb.append("(size,musicname,artistname,albumnname,_data)");
 				sb.append("values('");
-				sb.append(_Id);
-				sb.append("','");
+//				sb.append(_Id);
+//				sb.append("','");
 				sb.append(size);
 				sb.append("','");
 				sb.append(displayName);

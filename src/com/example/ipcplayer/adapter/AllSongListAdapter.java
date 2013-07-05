@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 public class AllSongListAdapter extends CursorAdapter{
 	private LayoutInflater mInflater;
-	private ViewHolder mHolder ;
+//	private ViewHolder mHolder ;
 	private int mLayoutId;
 	private static String TAG = AllSongListAdapter.class.getSimpleName();
 	
@@ -25,7 +25,7 @@ public class AllSongListAdapter extends CursorAdapter{
 		// TODO Auto-generated constructor stub
 		LogUtil.d(" create this class Object");
 		mInflater = LayoutInflater.from(context);
-		mHolder = new ViewHolder();
+//		mHolder = new ViewHolder();
 		mLayoutId = resource;
 	}
 
@@ -41,7 +41,7 @@ public class AllSongListAdapter extends CursorAdapter{
 	public void bindView(View view, Context context, Cursor cursor) {
 		// TODO Auto-generated method stub
 		LogUtil.d(TAG + " bindView ");
-		mHolder = (ViewHolder) view.getTag();
+		final ViewHolder mHolder = (ViewHolder) view.getTag();
 		String displayName = cursor.getString(cursor.getColumnIndex(MusicDB.MusicInfoColumns.MUSICNAME));
 		String artstName = cursor.getString(cursor.getColumnIndex(MusicDB.MusicInfoColumns.ARTIST));
 		if(mHolder == null){
@@ -69,6 +69,7 @@ public class AllSongListAdapter extends CursorAdapter{
 		LogUtil.d(TAG + " newView ");
 		LogUtil.d(TAG + " mLayoutId = " + mLayoutId);
 		View v = mInflater.inflate(mLayoutId, null);
+		ViewHolder mHolder = new ViewHolder();
 		mHolder.mImage = (ImageView) v.findViewById(R.id.albumnimage);
 		mHolder.mText1 = (TextView) v.findViewById(R.id.songname);
 		LogUtil.d(TAG + " mHolder.mText1 = " + mHolder.mText1);
