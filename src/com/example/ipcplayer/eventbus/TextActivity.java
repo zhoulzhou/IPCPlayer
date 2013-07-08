@@ -29,13 +29,14 @@ public class TextActivity extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		EventBus.getDefault().register(this);
+		EventBus.getDefault().register(this);
 		
-		EventBus.getDefault().register(this, "MainThread");
+//		EventBus.getDefault().register(this, "MainThread");
 		
 		Event.sendEvent();
 		
 	}
+	
 	
 	public void onEvent(MyEvent event){
 		
