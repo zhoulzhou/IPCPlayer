@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:iknow="http://schemas.android.com/apk/res/com.example.ipcplayer"
+    android:id="@+id/recommand"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+   >
+   <RelativeLayout 
+       android:id="@+id/recommand_ui"
+       android:layout_width="match_parent"
+       android:layout_height="150dip"
+       >
+    <com.example.ipcplayer.widget.Workspace 
+        android:id="@+id/work"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:clickable="true"
+        />
+    <com.example.ipcplayer.widget.DocIndicator
+            android:id="@+id/indicator"
+            android:layout_width="90dip"
+            android:layout_height="15dip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="5dip"
+            iknow:current="0"
+            iknow:darkImage="@drawable/ic_point_online_music_normal"
+            iknow:dotWidth="15dip"
+            iknow:lightImage="@drawable/ic_point_online_music_selected"
+            iknow:total="5" />
+    </RelativeLayout>
+      
+   <!--  
+   <ListView 
+       android:id="@+id/online_list"
+       android:layout_height="wrap_content"
+       android:layout_width="match_parent"
+       android:layout_alignTop="@"
+       ></ListView>
+        -->
+</LinearLayout>

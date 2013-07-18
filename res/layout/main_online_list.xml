@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" 
+    >
+    <!-- 
+     android:divider="@drawable/line_list_cross"
+     android:listSelector="@drawable/local_listview_background"
+     -->
+
+    <ListView
+        android:id="@+id/online_home_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="@null"
+       
+        android:headerDividersEnabled="false"
+       
+        android:scrollbars="none" />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"/>
+
+    <TextView
+        android:id="@+id/online_list_empty"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:text="没有数据"
+        android:textColor="#bebebe"
+        android:textSize="16dip"
+        android:visibility="gone" />
+
+</LinearLayout>

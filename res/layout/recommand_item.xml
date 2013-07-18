@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.ipcplayer.widget.CellLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+   <ImageView 
+        android:id="@+id/recomman_im"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/welcome_1"
+        />
+        
+</com.example.ipcplayer.widget.CellLayout>
