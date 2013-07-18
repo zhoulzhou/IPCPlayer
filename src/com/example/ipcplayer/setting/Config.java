@@ -15,5 +15,5 @@ public  class Config{
 	public static final boolean LOAD_DATA = true ;
 
 	/** 是否显示sample界面***/
-	public static final boolean SHOW_SAMPLE = true;
+	public static final boolean SHOW_SAMPLE = false;
 }

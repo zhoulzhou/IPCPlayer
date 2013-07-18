@@ -58,9 +58,9 @@ public class LocalMusicController{
 //			if (mService.isPlaying()) {
 //				mService.stop();
 //			}
-			mService.setDataSource(path);
+//			mService.setDataSource(path);
 //			NowPlayingList.getInstance().setPlayList(cursor);
-//			mService.openCurrent(id);
+			mService.openCurrent(id);
 			mService.start();
 		} catch (Exception e) {
 			e.printStackTrace();

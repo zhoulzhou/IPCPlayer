@@ -2,9 +2,13 @@ package com.example.ipcplayer.module;
 
 import com.example.ipcplayer.R;
 import com.example.ipcplayer.adapter.AllSongListAdapter;
+import com.example.ipcplayer.controller.LocalMusicController;
+import com.example.ipcplayer.eventbus.MusicEvent;
 import com.example.ipcplayer.manager.LocalMusicManager;
 import com.example.ipcplayer.provider.MusicDB;
 import com.example.ipcplayer.utils.LogUtil;
+
+import de.greenrobot.event.EventBus;
 
 import android.app.Activity;
 import android.database.Cursor;
@@ -26,6 +30,7 @@ public class SampleFragment extends ListViewBaseFragment{
 		super.onAttach(activity);
 		mFactory = new SongListViewFactory();//初始化 要实现的工厂
 		LogUtil.d("init factory ");
+		EventBus.getDefault().register(this);
 	}
 
 	@Override
@@ -53,6 +58,11 @@ public class SampleFragment extends ListViewBaseFragment{
 		super.onDestroyView();
 	}
 	
+	public void onEvent(MusicEvent event){
+		long id = event.getId();
+		LogUtil.d("get Event to play music");
+		LocalMusicController.getInstance(mContext).playMusic(id,null);
+	}
 	
 	public class SongListViewFactory extends ListViewAbstractFactory{
 

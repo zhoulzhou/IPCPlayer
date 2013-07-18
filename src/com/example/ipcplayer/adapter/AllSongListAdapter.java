@@ -1,17 +1,25 @@
 package com.example.ipcplayer.adapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.example.ipcplayer.R;
+import com.example.ipcplayer.eventbus.MusicEvent;
 import com.example.ipcplayer.provider.MusicDB;
 import com.example.ipcplayer.utils.LogUtil;
 import com.example.ipcplayer.utils.StringUtil;
+
+import de.greenrobot.event.EventBus;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class AllSongListAdapter extends CursorAdapter{
@@ -19,6 +27,7 @@ public class AllSongListAdapter extends CursorAdapter{
 //	private ViewHolder mHolder ;
 	private int mLayoutId;
 	private static String TAG = AllSongListAdapter.class.getSimpleName();
+	private LinearLayout mTextContainer;
 	
 	public AllSongListAdapter(Context context, Cursor c, int resource) {
 		super(context, c, resource);
@@ -44,6 +53,7 @@ public class AllSongListAdapter extends CursorAdapter{
 		final ViewHolder mHolder = (ViewHolder) view.getTag();
 		String displayName = cursor.getString(cursor.getColumnIndex(MusicDB.MusicInfoColumns.MUSICNAME));
 		String artstName = cursor.getString(cursor.getColumnIndex(MusicDB.MusicInfoColumns.ARTIST));
+		final long id = cursor.getLong(cursor.getColumnIndex(MusicDB.MusicInfoColumns._ID));
 		if(mHolder == null){
 			LogUtil.d(TAG + " mHolder is null ");
 		}else {
@@ -61,6 +71,13 @@ public class AllSongListAdapter extends CursorAdapter{
 		}
 		mHolder.mText1.setText(displayName);
 		mHolder.mText2.setText(artstName);
+		mHolder.mContainer.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				EventBus.getDefault().post(MusicEvent.getInstance().setId(id));
+			}
+		});
 	}
 
 	@Override
@@ -70,6 +87,7 @@ public class AllSongListAdapter extends CursorAdapter{
 		LogUtil.d(TAG + " mLayoutId = " + mLayoutId);
 		View v = mInflater.inflate(mLayoutId, null);
 		ViewHolder mHolder = new ViewHolder();
+		mHolder.mContainer = (LinearLayout) v.findViewById(R.id.textlayout);
 		mHolder.mImage = (ImageView) v.findViewById(R.id.albumnimage);
 		mHolder.mText1 = (TextView) v.findViewById(R.id.songname);
 		LogUtil.d(TAG + " mHolder.mText1 = " + mHolder.mText1);

@@ -131,6 +131,10 @@ public class PlayingActivity extends Activity implements View.OnClickListener, I
 //			mContext.unbindService(conn);
 //			service = null;
 		}
+		
+		if(handler.hasMessages(UPDATE)){
+			handler.removeMessages(UPDATE);
+		}
     	
     	super.onDestroy();
 	}
@@ -169,6 +173,7 @@ public class PlayingActivity extends Activity implements View.OnClickListener, I
     			currentTime.setText(pos+"");
     			totalTime.setText(duration + "");
     		}
+    		updateTV();
     		LogUtil.d(TAG + " lyric ready update");
     		updateLyric(LYRIC_READY);
     		handler.sendMessageDelayed(handler.obtainMessage(UPDATE),300);
@@ -176,6 +181,17 @@ public class PlayingActivity extends Activity implements View.OnClickListener, I
     		e.printStackTrace();
     	}
     }   
+    
+    private void updateTV(){
+		try {
+			if (service != null) {
+				artistTV.setText(service.getArtist());
+				titleTV.setText(service.getTitle());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
     
     private void updateLyric(int state){
     	if(mLyricView != null) {

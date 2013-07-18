@@ -196,11 +196,11 @@ public class PlaybackService extends Service{
 	}
 
 	public String getTitle(){
-		return null;
+		return mMusicFile.getMusicName();
 	}
 
 	public String getArtist(){
-		return null;
+		return mMusicFile.getArtistName();
 	}
 
 	public String getAlbumn(){

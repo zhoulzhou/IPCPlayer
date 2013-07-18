@@ -1,6 +1,7 @@
 package com.example.ipcplayer.activity;
 
 import com.example.ipcplayer.R;
+import com.example.ipcplayer.utils.LogUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.squareup.picasso.Picasso;
@@ -33,7 +34,7 @@ public class PicassoActivity extends Activity{
 					.into(im);
 		}
 		
-		if (!run) {
+		if (run) {
 			ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
 					this).enableLogging().denyCacheImageMultipleSizesInMemory()
 					.build();
@@ -41,6 +42,16 @@ public class PicassoActivity extends Activity{
 			loader.init(config);
 			loader.displayImage(datas[3], im);
 		}
+		
+		LogUtil.d("oncreate run");
+		for(int i=1;i<300;i++){
+			int j = i*11;
+			if(j%3==2 && j%5==4 && j%7==6 && j%9==8 ){
+				LogUtil.d("j= " + j);
+				break;
+			}
+		}
+		
 	
 	}
 
