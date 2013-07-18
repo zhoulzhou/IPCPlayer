@@ -1,5 +1,7 @@
 package com.example.ipcplayer.service;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 import android.content.Context;
@@ -169,6 +171,10 @@ public class LocalPlayer{
 				mMediaPlayer.setDataSource(mContext, Uri.parse(mPath));
 			}else {
 				mMediaPlayer.setDataSource(mPath);
+//				File file = new File(mPath); 
+//				FileInputStream fis = new FileInputStream(file); 
+//				mMediaPlayer.setDataSource(fis.getFD()); 
+				
 			}
 			mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 			mMediaPlayer.prepare();

@@ -166,17 +166,19 @@ public class PlayingActivity extends Activity implements View.OnClickListener, I
     
     private void update(){
     	try{
-    		if(service != null){
+    		if(service != null && service.isPlaying()){
     			long pos = service.getCurrentTime();
 //    			LogUtil.d(TAG + " position = " + pos);
     			seekBar.setProgress((int)(1000*pos/duration));
     			currentTime.setText(pos+"");
     			totalTime.setText(duration + "");
-    		}
+    		
     		updateTV();
     		LogUtil.d(TAG + " lyric ready update");
-    		updateLyric(LYRIC_READY);
+    		//暂时未获取歌词
+//    		updateLyric(LYRIC_READY);
     		handler.sendMessageDelayed(handler.obtainMessage(UPDATE),300);
+    		}
     	}catch(RemoteException e){
     		e.printStackTrace();
     	}
