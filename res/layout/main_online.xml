@@ -11,7 +11,7 @@
        android:layout_width="match_parent"
        android:layout_height="150dip"
        >
-    <com.example.ipcplayer.widget.Workspace 
+    <com.example.ipcplayer.widget.OnlineWorkspace 
         android:id="@+id/work"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

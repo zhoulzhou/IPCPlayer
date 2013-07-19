@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import com.example.ipcplayer.R;
 import com.example.ipcplayer.adapter.MusicHomeOnlineListAdapter;
 import com.example.ipcplayer.controller.OnlineHomeDataController;
+import com.example.ipcplayer.utils.LogUtil;
 import com.example.ipcplayer.widget.CellLayout;
 import com.example.ipcplayer.widget.DocIndicator;
+import com.example.ipcplayer.widget.OnlineWorkspace;
 import com.example.ipcplayer.widget.Workspace;
 
 import android.content.Context;
@@ -17,11 +19,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class OnLineMainView extends BaseHomeView{
+public class OnLineMainView extends BaseHomeView implements OnlineWorkspace.IWorkspaceListener{
 	private static final int TOTAL_HEAD_IMAGES_SHOW_COUNT = 5;
 	private LayoutInflater mInflater;
 	private LinearLayout mRecommand;
-	private Workspace mWorkspace;
+	private OnlineWorkspace mWorkspace;
 	private DocIndicator mDocIndicator;
 	private ListView mList;
 	private TextView mEmptyTV;
@@ -46,7 +48,8 @@ public class OnLineMainView extends BaseHomeView{
 		mContext = context;
 		mInflater = LayoutInflater.from(context);
 		mRecommand = (LinearLayout) mInflater.inflate(R.layout.main_online, null,false);
-		mWorkspace = (Workspace) mRecommand.findViewById(R.id.work);
+		mWorkspace = (OnlineWorkspace) mRecommand.findViewById(R.id.work);
+		mWorkspace.setWorkspaceListener(this);
 		mDocIndicator = (DocIndicator) mRecommand.findViewById(R.id.indicator);
 		
 		View v = mInflater.inflate(R.layout.main_online_list, this);
@@ -95,6 +98,24 @@ public class OnLineMainView extends BaseHomeView{
 	@Override
 	protected void onRelease() {
 		
+	}
+
+	@Override
+	public void onUpdateTotalNum(int total) {
+		// TODO Auto-generated method stub
+		mDocIndicator.setTotal(total);
+	}
+
+	@Override
+	public void onUpdateCurrent(int current) {
+		// TODO Auto-generated method stub
+		mDocIndicator.setCurrent(current);
+	}
+
+	@Override
+	public void onWorkspaceClick(int current) {
+		// TODO Auto-generated method stub
+		LogUtil.d("onclick workspace");
 	}
 	
 }
