@@ -14,7 +14,7 @@ public class LogUtil{
         String logText = String.format(lineFormat, traceElement.getFileName(),    
                 traceElement.getMethodName(), traceElement.getLineNumber());    
         if(DEBUG){
-			Log.d(DEFAULT_TAG, logText + " --> " + log);
+			Log.d(DEFAULT_TAG, logText + " >>> " + log);
 		}   
     }    
 	

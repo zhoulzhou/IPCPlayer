@@ -3,9 +3,11 @@ package com.example.ipcplayer.homeview;
 import java.util.ArrayList;
 
 import com.example.ipcplayer.R;
+import com.example.ipcplayer.activity.MainActivity;
 import com.example.ipcplayer.adapter.MusicHomeOnlineListAdapter;
 import com.example.ipcplayer.controller.OnlineHomeDataController;
 import com.example.ipcplayer.utils.LogUtil;
+import com.example.ipcplayer.utils.ToastUtil;
 import com.example.ipcplayer.widget.CellLayout;
 import com.example.ipcplayer.widget.DocIndicator;
 import com.example.ipcplayer.widget.OnlineWorkspace;
@@ -15,11 +17,13 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class OnLineMainView extends BaseHomeView implements OnlineWorkspace.IWorkspaceListener{
+public class OnLineMainView extends BaseHomeView implements OnlineWorkspace.IWorkspaceListener, OnItemClickListener{
 	private static final int TOTAL_HEAD_IMAGES_SHOW_COUNT = 5;
 	private LayoutInflater mInflater;
 	private LinearLayout mRecommand;
@@ -30,6 +34,7 @@ public class OnLineMainView extends BaseHomeView implements OnlineWorkspace.IWor
 	private ArrayList<HomeDescriptionItem> mDatas;
 	private MusicHomeOnlineListAdapter mAdapter;
 	private Context mContext ;
+	private MainActivity mMain;
 
 	public OnLineMainView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -46,6 +51,7 @@ public class OnLineMainView extends BaseHomeView implements OnlineWorkspace.IWor
 	@Override
 	protected void onCreateView(Context context, AttributeSet attrs) {
 		mContext = context;
+		mMain = (MainActivity) context;
 		mInflater = LayoutInflater.from(context);
 		mRecommand = (LinearLayout) mInflater.inflate(R.layout.main_online, null,false);
 		mWorkspace = (OnlineWorkspace) mRecommand.findViewById(R.id.work);
@@ -56,6 +62,7 @@ public class OnLineMainView extends BaseHomeView implements OnlineWorkspace.IWor
 		mList = (ListView) v.findViewById(R.id.online_home_list);
 		mEmptyTV = (TextView) v.findViewById(R.id.online_list_empty);
 		mList.addHeaderView(mRecommand);
+		mList.setOnItemClickListener(this);
 		
 		initHomeDescription();
 		initWorkspace();
@@ -116,6 +123,31 @@ public class OnLineMainView extends BaseHomeView implements OnlineWorkspace.IWor
 	public void onWorkspaceClick(int current) {
 		// TODO Auto-generated method stub
 		LogUtil.d("onclick workspace");
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+		// TODO Auto-generated method stub
+		LogUtil.d("adapter click position= " + position);
+		ToastUtil.showShortToast(mContext, "position " + position);
+		switch(position){
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			
+			
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		case 6:
+			break;
+		default :
+			break;
+		}
 	}
 	
 }

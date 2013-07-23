@@ -11,4 +11,8 @@ public class UICallBackController{
 		Fragment fragment = new SampleFragment();
 		callback.onShow(fragment, true, null);
 	}
+	
+	public static void showSpecialObjectFragment(IUICallBack callback){
+		
+	}
 }
