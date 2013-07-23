@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingRight="10dip"
+    android:paddingTop="10dip"
+    android:paddingLeft="10dip"
+    
+    >
+    <RelativeLayout 
+        android:id="@+id/albumn_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        
+        >
+        <RelativeLayout 
+            android:id="@+id/item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+        <ImageView 
+            android:id="@+id/item_im"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:src="@drawable/welcome_2"
+            />
+        <ImageView 
+            android:id="@+id/item_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@+id/item_im"
+            android:layout_marginRight="@+id/item_im"
+            android:layout_marginTop="@+id/item_im"
+            android:layout_alignBottom="@+id/item_im"
+            android:background="@drawable/new_album_item_cover"
+            android:clickable="true"
+            android:duplicateParentState="false"
+            android:src="@android:color/transparent" />
+           
+         </RelativeLayout>
+         
+        <ImageView 
+            android:id="@+id/play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/item"
+            android:layout_alignBottom="@+id/item"
+            android:layout_marginRight="10dip"
+            android:layout_marginBottom="20dip"
+            android:src="@drawable/ic_launcher"
+            />
+        
+    </RelativeLayout>
+    
+    <TextView 
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/albumn_item"
+        android:layout_alignLeft="@+id/albumn_item"
+        android:text="lajfasfjadf;adfkl"
+        />
+    
+    <TextView 
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/albumn_item"
+        android:layout_below="@+id/albumn_item"
+        android:text="2013-07-22"
+        
+        />
+    
+   
+        
+</RelativeLayout>

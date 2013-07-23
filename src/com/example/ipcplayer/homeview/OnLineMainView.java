@@ -6,6 +6,7 @@ import com.example.ipcplayer.R;
 import com.example.ipcplayer.activity.MainActivity;
 import com.example.ipcplayer.adapter.MusicHomeOnlineListAdapter;
 import com.example.ipcplayer.controller.OnlineHomeDataController;
+import com.example.ipcplayer.controller.UICallBackController;
 import com.example.ipcplayer.utils.LogUtil;
 import com.example.ipcplayer.utils.ToastUtil;
 import com.example.ipcplayer.widget.CellLayout;
@@ -136,7 +137,7 @@ public class OnLineMainView extends BaseHomeView implements OnlineWorkspace.IWor
 		case 2:
 			break;
 		case 3:
-			
+			UICallBackController.showSpecialObjectFragment(mMain);
 			
 			break;
 		case 4:

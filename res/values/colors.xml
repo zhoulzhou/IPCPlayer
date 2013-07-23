@@ -25,6 +25,8 @@
    <drawable name="color_item_text_normal">#ff565656</drawable>
    <drawable name="color_item_text_normal2">#ff919191</drawable>
    <drawable name="color_item_text_selected">#ff4A97C9</drawable>
+   
+    <color name="translucent_dark">#4B000000</color>
 
    <color name="color_black">#ff000000</color>
    <color name="color_white">#ffffffff</color>
