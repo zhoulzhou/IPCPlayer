@@ -8,5 +8,6 @@
     <dimen name="share_image_preview_gap">4dp</dimen>
     <dimen name="share_image_preview_card_width">46dp</dimen>
     <dimen name="share_image_preview_card_height">46dp</dimen>
+    <dimen name="ten_dip">10dip</dimen>
 
 </resources>

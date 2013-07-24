@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff" >
+
+    <!-- 以图片为背景 及其元素 -->
+
+    <RelativeLayout
+        android:id="@+id/tingplaza_head_album_image_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical" >
+
+        <!-- 专题图片 -->
+
+        <com.example.ipcplayer.widget.ResizedImageView
+            android:id="@+id/tingplaza_head_album_image"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:adjustViewBounds="true"/>
+
+        <!-- 返回按钮 -->
+
+        <ImageView
+            android:id="@+id/tingplaza_head_return"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@null"
+            android:paddingBottom="8dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="8dp"
+            android:paddingTop="8dp"/>
+
+        <RelativeLayout
+            android:id="@+id/album_info_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true">
+
+            <!-- 发布时间 -->
+
+            <TextView
+                android:id="@+id/tingplaza_head_album_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginBottom="24dp"
+                android:paddingLeft="10dip"
+                android:text="time"
+                android:textColor="#ffffff"
+                android:textSize="12dp" />
+
+            <!-- 标题 -->
+
+            <TextView
+                android:id="@+id/tingplaza_head_album_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/tingplaza_head_album_time"
+                android:layout_marginBottom="0dp"
+                android:ellipsize="end"
+                android:maxWidth="260dp"
+                android:paddingBottom="0dp"
+                android:paddingLeft="10dip"
+                android:singleLine="true"
+                android:text="title"
+                android:textColor="#ffffff"
+                android:textSize="20dp" />
+
+            <!-- 全部播放 -->
+
+            <ImageView
+                android:id="@+id/tingplaza_head_play_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="26dip"
+                android:layout_marginRight="20dip"/>
+        </RelativeLayout>
+    </RelativeLayout>
+    <!-- 描述 -->
+
+    <TextView
+        android:id="@+id/tingplaza_head_album_desc"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tingplaza_head_album_image_layout"
+        android:layout_marginTop="-8dp"
+        android:clickable="true"
+        android:ellipsize="end"
+        android:focusable="true"
+        android:lineSpacingExtra="6dp"
+        android:maxLines="3"
+        android:padding="10dip"
+        android:text="desc"
+        android:textColor="#666666"
+        android:textSize="12dp" />
+
+</RelativeLayout>

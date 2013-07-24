@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <!-- 副标题 -->
+
+    <LinearLayout
+        android:id="@+id/name_container"
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:visibility="visible" >
+
+        <TextView
+            android:id="@+id/myting_head_album_title"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:clickable="true"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="副标题"
+            android:textColor="#000000"
+            android:textSize="12dip" />
+    </LinearLayout>
+
+    <!-- 副标题若为空 显示该分割线 -->
+    <ImageView
+        android:id="@+id/name_item_line"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:visibility="gone" />
+    
+    <RelativeLayout
+        android:id="@+id/local_list_item_name_container"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:minHeight="50dip" >
+
+        <!-- 歌曲左侧 是否选中竖条 -->
+
+        <ImageView
+            android:id="@+id/tp_list_item_2_state"
+            android:layout_width="7dip"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="5dip"
+            android:background="#279DE7" />
+
+        <!-- 左侧歌曲信息 -->
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/local_list_item_arrow_container"
+            android:duplicateParentState="true"
+            android:gravity="center_vertical"
+            android:minHeight="50dip"
+            android:orientation="vertical"
+            android:paddingLeft="10dp" >
+
+            <!-- 歌曲名 -->
+
+            <TextView
+                android:id="@+id/tp_list_item_2_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:duplicateParentState="true"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:text="songName"
+                android:textColor="#000000"
+                android:textSize="14dip" />
+
+            <!-- HQ标识 -->
+
+            <ImageView
+                android:id="@+id/hq_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/tp_list_item_2_title"
+                android:paddingTop="5dp"
+                android:visibility="visible" />
+
+            <!-- 歌手 -->
+
+            <TextView
+                android:id="@+id/tp_list_item_2_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tp_list_item_2_title"
+                android:layout_marginTop="-2dp"
+                android:duplicateParentState="true"
+                android:ellipsize="end"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text="singer"
+                android:textColor="#999999"
+                android:textSize="12dip"
+                android:visibility="visible" />
+        </RelativeLayout>
+        <!-- 右侧操作 -->
+
+        <RelativeLayout
+            android:id="@+id/local_list_item_arrow_container"
+            android:layout_width="60dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_alignWithParentIfMissing="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp" >
+
+            <!-- 操作 三角 -->
+
+            <ImageView
+                android:id="@+id/local_list_item_5_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="true"
+                android:background="@null"
+                android:duplicateParentState="true"
+                />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/hot_list_item_line"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:visibility="visible" />
+
+</LinearLayout>
