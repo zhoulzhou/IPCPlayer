@@ -1,8 +1,11 @@
 package com.example.ipcplayer.activity;
 
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.example.ipcplayer.R;
 import com.example.ipcplayer.module.SampleActivity;
 import com.example.ipcplayer.provider.MusicDBManager;
+import com.example.ipcplayer.push.Utils;
 import com.example.ipcplayer.setting.Config;
 import com.example.ipcplayer.utils.LogUtil;
 import com.example.ipcplayer.utils.StorageUtil;
@@ -44,6 +47,13 @@ public class SplashActivity extends Activity{
 		} else {
 			showHelporMain(true);
 		}
+		startPushService();
+	}
+	
+	private void startPushService(){
+		LogUtil.d("zhou","start push");
+		PushManager.startWork(getApplicationContext(),
+				PushConstants.LOGIN_TYPE_API_KEY, Utils.getMetaValue(this, "api_key"));
 	}
 	
 	private void loadDataAndInitActivity(){

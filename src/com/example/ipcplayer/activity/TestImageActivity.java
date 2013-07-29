@@ -1,6 +1,7 @@
 package com.example.ipcplayer.activity;
 
 import com.example.ipcplayer.R;
+import com.example.ipcplayer.customview.CompassView;
 import com.example.ipcplayer.utils.LogUtil;
 
 import android.app.Activity;
@@ -13,6 +14,7 @@ import android.widget.RelativeLayout;
 
 public class TestImageActivity extends Activity{
 	private ImageView im;
+	private CompassView compass;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +22,7 @@ public class TestImageActivity extends Activity{
 		setContentView(R.layout.test_image);
 		
 		im = (ImageView) findViewById(R.id.image1);
+		compass = (CompassView) findViewById(R.id.compass);
 		
 		int width = im.getWidth();
 		LogUtil.d("width= " + width);
